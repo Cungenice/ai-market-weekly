@@ -240,79 +240,107 @@ def render_report(report: dict, items: list[dict], period: dict, generated: dt.d
   const section = document.getElementById('highlights');
   if (!button || !section) return;
   const status = document.querySelector('[data-export-status]');
-  const width = 920, scale = 1.5, pad = 52, textWidth = width - pad * 2;
-  const font = '18px "Microsoft YaHei", "PingFang SC", sans-serif';
-  function wrap(ctx, text, selectedFont, maxWidth) {
-    ctx.font = selectedFont;
+  const width = 920, scale = 1.5, pad = 52, textWidth = width - 2 * pad;
+  const fonts = {
+    meta: '14px "Microsoft YaHei", "PingFang SC", sans-serif',
+    title: '700 23px "Microsoft YaHei", "PingFang SC", sans-serif',
+    label: '700 14px "Microsoft YaHei", "PingFang SC", sans-serif',
+    body: '17px "Microsoft YaHei", "PingFang SC", sans-serif'
+  };
+  function wrap(ctx, text, font, maxWidth) {
+    ctx.font = font;
     const lines = []; let line = '';
     for (const char of Array.from(text || '')) {
-      if (line && ctx.measureText(line + char).width > maxWidth) { lines.push(line); line = char; }
-      else line += char;
+      if (line && ctx.measureText(line + char).width > maxWidth) {
+        lines.push(line); line = char;
+      } else line += char;
     }
     if (line) lines.push(line);
     return lines.length ? lines : [''];
   }
-  function getCards() {
-    return Array.from(section.querySelectorAll('article.story')).map((article) => {
-      const copy = article.cloneNode(true);
-      copy.querySelectorAll('.source, .meta').forEach((el) => el.remove());
-      return {
-        meta: article.querySelector('.meta')?.textContent.trim() || '',
-        text: copy.textContent
-          .replace(/\s+/g, ' ')
-          .replace(/[,，;；]?\s*(?:请|提示)?(?:点开|点击)(?:原文|链接|来源)[^。！？]*(?=[。！？]|$)/g, '')
-          .replace(/[,，;；]\s*(?=[。！？]|$)/g, '')
-          .trim()
-      };
-    });
+  function readField(article, selector) {
+    const node = article.querySelector(selector);
+    if (!node) return '';
+    const copy = node.cloneNode(true);
+    copy.querySelectorAll('b').forEach((label) => label.remove());
+    return copy.textContent.replace(/\\s+/g, ' ').trim();
+  }
+  function collectCards() {
+    return Array.from(section.querySelectorAll('article.story')).map((article) => ({
+      meta: article.querySelector('.meta')?.textContent.trim() || '',
+      title: article.querySelector('h3')?.textContent.trim() || '',
+      fields: [
+        ['报道摘要', readField(article, '.reported')],
+        ['市场观察', readField(article, '.analysis')],
+        ['后续跟踪', readField(article, '.watch')]
+      ].filter(([, text]) => text)
+    }));
+  }
+  function prepare(card, ctx) {
+    const meta = wrap(ctx, card.meta, fonts.meta, textWidth);
+    const title = wrap(ctx, card.title, fonts.title, textWidth);
+    const fields = card.fields.map(([label, text]) => ({
+      label, lines: wrap(ctx, text, fonts.body, textWidth)
+    }));
+    const height = 18 + meta.length * 20 + 12 + title.length * 32
+      + fields.reduce((sum, field) => sum + 8 + 20 + field.lines.length * 26 + 8, 0) + 18;
+    return { meta, title, fields, height };
   }
   button.addEventListener('click', async () => {
     button.disabled = true; button.textContent = '正在生成…';
     try {
-      const cards = getCards(), measure = document.createElement('canvas').getContext('2d');
-      const prepared = cards.map((card) => ({
-        ...card,
-        metaLines: wrap(measure, card.meta, '14px "Microsoft YaHei", sans-serif', textWidth),
-        lines: wrap(measure, card.text, font, textWidth)
-      }));
-      const header = 170, cardHeights = prepared.map((c) => 36 + c.metaLines.length * 22 + c.lines.length * 30 + 30);
-      const height = header + 35 + cardHeights.reduce((a, b) => a + b + 16, 0) + 70;
-      const canvas = document.createElement('canvas'); canvas.width = width * scale; canvas.height = height * scale;
+      const measure = document.createElement('canvas').getContext('2d');
+      const cards = collectCards().map((card) => prepare(card, measure));
+      const header = 170;
+      const height = header + 28 + cards.reduce((sum, card) => sum + card.height + 16, 0) + 64;
+      const canvas = document.createElement('canvas');
+      canvas.width = width * scale; canvas.height = height * scale;
       const ctx = canvas.getContext('2d'); ctx.scale(scale, scale); ctx.textBaseline = 'top';
       ctx.fillStyle = '#f2f0ea'; ctx.fillRect(0, 0, width, height);
       ctx.fillStyle = '#111820'; ctx.fillRect(0, 0, width, header);
       ctx.fillStyle = '#a52a35'; ctx.fillRect(0, 0, width, 6);
-      ctx.fillStyle = '#e999a1'; ctx.font = '700 11px Arial'; ctx.fillText('A/H EQUITY · AI & INNOVATION', pad, 26);
-      ctx.fillStyle = '#fff'; ctx.font = '700 32px "Microsoft YaHei", sans-serif'; ctx.fillText('本周重点', pad, 56);
+      ctx.fillStyle = '#e999a1'; ctx.font = '700 11px Arial';
+      ctx.fillText('A/H EQUITY · AI & INNOVATION', pad, 26);
+      ctx.fillStyle = '#fff'; ctx.font = '700 32px "Microsoft YaHei", sans-serif';
+      ctx.fillText('本周重点', pad, 56);
       ctx.fillStyle = '#c4cbd0'; ctx.font = '14px "Microsoft YaHei", sans-serif';
       ctx.fillText('A 股 / 港股 · 人工智能与科技创新市场观察', pad, 112);
       let y = header + 28;
-      for (const [i, card] of prepared.entries()) {
-        const cardHeight = cardHeights[i];
-        ctx.fillStyle = '#e9e6de'; ctx.fillRect(pad, y, width - pad * 2, cardHeight);
-        ctx.fillStyle = '#a52a35'; ctx.fillRect(pad, y, 4, cardHeight);
+      for (const card of cards) {
+        ctx.fillStyle = '#e9e6de'; ctx.fillRect(pad, y, width - 2 * pad, card.height);
+        ctx.fillStyle = '#a52a35'; ctx.fillRect(pad, y, 4, card.height);
         let cy = y + 18;
-        ctx.fillStyle = '#687078'; ctx.font = '14px "Microsoft YaHei", sans-serif';
-        card.metaLines.forEach((line) => { ctx.fillText(line, pad + 22, cy); cy += 22; });
-        ctx.fillStyle = '#202326'; ctx.font = font;
-        card.lines.forEach((line) => { ctx.fillText(line, pad + 22, cy); cy += 30; });
-        y += cardHeight + 16;
+        ctx.font = fonts.meta; ctx.fillStyle = '#687078';
+        card.meta.forEach((line) => { ctx.fillText(line, pad + 22, cy); cy += 20; });
+        cy += 12;
+        ctx.font = fonts.title; ctx.fillStyle = '#202326';
+        card.title.forEach((line) => { ctx.fillText(line, pad + 22, cy); cy += 32; });
+        for (const field of card.fields) {
+          cy += 8; ctx.font = fonts.label; ctx.fillStyle = '#a52a35';
+          ctx.fillText(field.label, pad + 22, cy); cy += 20;
+          ctx.font = fonts.body; ctx.fillStyle = '#202326';
+          field.lines.forEach((line) => { ctx.fillText(line, pad + 22, cy); cy += 26; });
+          cy += 8;
+        }
+        y += card.height + 16;
       }
       ctx.fillStyle = '#687078'; ctx.font = '13px "Microsoft YaHei", sans-serif';
       ctx.fillText('来源和完整内容请访问周报网页 · 不构成投资建议', pad, y + 12);
-      const blob = await new Promise((resolve, reject) => canvas.toBlob((b) => b ? resolve(b) : reject(new Error('PNG 导出失败')), 'image/png'));
+      const blob = await new Promise((resolve, reject) =>
+        canvas.toBlob((value) => value ? resolve(value) : reject(new Error('PNG 导出失败')), 'image/png'));
       const url = URL.createObjectURL(blob), link = document.createElement('a');
       link.href = url; link.download = 'A股港股AI市场周报_本周重点.png';
-      document.body.appendChild(link); link.click(); link.remove(); setTimeout(() => URL.revokeObjectURL(url), 30000);
+      document.body.appendChild(link); link.click(); link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 30000);
       if (status) status.textContent = 'PNG 已下载。';
     } catch (error) {
-      console.error(error); if (status) status.textContent = '导出失败，请刷新页面后重试。';
+      console.error(error);
+      if (status) status.textContent = '导出失败，请刷新页面后重试。';
     } finally {
       button.disabled = false; button.textContent = '下载本周重点长图';
     }
   });
-})();"""
-    return f'''<!doctype html>
+})();"""    return f'''<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="{esc(report.get('overview'))}"><title>{headline}｜A/H AI 市场周报</title>
 <style>
 :root{{--paper:#f2f0ea;--ink:#202326;--muted:#687078;--line:#d4d0c7;--red:#a52a35;--night:#111820;--blue:#2c5d77;--panel:#e9e6de;--panel-soft:#eeece6}}*{{box-sizing:border-box}}body{{margin:0;background:var(--paper);color:var(--ink);font:15px/1.7 "Microsoft YaHei","PingFang SC",Arial,sans-serif}}.wrap{{max-width:1120px;margin:auto;padding:24px 26px 60px}}.hero{{background:var(--night);color:#fff;padding:44px 50px 42px;border-top:6px solid var(--red)}}.eyebrow{{font:700 11px Arial,sans-serif;letter-spacing:.19em;color:#e999a1}}.hero h1{{font-size:clamp(36px,5vw,60px);line-height:1.12;margin:16px 0 10px}}.hero p{{color:#c4cbd0;margin:0}}.facts{{display:flex;gap:20px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding:14px 3px;color:var(--muted);font-size:12px}}.layout{{display:grid;grid-template-columns:205px minmax(0,1fr);gap:40px;padding-top:30px}}.rail{{position:sticky;top:18px;align-self:start}}.rail strong{{display:block;color:var(--red);font:800 11px Arial,sans-serif;letter-spacing:.14em;border-bottom:2px solid var(--ink);padding-bottom:8px}}.rail a{{display:block;padding:9px 2px;border-bottom:1px solid var(--line);font-weight:800;color:var(--ink);text-decoration:none}}.rail a:hover{{color:var(--red)}}.section{{border-top:2px solid var(--ink);padding-top:20px;margin-top:30px;scroll-margin-top:20px}}.section h2{{font-size:24px;margin:0 0 14px}}.lead{{font-size:22px;font-weight:800;line-height:1.5}}.note{{font-size:13px;color:var(--muted)}}.notice{{background:var(--panel-soft);border:1px solid var(--line);border-left:4px solid var(--red);padding:16px 20px;margin:24px 0}}.notice strong{{color:var(--red)}}.market-grid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}}.market{{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--blue);padding:18px 20px}}.market h3{{margin:0 0 6px;font-size:19px}}.market .tag{{font-size:11px;font-weight:800;color:var(--blue);letter-spacing:.08em}}.story{{padding:20px 0 22px;border-bottom:1px solid var(--line)}}.update{{padding:15px 18px;margin:12px 0;background:var(--panel-soft);border:1px solid var(--line)}}.update h3{{margin:3px 0;font-size:17px}}.update p{{margin:5px 0}}.section-heading{{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}}.section-heading h2{{margin:0}}.export-actions{{display:flex;align-items:center;gap:10px;flex-wrap:wrap}}.export-button{{border:1px solid var(--red);background:var(--red);color:#fff;font-family:inherit;font-size:13px;font-weight:700;padding:9px 13px;cursor:pointer}}.export-button:hover{{background:#81212b}}.export-button:disabled{{opacity:.6;cursor:wait}}.export-status{{font-size:12px;color:var(--muted)}}.story h3{{font-size:21px;line-height:1.4;margin:4px 0 9px}}.meta{{font-size:12px;color:var(--muted)}}.badge{{display:inline-block;background:#f2e3e3;color:#862430;padding:2px 8px;font-size:11px;font-weight:800}}.triple{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:13px}}.triple div{{border-top:1px solid var(--line);padding-top:8px;font-size:13px}}.triple b{{display:block;color:var(--red);margin-bottom:4px}}.sources{{padding-left:23px}}.sources li{{padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;overflow-wrap:anywhere}}.sources a,.source a{{color:var(--red);font-weight:800}}.sources small{{color:var(--muted)}}.archive-link{{display:inline-block;padding:8px 14px;background:var(--red);color:#fff;text-decoration:none;font-weight:800}}footer{{border-top:2px solid var(--ink);margin-top:40px;padding-top:14px;font-size:12px;color:var(--muted)}}a:focus-visible{{outline:2px solid var(--red);outline-offset:3px}}@media(max-width:760px){{.wrap{{padding:0 16px 36px}}.hero{{margin:0 -16px;padding:30px 22px}}.layout{{grid-template-columns:1fr;gap:14px}}.rail{{position:static}}.rail a{{display:inline-block;margin-right:15px}}.market-grid,.triple{{grid-template-columns:1fr}}.lead{{font-size:19px}}}}
