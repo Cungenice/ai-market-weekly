@@ -124,7 +124,7 @@ def call_openai(items: list[dict], period: dict) -> dict:
     except urllib.error.HTTPError as exc:
         detail = exc.read().decode("utf-8", errors="replace")[:1600]
         raise RuntimeError(f"DeepSeek API returned HTTP {exc.code}: {detail}") from exc
-        output = result.get("choices", [{}])[0].get("message", {}).get("content")
+    output = result.get("choices", [{}])[0].get("message", {}).get("content")
     if not output:
         raise RuntimeError("DeepSeek Chat Completions API returned no message content")
     try:
