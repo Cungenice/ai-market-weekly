@@ -263,7 +263,7 @@ def render_report(report: dict, items: list[dict], period: dict, generated: dt.d
     if (!node) return '';
     const copy = node.cloneNode(true);
     copy.querySelectorAll('b').forEach((label) => label.remove());
-    return copy.textContent.replace(/\\s+/g, ' ').trim();
+    return copy.textContent.replace(/\s+/g, ' ').trim();
   }
   function collectCards() {
     return Array.from(section.querySelectorAll('article.story')).map((article) => ({
