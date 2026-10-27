@@ -249,7 +249,7 @@ def render_report(report: dict, items: list[dict], period: dict, generated: dt.d
       copy.querySelectorAll('.source, .meta').forEach((el) => el.remove());
       return {
         meta: article.querySelector('.meta')?.textContent.trim() || '',
-        text: copy.textContent.replace(/\\s+/g, ' ').trim()
+        text: copy.textContent.replace(/\s+/g, ' ').trim()
       };
     });
   }
