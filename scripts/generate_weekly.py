@@ -110,7 +110,8 @@ def call_openai(items: list[dict], period: dict) -> dict:
             {"role": "user", "content": json.dumps({"period": period, "news": compact}, ensure_ascii=False)},
         ],
         "response_format": {"type": "json_object"},
-        "max_tokens": 5000,
+        "thinking": {"type": "disabled"},
+        "max_tokens": 8000,
     }
     request = urllib.request.Request(
         "https://api.deepseek.com/chat/completions",
@@ -133,6 +134,14 @@ def call_openai(items: list[dict], period: dict) -> dict:
         finish_reason = choice.get("finish_reason")
         if output:
             break
+        usage = result.get("usage", {})
+        if finish_reason == "length":
+            raise RuntimeError(
+                "DeepSeek reached the output token limit before returning JSON "
+                f"(completion_tokens={usage.get('completion_tokens', 'unknown')}); "
+                "thinking mode is disabled and max_tokens is 8000, so reduce source volume "
+                "or simplify the requested report if this continues."
+            )
         if attempt < 3:
             print(
                 f"DeepSeek returned empty JSON content (finish_reason={finish_reason}); "
