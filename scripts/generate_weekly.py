@@ -409,7 +409,7 @@ def render_report(report: dict, items: list[dict], period: dict, generated: dt.d
 <section id="highlights" class="section"><div class="section-heading"><h2>本周重点 · {len(stories)} 则</h2><div class="export-actions"><button class="export-button" type="button" data-export-highlights>下载本周重点长图</button><span class="export-status" data-export-status aria-live="polite"></span></div></div>{"".join(stories) if stories else '<p class="note">本期没有足够的可引用新闻线索形成重点条目。</p>'}</section>
 {other_section}
 <section id="outlook" class="section"><h2>下周观察</h2><ul>{watch}</ul></section>
-<section id="sources" class="section"><h2>来源与说明</h2><p class="note">筛选说明：筛选优先考虑 AI/科技相关度、明确事件或披露、来源可识别性，并平衡 A 股与港股数量；官方/交易所域名优先，其次财经媒体。域名分级不等于内容已核实；未分级来源仅作线索。RSS 标题及摘要可能不完整，重要事实请核对原文。</p><ol class="sources">{"".join(source_rows) if source_rows else '<li>本期 RSS 未返回时间窗口内的新闻条目。</li>'}</ol></section>
+<section id="sources" class="section"><h2>来源与说明</h2><p class="note">筛选说明：筛选优先考虑 AI/科技相关度、明确事件或披露、来源可识别性，并平衡 A 股与港股数量；官方/交易所域名优先，其次财经媒体。域名分级不等于内容已核实；未分级来源作为补充线索，需重点核验。RSS 标题及摘要可能不完整，重要事实请核对原文。</p><ol class="sources">{"".join(source_rows) if source_rows else '<li>本期 RSS 未返回时间窗口内的新闻条目。</li>'}</ol></section>
 <footer>公开市场资讯自动整理 · A 股 / 港股 · AI 与科技创新 · 不构成投资建议</footer></div></div></main><script>{export_script}</script></body></html>'''
 
 
