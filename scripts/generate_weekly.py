@@ -226,13 +226,14 @@ def main() -> None:
     items = collect_news(start, now)
     print(f"Collected {len(items)} unique articles")
     report = call_openai(items, period)
-    base_url = os.environ.get("SITE_BASE_URL", "https://cungenice.github.io/ai-market-weekly").rstrip("/")
-    archive_url = f"{base_url}/weekly/"
-    html_page = render_report(report, items, period, now, archive_url)
     archive_path = ROOT / "weekly" / f"{edition}.html"
     archive_path.parent.mkdir(parents=True, exist_ok=True)
-    archive_path.write_text(html_page, encoding="utf-8")
-    (ROOT / "index.html").write_text(html_page, encoding="utf-8")
+    # Keep links portable: the root report links into weekly/, while an archived
+    # report links to the archive directory relative to its own weekly/ location.
+    homepage_html = render_report(report, items, period, now, "weekly/")
+    archived_html = render_report(report, items, period, now, "./")
+    archive_path.write_text(archived_html, encoding="utf-8")
+    (ROOT / "index.html").write_text(homepage_html, encoding="utf-8")
     report_data = {"date": edition, "period": period, "headline": report["headline"], "overview": report["overview"], "report": report, "sources": items, "generated_at": now.isoformat()}
     report_json = ROOT / "weekly" / f"{edition}.json"
     report_json.write_text(json.dumps(report_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
