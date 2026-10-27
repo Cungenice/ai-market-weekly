@@ -1,0 +1,91 @@
+name: A/H AI Market Weekly
+
+on:
+  schedule:
+    # Monday 09:30 Asia/Shanghai (UTC+8)
+    - cron: "30 1 * * 1"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "publish writes the report and deploys Pages; preview only uploads a build artifact"
+        required: true
+        default: publish
+        type: choice
+        options:
+          - publish
+          - preview
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: market-weekly-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate weekly report
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: gpt-4.1-mini
+          SITE_BASE_URL: https://cungenice.github.io/ai-market-weekly
+        run: python scripts/generate_weekly.py
+
+      - name: Commit report and archive
+        if: github.event_name == 'schedule' || inputs.mode == 'publish'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html weekly data/archives.json
+          if git diff --cached --quiet; then
+            echo "No report changes to commit."
+          else
+            git commit -m "Publish A/H AI market weekly $(date -u +%F)"
+            git push
+          fi
+
+      - name: Configure GitHub Pages
+        if: github.event_name == 'schedule' || inputs.mode == 'publish'
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        if: github.event_name == 'schedule' || inputs.mode == 'publish'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .
+
+      - name: Upload preview artifact
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'preview'
+        uses: actions/upload-artifact@v4
+        with:
+          name: market-weekly-preview
+          path: |
+            index.html
+            weekly/
+            data/archives.json
+          retention-days: 7
+
+  deploy:
+    if: github.event_name == 'schedule' || inputs.mode == 'publish'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
