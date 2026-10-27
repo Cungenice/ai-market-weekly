@@ -5,7 +5,7 @@
 ## 工作流程
 
 1. GitHub Actions 查询 Google News RSS 中的 A 股、港股、AI/科技创新及市场主题资讯，时间窗口为最近 7 天。
-2. OpenAI Responses API 根据标题、摘要和来源链接整理中文周报。报告区分 A 股与港股，突出 AI/科技创新，并列出来源。
+2. DeepSeek Chat Completions API 根据标题、摘要和来源链接整理中文周报。报告区分 A 股与港股，突出 AI/科技创新，并列出来源。
 3. 更新主页 `index.html`、历史期次 `weekly/YYYY-MM-DD.html`、目录 `weekly/index.html` 和 `data/archives.json`。
 4. 将变更提交至 `main`，并在同一 workflow run 中部署 GitHub Pages。
 
@@ -14,7 +14,7 @@
 ## 一次性配置
 
 1. 在仓库 **Settings → Secrets and variables → Actions** 新建 repository secret：
-   - `OPENAI_API_KEY`：OpenAI API key。请在 GitHub 页面填写，不要提交到仓库或贴到聊天里。
+   - `DEEPSEEK_API_KEY`：DeepSeek API key。请在 GitHub 页面填写，不要提交到仓库或贴到聊天里。
 2. 在仓库 **Settings → Pages → Build and deployment** 将 Source 设为 **GitHub Actions**。
 3. 检查 **Settings → Actions → General → Workflow permissions** 允许 workflow 写入仓库内容（`GITHUB_TOKEN` contents: write）。
 
@@ -25,6 +25,7 @@
 - 自动：每周一 01:30 UTC（北京时间 09:30）。
 - 手动：**Actions → A/H AI Market Weekly → Run workflow**。
 - 手动触发可选择 `publish`（写入归档并部署）或 `preview`（只生成 Actions artifact，不提交、不发布）。
+- 默认模型为 `deepseek-flash`；可在 workflow 的 `DEEPSEEK_MODEL` 环境变量中调整。
 
 生成流程对每个周报期次幂等：同一归档日期重新运行会覆盖该期，不重复添加目录项。
 
