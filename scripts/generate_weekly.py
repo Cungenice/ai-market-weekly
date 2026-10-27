@@ -120,6 +120,8 @@ def collect_news(start: dt.datetime, end: dt.datetime) -> list[dict]:
     for item in candidates:
         item["priority"] = news_priority(item)
     candidates.sort(key=lambda row: (row["priority"], row["published"]), reverse=True)
+    for item in candidates:
+        item.pop("priority", None)
 
     limits = {"A股": 18, "港股": 18, "市场": 9}
     selected: list[dict] = []
