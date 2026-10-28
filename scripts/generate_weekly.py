@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import concurrent.futures
 import datetime as dt
 import email.utils
 import html
@@ -229,6 +230,7 @@ def call_deepseek(items: list[dict], period: dict) -> dict:
     validate_report(report, valid_ids)
     apply_quality_filters(report, items)
     validate_report(report, valid_ids)
+    resolve_cited_source_urls(report, items)
     return report
 
 
@@ -348,6 +350,31 @@ def esc(value: object) -> str:
 
 def source_map(items: list[dict]) -> dict[str, dict]:
     return {item["id"]: item for item in items}
+
+
+def resolve_google_news_url(url: str) -> str:
+    host = (urllib.parse.urlsplit(url).hostname or "").lower()
+    if host != "news.google.com":
+        return url
+    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    try:
+        with urllib.request.urlopen(request, timeout=8) as response:
+            resolved = response.geturl()
+        resolved_host = (urllib.parse.urlsplit(resolved).hostname or "").lower()
+        if resolved_host and resolved_host != "news.google.com" and resolved.startswith(("https://", "http://")):
+            return resolved
+    except (urllib.error.URLError, TimeoutError, ValueError):
+        pass
+    return url
+
+
+def resolve_cited_source_urls(report: dict, items: list[dict]) -> None:
+    cited_ids = report_source_ids(report)
+    cited_items = [item for item in items if item["id"] in cited_ids and "news.google.com" in item["url"]]
+    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+        resolved_urls = list(executor.map(lambda item: resolve_google_news_url(item["url"]), cited_items))
+    for item, resolved in zip(cited_items, resolved_urls):
+        item["url"] = resolved
 
 
 def report_source_ids(report: dict) -> set[str]:
