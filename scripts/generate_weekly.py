@@ -155,7 +155,7 @@ def call_deepseek(items: list[dict], period: dict) -> dict:
 
 只返回有效 JSON 对象，且只使用以下键：headline (string), overview (string), ashare (object: summary string, drivers array of strings), hk (同结构), highlights (array of objects: market, category, title, reported, analysis, watch, source_ids), other_updates (array of objects: market, category, title, reported, source_ids), next_watch (array of strings)。JSON 结构示例：{"headline":"标题","overview":"概述","ashare":{"summary":"摘要","drivers":[]},"hk":{"summary":"摘要","drivers":[]},"highlights":[],"other_updates":[],"next_watch":[]}。
 
-筛选口径：优先选择与 AI/科技创新直接相关、有明确事件或披露、且输入资料能支持的新闻；官方/交易所域名优先，其次财经媒体，未分级来源权重较低。传闻、纯观点、重复转载、只有情绪描述而缺乏事件依据的内容不应作为重点。来源等级只代表域名分类，不代表事实已独立核实。\n重点最多 6 则，其他动态最多 6 则；其他动态不能重复重点条目，没有足够来源时返回空数组。每则重点和其他动态都必须引用至少一个输入中的 source_id，且原样保留。
+筛选口径：优先选择与 AI/科技创新直接相关、有明确事件或披露、且输入资料能支持的新闻；官方/交易所域名优先，其次财经媒体，未分级来源权重较低。传闻、纯观点、重复转载、只有情绪描述而缺乏事件依据的内容不应作为重点。来源等级只代表域名分类，不代表事实已独立核实。\n重点和其他动态各最多 6 则；只保留科技主题关联明确、且来源材料存在事件或披露支撑的重点，不要为了凑数降低标准。相同事件只写一次，合并引用的 source_id；其他动态不能重复重点条目，没有足够材料时返回更少条目或空数组。每则重点和其他动态都必须引用至少一个输入中的 source_id，且原样保留。
 重点条目使用简洁、顺畅、有信息密度的中文：title 用短语概括；reported 限一句、最多 80 个汉字，概括报道核心且不重复 title；analysis 最多 60 个汉字，解释事件关联或市场含义；watch 最多 50 个汉字，指出后续值得关注的具体变量。避免句式模板化、同义反复和连续堆叠限制条件。overview 用 2—3 句概括本周主线与主要变化，先讲事件和趋势，不写免责声明，不要把每个主题都写成谨慎提示。市场概览信息少时简洁说明即可。"""
     body = {
         "model": model,
@@ -211,8 +211,85 @@ def call_deepseek(items: list[dict], period: dict) -> dict:
         report = json.loads(output)
     except json.JSONDecodeError as exc:
         raise RuntimeError(f"Model output was not valid JSON: {output[:500]}") from exc
+    apply_quality_filters(report, items)
     validate_report(report, {item["id"] for item in items})
     return report
+
+
+def title_similarity(left: str, right: str) -> float:
+    def bigrams(value: str) -> set[str]:
+        clean = re.sub(r"[\\W_]+", "", value.lower(), flags=re.UNICODE)
+        if len(clean) < 2:
+            return {clean} if clean else set()
+        return {clean[i:i + 2] for i in range(len(clean) - 1)}
+    a, b = bigrams(left), bigrams(right)
+    return len(a & b) / len(a | b) if a and b else 0.0
+
+
+def story_text(story: dict) -> str:
+    return f"{story.get('title', '')} {story.get('reported', '')}".strip()
+
+
+def story_evidence(story: dict, sources: dict[str, dict]) -> tuple[int, str]:
+    cited = [sources[source_id] for source_id in story.get("source_ids", []) if source_id in sources]
+    material = " ".join(f"{row.get('title', '')} {row.get('snippet', '')}" for row in cited)
+    topic_hits = sum(term.lower() in material.lower() for term in TOPIC_TERMS)
+    event_hits = sum(term in material for term in EVENT_TERMS)
+    opinion_hits = sum(term in material for term in OPINION_TERMS)
+    tier = max(({"official": 6, "media": 3, "unrated": 0}.get(row.get("source_tier"), 0) for row in cited), default=0)
+    score = min(topic_hits, 2) * 2 + min(event_hits, 2) * 2 + tier - min(opinion_hits, 2) * 2
+    reasons = []
+    if topic_hits:
+        reasons.append("直接关联 AI/科技创新")
+    if event_hits:
+        reasons.append("涉及明确事件或披露")
+    if tier == 6:
+        reasons.append("含官方/交易所来源")
+    elif tier == 3:
+        reasons.append("含已识别财经媒体来源")
+    return score, "；".join(reasons) if reasons else "主题关联或来源支撑有限"
+
+
+def deduplicate_stories(stories: list[dict], sources: dict[str, dict]) -> list[dict]:
+    ranked = sorted(stories, key=lambda row: story_evidence(row, sources)[0], reverse=True)
+    kept: list[dict] = []
+    for story in ranked:
+        ids = set(story.get("source_ids", []))
+        duplicate = next(
+            (existing for existing in kept
+             if ids & set(existing.get("source_ids", []))
+             or title_similarity(story_text(story), story_text(existing)) >= 0.48),
+            None,
+        )
+        if duplicate is not None:
+            duplicate["source_ids"] = list(dict.fromkeys(duplicate.get("source_ids", []) + story.get("source_ids", [])))
+            continue
+        kept.append(story)
+    return kept
+
+
+def apply_quality_filters(report: dict, items: list[dict]) -> None:
+    sources = {item["id"]: item for item in items}
+    qualified = []
+    for story in report.get("highlights", []):
+        score, _ = story_evidence(story, sources)
+        cited = [sources[source_id] for source_id in story.get("source_ids", []) if source_id in sources]
+        material = " ".join(f"{row.get('title', '')} {row.get('snippet', '')}" for row in cited)
+        has_topic = any(term.lower() in material.lower() for term in TOPIC_TERMS)
+        if has_topic and score >= 4:
+            story["_quality_score"] = score
+            qualified.append(story)
+    qualified = deduplicate_stories(qualified, sources)[:6]
+    for story in qualified:
+        story["selection_reason"] = story_evidence(story, sources)[1]
+        story.pop("_quality_score", None)
+    report["highlights"] = qualified
+
+    others = deduplicate_stories(report.get("other_updates", []), sources)
+    report["other_updates"] = [
+        story for story in others
+        if not any(title_similarity(story_text(story), story_text(keep)) >= 0.48 for keep in qualified)
+    ][:6]
 
 
 def validate_report(report: dict, valid_ids: set[str]) -> None:
@@ -260,6 +337,7 @@ def render_report(report: dict, items: list[dict], period: dict, generated: dt.d
             f'<article class="story"><p class="meta">{market} · {esc(story.get("category"))}</p>'
             f'<h3>{esc(story.get("title"))}</h3>'
             f'<p class="reported"><b>报道摘要：</b>{esc(story.get("reported"))}</p>'
+            f'<p class="selection-reason"><b>入选理由：</b>{esc(story.get("selection_reason", ""))}</p>'
             f'<div class="triple"><div class="analysis"><b>市场观察</b>{esc(story.get("analysis"))}</div>'
             f'<div class="watch"><b>后续跟踪</b>{esc(story.get("watch"))}</div></div>'
             f'<p class="source">来源等级：{esc(", ".join(sorted({sources[sid]["source_tier_label"] for sid in story.get("source_ids", [])})))}；按相关度、事件明确度与市场覆盖筛选。来源：{" · ".join(refs)}</p></article>'
@@ -326,7 +404,8 @@ def render_report(report: dict, items: list[dict], period: dict, generated: dt.d
       fields: [
         ['报道摘要', readField(article, '.reported')],
         ['市场观察', readField(article, '.analysis')],
-        ['后续跟踪', readField(article, '.watch')]
+        ['后续跟踪', readField(article, '.watch')],
+        ['入选理由', readField(article, '.selection-reason')]
       ].filter(([, text]) => text)
     }));
   }
