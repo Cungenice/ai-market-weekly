@@ -1,236 +1,85 @@
 {
   "date": "2026-10-28",
   "period": {
-    "start": "2026-10-21 09:57",
-    "end": "2026-10-28 09:57"
+    "start": "2026-10-21 15:12",
+    "end": "2026-10-28 15:12"
   },
-  "headline": "港交所落地AI与半导体双指数，科创板三季报兑现科技成色",
-  "overview": "本周港股主线是港交所推出人工智能及半导体两大指数，为AI资产提供新的指数化载体，智谱等标的随之活跃。A股方面，科创板及深市三季报密集披露，多家公司营收净利双增，叠加海外AI芯片股反弹与Anthropic IPO预期，链条情绪一度修复，但周内科技股仍以震荡和快速轮动为主。",
+  "headline": "AI主线大幅波动，科创板龙头强化景气指引，港股新指数与A股利好共振",
+  "overview": "本周A股与港股AI/科技板块波动加剧，科创50单日跌4%、恒生科技指数一度跌破4000点后又随利好反弹。产业侧，英伟达GTC柏林大会与寒武纪业绩会提供算力与订单线索；制度侧，港交所推出两大新指数，为科技资产提供新基准。资金面呈逆向布局与结构分化并存。",
   "report": {
-    "headline": "港交所落地AI与半导体双指数，科创板三季报兑现科技成色",
-    "overview": "本周港股主线是港交所推出人工智能及半导体两大指数，为AI资产提供新的指数化载体，智谱等标的随之活跃。A股方面，科创板及深市三季报密集披露，多家公司营收净利双增，叠加海外AI芯片股反弹与Anthropic IPO预期，链条情绪一度修复，但周内科技股仍以震荡和快速轮动为主。",
+    "headline": "AI主线大幅波动，科创板龙头强化景气指引，港股新指数与A股利好共振",
+    "overview": "本周A股与港股AI/科技板块波动加剧，科创50单日跌4%、恒生科技指数一度跌破4000点后又随利好反弹。产业侧，英伟达GTC柏林大会与寒武纪业绩会提供算力与订单线索；制度侧，港交所推出两大新指数，为科技资产提供新基准。资金面呈逆向布局与结构分化并存。",
     "ashare": {
-      "summary": "三季报成为A股科技板块的主要支撑：112家科创板公司营收净利双高增，深市870余家公司业绩增长，科创板龙头称订单饱满、景气向上。海外AI芯片股反弹与Anthropic拟IPO消息带动科创人工智能指数盘中涨超2.6%，机器人、算力链出现脉冲式反攻，但持续性尚未确立。",
+      "summary": "AI主线本周先调整后反弹，科创50单日跌4%显示高估值科技股承压。但科创板龙头在调整中给出订单饱满、景气向上的指引，寒武纪业绩会回应存货与市场传言。AI概念获短线利好提振，基金资金逆势申购科技主题产品。",
       "drivers": [
-        "112家科创板公司三季报营收净利双高增，科技成色获业绩验证",
-        "深市已披露三季报中870余家公司业绩增长，科技创新赛道多点开花",
-        "费城半导体指数创一个月最大涨幅，AI芯片股情绪传导至A股",
-        "Anthropic拟于11月16日当周IPO，带动智谱等AI概念活跃"
+        "科创板龙头释放订单饱满、景气向上信号，缓解高增长逻辑担忧",
+        "寒武纪业绩会回应存货与传言，龙头治理透明度受关注",
+        "AI概念股获市场利好提振，短线情绪修复",
+        "科技主题基金三季度获大额申购，资金逆向布局"
       ]
     },
     "hk": {
-      "summary": "港交所本周推出人工智能及半导体两大指数，联想集团同时入选成分股，智谱、MiniMax等被纳入追踪范围，港股AI资产获得新的指数化定价参照。恒科指周内一度跌超5%，科网股与AI概念分化，联想盘中涨近6%领跑蓝筹，小米则明显承压。",
+      "summary": "恒生科技指数本周大幅波动，10月21日跌破4000点，翌日再跌超5%，随后随A股及AI概念反弹收复部分跌幅。港股AI概念股与联想等硬件标的逆势造好，小米则出现明显回撤。港交所推出两大新指数，为科技板块提供新的配置基准。",
       "drivers": [
-        "港交所推出人工智能及半导体两大指数，联想集团入选成分股",
-        "智谱在Anthropic IPO预期下涨近9%，领跑港股AI标的",
-        "恒科指周内一度跌超5%，科网股高开低走、分化明显"
+        "恒科指跌破4000点后剧烈震荡，市场情绪反复",
+        "AI概念股与硬件蓝筹逆势走强，内部结构分化",
+        "港交所新指数发布，或引导科技资产配置基准变化"
       ]
     },
     "highlights": [
       {
         "market": "港股",
-        "category": "指数与产品",
-        "title": "港交所推出人工智能及半导体两大指数",
-        "reported": "港交所发布AI与半导体两大指数，联想集团同时入选成分股，指数追踪智谱、MiniMax等公司表现。",
-        "analysis": "为港股AI与半导体资产提供被动配置基准，有望引导增量资金并提升相关标的定价效率。",
-        "watch": "首批挂钩产品是否发行、成分股调整规则与纳入节奏。",
+        "category": "指数波动",
+        "title": "恒生科技指数跌破4000点后剧烈震荡",
+        "reported": "恒生科技指数本周跌破4000点，单日跌超5%，随后随AI概念反弹收复部分跌幅。",
+        "analysis": "指数大幅波动显示港股科技资产对流动性与情绪高度敏感，内部AI硬件与互联网标的分化明显。",
+        "watch": "恒科指能否站稳4000点及南向资金流向。",
         "source_ids": [
-          "S01",
           "S08",
-          "S09",
-          "S17"
-        ]
-      },
-      {
-        "market": "A股",
-        "category": "业绩",
-        "title": "科创板三季报营收净利双高增",
-        "reported": "112家科创板公司三季报出炉，营收与净利双双高增，深市亦有870余家公司业绩增长。",
-        "analysis": "业绩兑现为科技板块回调提供基本面支撑，缓解高估值与盈利不匹配的担忧。",
-        "watch": "剩余公司披露进度及高增能否延续至四季度订单。",
-        "source_ids": [
-          "S39",
-          "S07"
-        ]
-      },
-      {
-        "market": "A股",
-        "category": "产业景气",
-        "title": "科创板龙头称订单饱满景气向上",
-        "reported": "面对科技股调整，科创板龙头公司发声表示订单饱满、行业景气向上。",
-        "analysis": "龙头表态对冲市场对高增长逻辑的疑虑，是判断调整性质为估值波动还是景气反转的关键。",
-        "watch": "订单能否转化为四季度收入及毛利率是否同步改善。",
-        "source_ids": [
-          "S31"
-        ]
-      },
-      {
-        "market": "A股",
-        "category": "海外映射",
-        "title": "海外AI芯片反弹带动科创AI指数走强",
-        "reported": "SpaceX、超微电脑财报超预期，费城半导体指数创一个月最大涨幅，科创人工智能指数盘中涨超2.6%。",
-        "analysis": "海外算力资本开支预期是A股AI链的重要情绪锚，短线映射明显但持续性取决于国内订单。",
-        "watch": "海外大厂资本开支指引与A股算力链成交能否放大。",
-        "source_ids": [
-          "S02",
-          "S03"
-        ]
-      },
-      {
-        "market": "港股",
-        "category": "AI资产",
-        "title": "Anthropic IPO预期提振智谱等AI标的",
-        "reported": "Anthropic拟于11月16日当周IPO，智谱涨近9%领跑市场，群核科技盘中一度涨近15%。",
-        "analysis": "一级市场AI估值锚抬升，传导至港股AI新股与概念股，强化板块风险偏好。",
-        "watch": "Anthropic发行定价与港股AI标的后续成交活跃度。",
-        "source_ids": [
-          "S41",
-          "S16",
-          "S03"
-        ]
-      },
-      {
-        "market": "A股",
-        "category": "终端AI",
-        "title": "高通发布双旗舰移动平台聚焦AI智能体",
-        "reported": "高通发布双旗舰移动平台，主打AI智能体体验，被视为端侧AI推进的新节点。",
-        "analysis": "端侧AI能力升级利好手机产业链与边缘算力，但A股受益环节需看国内厂商跟进节奏。",
-        "watch": "国内手机厂商适配进度与端侧芯片出货指引。",
-        "source_ids": [
-          "S04"
-        ]
+          "S27",
+          "S10"
+        ],
+        "selection_reason": "直接关联 AI/科技创新；涉及明确事件或披露；含已识别财经媒体来源"
       }
     ],
     "other_updates": [
       {
         "market": "A股",
-        "category": "市场结构",
-        "title": "AI指数收红但多数板块资金流出",
-        "reported": "有报道称AI指数收红的背后，绝大多数板块正遭遇资金抽离。",
+        "category": "医疗AI",
+        "title": "AI可预判癌症免疫疗法疗效",
+        "reported": "报道称AI能预判癌症免疫疗法疗效，医疗AI应用场景再获关注。",
         "source_ids": [
-          "S33"
+          "S02"
         ]
       },
       {
         "market": "A股",
-        "category": "信息披露",
-        "title": "中科星图回复半年报监管问询函",
+        "category": "监管披露",
+        "title": "中科星图回复半年报监管问询",
         "reported": "中科星图就2026年半年度报告信息披露监管问询函发布回复公告。",
         "source_ids": [
-          "S06"
+          "S01"
         ]
       },
       {
-        "market": "A股",
-        "category": "公司动态",
-        "title": "龙软科技参加科创板AI行业业绩说明会",
-        "reported": "龙软科技公告参加科创板2026年半年度人工智能行业集体业绩说明会。",
+        "market": "港股",
+        "category": "个股异动",
+        "title": "联想逆势走强、小米回撤",
+        "reported": "港股半日交易中联想飙近6%冠蓝筹，小米急挫逾4%，AI概念股纷造好。",
         "source_ids": [
-          "S10"
-        ]
-      },
-      {
-        "market": "A股",
-        "category": "应用",
-        "title": "AI用于预判癌症免疫疗法疗效",
-        "reported": "报道称AI可预判癌症免疫疗法疗效，属AI医疗应用的新进展。",
-        "source_ids": [
-          "S11"
-        ]
-      },
-      {
-        "market": "A股",
-        "category": "监管",
-        "title": "AI短剧概念牛股遭监管警示",
-        "reported": "AI短剧概念一只牛股遭监管警示，多只连板股同步提示风险。",
-        "source_ids": [
-          "S37"
-        ]
-      },
-      {
-        "market": "市场",
-        "category": "资金面",
-        "title": "海外存储与光通信板块走低",
-        "reported": "美股存储、光通信板块全线走低，同期一批A股公司业绩预喜。",
-        "source_ids": [
-          "S12"
+          "S17"
         ]
       }
     ],
     "next_watch": [
-      "港交所AI与半导体指数的挂钩产品发行进展及成分股表现",
-      "科创板与深市三季报收官，高增公司四季度订单与毛利率指引",
-      "Anthropic IPO定价与发行节奏对港股AI标的估值的传导",
-      "海外AI芯片股反弹的持续性及对A股算力链成交的带动",
-      "端侧AI：国内手机厂商对高通新平台的适配与出货节奏"
+      "科创板龙头订单饱满表述能否在三季报及后续公告中兑现",
+      "恒生科技指数在4000点附近的支撑与南向资金动向",
+      "港交所新指数成分及挂钩产品发行进展",
+      "寒武纪存货与订单相关后续披露",
+      "科技主题基金申赎与仓位变化"
     ]
   },
   "sources": [
-    {
-      "market": "A股",
-      "title": "港股周观察｜香港交易所推出人工智能及半导体指数；翰森制药与罗氏达成超155亿美元ADC合作；宁德时代Q3营收增超50% - www.mycaijing.com",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1POHY3UFZITmR5bExaRmJTci03Z1BBdTN0ZC1kX3VscXJkTVFOal91MFlSVHEtbmhYQ3pZTHh5aDJ1N1FEWGkwUUFFcTNYNEppUDU2YUNKNVVGYl9CMkZrRjc4UTBmNUZwUjhhLQ?oc=5",
-      "published": "2026-10-26T11:49+08:00",
-      "source": "www.mycaijing.com",
-      "source_url": "https://www.mycaijing.com",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "港股周观察｜香港交易所推出人工智能及半导体指数；翰森制药与罗氏达成超155亿美元ADC合作；宁德时代Q3营收增超50%    www.mycaijing.com",
-      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S01"
-    },
-    {
-      "market": "A股",
-      "title": "ETF盘中资讯|SpaceX、超微电脑超预期财报，点燃AI交易热情！物理AI+端侧AI逆市活跃，科创人工智能指数盘中涨超2.6% - 金融界",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE0wU0NjNzExcFFGQUlMQXM5Mmd2RFZ5WDJKZFh2T1NDWmdNSkxnTm9MaGU4VWF0YTUzVXZnZnhJMWxuYW9COVdBdHJ5Y2FsMXNMc3ptT2FINy01bUNpdWxrdW55bS1WTy1obWhWZjFXZ1Y?oc=5",
-      "published": "2026-10-21T13:34+08:00",
-      "source": "金融界",
-      "source_url": "https://m.jrj.com.cn",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "ETF盘中资讯|SpaceX、超微电脑超预期财报，点燃AI交易热情！物理AI+端侧AI逆市活跃，科创人工智能指数盘中涨超2.6%    金融界",
-      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S02"
-    },
-    {
-      "market": "A股",
-      "title": "小K播早报|费城半导体指数创一个月来最大涨幅 Anthropic拟于11月16日当周IPO - 财联社",
-      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE94RHJTbGFCZkFPMDB2YURXT3RBdEVaLWdZcXRpX0RkMUd0alZlVW1IMjdUcFdIaFlLV3k3dTRSbmtrQTVZa2dfOA?oc=5",
-      "published": "2026-10-27T08:12+08:00",
-      "source": "财联社",
-      "source_url": "https://www.cls.cn",
-      "source_tier": "media",
-      "source_tier_label": "财经媒体域名",
-      "snippet": "小K播早报|费城半导体指数创一个月来最大涨幅 Anthropic拟于11月16日当周IPO    财联社",
-      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S03"
-    },
-    {
-      "market": "A股",
-      "title": "【明日主题前瞻】高通发布双旗舰移动平台，定义AI智能体全新体验 - 财联社",
-      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTFBZc1dPSFhjZkFwMmZsTW5SWGI0N2d6Yks0WVFSc2hOT05wbFNpcG1KaE1vei1wU2IwNS13X1NSTEF6aVlSRUNTMQ?oc=5",
-      "published": "2026-10-26T13:17+08:00",
-      "source": "财联社",
-      "source_url": "https://www.cls.cn",
-      "source_tier": "media",
-      "source_tier_label": "财经媒体域名",
-      "snippet": "【明日主题前瞻】高通发布双旗舰移动平台，定义AI智能体全新体验    财联社",
-      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S04"
-    },
-    {
-      "market": "A股",
-      "title": "美股收盘：纳指上涨1.2%，AI芯片股强劲反弹，但高利率和巨额融资需求考验科技股估值 - 加美财经",
-      "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1LOUktWE1KRFZvRWhsNm1kYUxXamJhTXYyNUNXdXkyeHRyc2s4aUFjdDVlSVFDYjhuUm9mcEZDT0dpWWJTZUdZclJMSTJEbk12bEp6Y0xDaXhVdw?oc=5",
-      "published": "2026-10-28T04:17+08:00",
-      "source": "加美财经",
-      "source_url": "https://www.caus.com",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "美股收盘：纳指上涨1.2%，AI芯片股强劲反弹，但高利率和巨额融资需求考验科技股估值    加美财经",
-      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S05"
-    },
     {
       "market": "A股",
       "title": "中科星图: 中科星图股份有限公司关于2026年半年度报告的信息披露监管问询函的回复公告 - 证券之星",
@@ -242,59 +91,7 @@
       "source_tier_label": "未分级来源",
       "snippet": "中科星图: 中科星图股份有限公司关于2026年半年度报告的信息披露监管问询函的回复公告    证券之星",
       "query": "A股 科技创新 产业政策 业绩 公司公告",
-      "id": "S06"
-    },
-    {
-      "market": "A股",
-      "title": "深市三季报密集披露！870余家公司业绩增长，科技创新赛道多点开花 - 搜狐网",
-      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPNTdYLXI0dDZIOGduSjdOVFVOenFGd21mYzhIRE01NXBvX3BNZm1iMGUyTVVqWkF1WHVKTzBlanJteVM4M1BJQW51ZF92RF9fRTlQMTgycFFqY2JoVV9iUGxybXhDclZnVUFZU2t1ZWRQMzl5SGhWMlJRVDVKd3FyV3g2blNTX1ZsWWlLNw?oc=5",
-      "published": "2026-10-27T22:09+08:00",
-      "source": "搜狐网",
-      "source_url": "https://m.sohu.com",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "深市三季报密集披露！870余家公司业绩增长，科技创新赛道多点开花    搜狐网",
-      "query": "A股 科技创新 产业政策 业绩 公司公告",
-      "id": "S07"
-    },
-    {
-      "market": "A股",
-      "title": "港交所推AI和半导体指数 追踪智谱MiniMax等公司表现 - 早晨报",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE8xTEIyVWphSFFGajJaWkZHOVFwVUZOdmd1WWRtQXBzcG52QnFKb0VPQ3NnMVY5dU8tMC1XOFpiaklSbFh1bXNpMEUxdzVIRkRsWTY4cWJOeEs3VnNqXzY5TmtQREFBOFZTQ3hz?oc=5",
-      "published": "2026-10-24T18:30+08:00",
-      "source": "早晨报",
-      "source_url": "https://www.zaochenbao.com",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "港交所推AI和半导体指数 追踪智谱MiniMax等公司表现    早晨报",
-      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S08"
-    },
-    {
-      "market": "A股",
-      "title": "港交所推出人工智能及半导体两大指数 联想集团同时入选成分股 - finance.sina.com.cn",
-      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9IY2t5dlFFeHFQLVZrRVZTc3lJZldpQ1V0R3ZoWGR6VndvNDlmRGdHb0J5NmlQTU9SN0RYckRJUHNQQjQ4b0M5aVVkOXc4RTdPWk4yMGVGX2prWnJIS19YV3ZnZVloN1E1OXhXaFhaRQ?oc=5",
-      "published": "2026-10-23T18:19+08:00",
-      "source": "finance.sina.com.cn",
-      "source_url": "https://cj.sina.cn",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "港交所推出人工智能及半导体两大指数 联想集团同时入选成分股    finance.sina.com.cn",
-      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S09"
-    },
-    {
-      "market": "A股",
-      "title": "龙软科技：北京龙软科技股份有限公司关于参加科创板2026年半年度人工智能行业集体业绩说明会的公告 - Moomoo",
-      "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNdlFlTXFKVFNJcmVxejF3UEl2OTRhalYwOTZBSlItZmZIODFSNGd6UHJVTzRpWnphRTdnMnF6ckRkLVVWa3JXamc4ZmtKdjVQZU5wU1RjZDJOMHdhNW5BdTBIcjdQazE0QnJ1X0M2SmRWYnZIRG53SVhibnNZMVZWYUVCeERSV3h0eWI1ZkpNN2ttOUE1S1V0clpMeDZxV29OYWlBZTVaOS0zclJlXzFTbzNfQ0Zzd3NKbDAyMkt6SllEZ3lUTXBZdERn?oc=5",
-      "published": "2026-10-23T06:56+08:00",
-      "source": "Moomoo",
-      "source_url": "https://www.moomoo.com",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "龙软科技：北京龙软科技股份有限公司关于参加科创板2026年半年度人工智能行业集体业绩说明会的公告    Moomoo",
-      "query": "A股 科技创新 产业政策 业绩 公司公告",
-      "id": "S10"
+      "id": "S01"
     },
     {
       "market": "A股",
@@ -307,7 +104,7 @@
       "source_tier_label": "财经媒体域名",
       "snippet": "AI能预判癌症免疫疗法疗效；湖南印发中医药“十五五”规划    21财经",
       "query": "A股 科技创新 产业政策 业绩 公司公告",
-      "id": "S11"
+      "id": "S02"
     },
     {
       "market": "A股",
@@ -320,33 +117,7 @@
       "source_tier_label": "财经媒体域名",
       "snippet": "【早报】美股存储、光通信板块，全线走低；原油上涨、黄金收跌；一批A股公司业绩预喜    财联社",
       "query": "A股 科技创新 产业政策 业绩 公司公告",
-      "id": "S12"
-    },
-    {
-      "market": "A股",
-      "title": "AI新贵站上“胡润百富榜”C位！ - 手机新浪网",
-      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPZmtBTHlFcmZvV1JaWFFvLVZKQ2JxMElCQWpoRHhlMFIwR0ZDaXJ2MDZvYzEwSm90aUpVZmRGNFAyYjRTbkk2SnB3cFp2cFoxLWJwN0kxaUZUMGNGS2ZtVnJ5REtxdUpIamNveG1EZWVaMVVLRXJkZUpHTUkyc1I5RUtfcw?oc=5",
-      "published": "2026-10-27T20:57+08:00",
-      "source": "手机新浪网",
-      "source_url": "https://k.sina.com.cn",
-      "source_tier": "media",
-      "source_tier_label": "财经媒体域名",
-      "snippet": "AI新贵站上“胡润百富榜”C位！    手机新浪网",
-      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S13"
-    },
-    {
-      "market": "A股",
-      "title": "张一鸣以6700亿元刷新中国首富财富纪录！《2026胡润百富榜》重磅发布！ - 手机新浪网",
-      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQa2JHbm14WDZwUFhBRzdsSXViaUJlMm1pbzBVUjFtRFVGSWNSNmRwSFhtRlZUMXY2dUx1R2FCZFMtVXNDS3RuSEI4cTNNUnRvdENFN0EtY28wbVpuam9kYTRHazk2dzU1cjVLTkFxMjA1OWNyZF9ha0NhV2lMZ0NXZk1Xaw?oc=5",
-      "published": "2026-10-27T15:05+08:00",
-      "source": "手机新浪网",
-      "source_url": "https://k.sina.com.cn",
-      "source_tier": "media",
-      "source_tier_label": "财经媒体域名",
-      "snippet": "张一鸣以6700亿元刷新中国首富财富纪录！《2026胡润百富榜》重磅发布！    手机新浪网",
-      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S14"
+      "id": "S03"
     },
     {
       "market": "A股",
@@ -359,7 +130,7 @@
       "source_tier_label": "财经媒体域名",
       "snippet": "长城“科技+”视点 | AI主线遇冷，四季度科技投资怎么看？    手机新浪网",
       "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S15"
+      "id": "S04"
     },
     {
       "market": "A股",
@@ -372,189 +143,20 @@
       "source_tier_label": "财经媒体域名",
       "snippet": "市场利好提振人工智能股 群核科技盘中一度涨近15%    财联社",
       "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S16"
+      "id": "S05"
     },
     {
-      "market": "港股",
+      "market": "A股",
       "title": "港交所推出两大新指数 - 21财经",
       "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOSlN3bHVJR3hQclp3VWlwaG9zdGcwTUZORkN6MmR1YUp1WFNqdDkwdUtGeW9mYkZScmZOS3g0VVVkcTM1QVdPTThpeURqSDFRMElpbUhhY2JMNkR0OElOd0hITXFLekl2aTJNOUhHSFZSMHpnbmhwZWY4djZRRUlESVZ4Z1EzVXJYTjJrZHVpMA?oc=5",
-      "published": "2026-10-25T23:04+08:00",
+      "published": "2026-10-25T10:55+08:00",
       "source": "21财经",
       "source_url": "https://www.21jingji.com",
       "source_tier": "media",
       "source_tier_label": "财经媒体域名",
       "snippet": "港交所推出两大新指数    21财经",
-      "query": "港股 人工智能 AI 半导体 算力 机器人 科技股",
-      "id": "S17"
-    },
-    {
-      "market": "A股",
-      "title": "物理AI：AI终于要从屏幕里爬出来了 - 财富号",
-      "url": "https://news.google.com/rss/articles/CBMihwJBVV95cUxOYzljNmwzQmRzb2lIb2JDbFZjNjZISzdFc1E2NERfNFRLc2pSVnBiaVh0YklmaWNoNDdmS2REMm9hcVBCZUtGLWNQWk5IdGhNaTJYclV5c191Z2lkcnRLS2hUa3VvXzdLa0ZvbExZSzl4ZFRaejFZWEtKU1BLZUExY3ZiSmNwZl9WaGVidzVvTUFmakhzVTJyYnRHY01oMXMxUGcxMVpkZEstNWZ5bFBPc21iNVppaC1Tem5HeldSanYwY2JhcE1HV0NtTHhiWFdIb1RZX2JPUThTV1M1TThLNkZFWkVaX1l5aXFlWWF0YVhRbDBkRVNWQl85ellEd2JPdTBhX3BJTQ?oc=5",
-      "published": "2026-10-25T21:07+08:00",
-      "source": "财富号",
-      "source_url": "https://caifuhao.eastmoney.com",
-      "source_tier": "media",
-      "source_tier_label": "财经媒体域名",
-      "snippet": "物理AI：AI终于要从屏幕里爬出来了    财富号",
       "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S18"
-    },
-    {
-      "market": "A股",
-      "title": "创指午后翻红！“易中天”、光迅科技、源杰科技等午间集体公告：生产经营一切正常 - ThePaper.cn",
-      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1OaDVibXlYc09jYklVeHF3SUNqS055ZXJkcW1lNFBhcmxZSzBCZlJ3bFQyQmZabnFqbndSZUxSVXBoT2RqU05YTVlkOElaaFB2M1EwTWpnOUo1eElmdE93OA?oc=5",
-      "published": "2026-10-23T13:16+08:00",
-      "source": "ThePaper.cn",
-      "source_url": "https://www.thepaper.cn",
-      "source_tier": "media",
-      "source_tier_label": "财经媒体域名",
-      "snippet": "创指午后翻红！“易中天”、光迅科技、源杰科技等午间集体公告：生产经营一切正常    ThePaper.cn",
-      "query": "A股 科技创新 产业政策 业绩 公司公告",
-      "id": "S19"
-    },
-    {
-      "market": "市场",
-      "title": "南华基金权益市场周报【2026/10/19-2026/10/23】 - 手机新浪网",
-      "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxOaWF0dVNMU0taQ3pHb204VlpBajJrYUt1eFNVVm82YWlDSmk5cEFWQjY1UDl3Z3NSZk85SWU2UXBmS2EwWWg0WFJGZ2lrZFdWNGxUMWU0dW5LWHJIZkRFUHlGX1ZUSmFJR0Z2MUpOWU84Q3NoaldLeEZNX0hxWVBobmtUOWZkZVRwTXB5a0FLaVAwUXNGZ0R5ZU5yVDlaX3MydXJ1bFkwNzB2c3lZN2tzOElIeFB2QUE5T0dwNnR6N0tSN0NGN0xxVVpCNmcwakM0M0NCa2xCRldIUnM5OXc?oc=5",
-      "published": "2026-10-27T17:49+08:00",
-      "source": "手机新浪网",
-      "source_url": "https://k.sina.com.cn",
-      "source_tier": "media",
-      "source_tier_label": "财经媒体域名",
-      "snippet": "南华基金权益市场周报【2026/10/19-2026/10/23】    手机新浪网",
-      "query": "A股 港股 市场 一周 科技板块 资金 政策",
-      "id": "S20"
-    },
-    {
-      "market": "港股",
-      "title": "【10.26 ETF综述】中国石油创18年新高！价值发力护盘，小盘双星暴力吸筹！ - 手机新浪网",
-      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPOC1qUlpldVpqSVlrS1V0STNTSWFqcENmUE5jRDd3RGVKelNXYnE1VmU0c2hDb3pXVUlMVUZwal8zMmkxV1pRLVFhakJCWFF6Tm5LT05lQ1gyOFNoZ2V2VnR6TWhzX3ZhM0tIejhLRFRhVm9uWjRGUW02Y0ZHSWdGbk1VSQ?oc=5",
-      "published": "2026-10-26T17:40+08:00",
-      "source": "手机新浪网",
-      "source_url": "https://k.sina.com.cn",
-      "source_tier": "media",
-      "source_tier_label": "财经媒体域名",
-      "snippet": "【10.26 ETF综述】中国石油创18年新高！价值发力护盘，小盘双星暴力吸筹！    手机新浪网",
-      "query": "港股 人工智能 AI 半导体 算力 机器人 科技股",
-      "id": "S21"
-    },
-    {
-      "market": "港股",
-      "title": "港股互联网跌了一年，现在能买吗？盈利拐点已现，国联159089建仓位置最好 - 手机新浪网",
-      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOX3FRZXZfQWh2VGxvbTZxVG5iam13Z3dyc0hKT2VHNTdCQ3RZbUNRdHRjdm1hZzdhRG05YV9kR2l0blVXdklKdEpQb05DTnVsdDZKSWVYbWV4UGtuZmtIdDg4Zm5JLTRmblA3bEhtUy1JR3U5ZlJCN0lwaHFTWXU3d3RSNA?oc=5",
-      "published": "2026-10-26T17:40+08:00",
-      "source": "手机新浪网",
-      "source_url": "https://k.sina.com.cn",
-      "source_tier": "media",
-      "source_tier_label": "财经媒体域名",
-      "snippet": "港股互联网跌了一年，现在能买吗？盈利拐点已现，国联159089建仓位置最好    手机新浪网",
-      "query": "港股 科技创新 腾讯 阿里 美团 小米 业绩",
-      "id": "S22"
-    },
-    {
-      "market": "市场",
-      "title": "“V”形反弹后再度回落，A股何时企稳？夏春：不要盲目抄底 - https://www.caiwennews.com/",
-      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1Va2o2QVdiLUVBRGhoTFpvMUNsQ3JkVGJFQlI5VU9vLXBydTFzUnpxRkRGT2Q0a0lQXzA1dm1WSWkyMDlOTmdSNHZVVmVWSFNLVDNkYTFwS2RLeVZW?oc=5",
-      "published": "2026-10-28T07:00+08:00",
-      "source": "https://www.caiwennews.com/",
-      "source_url": "https://www.caiwennews.com",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "“V”形反弹后再度回落，A股何时企稳？夏春：不要盲目抄底    https://www.caiwennews.com/",
-      "query": "A股 港股 市场 一周 科技板块 资金 政策",
-      "id": "S23"
-    },
-    {
-      "market": "港股",
-      "title": "港股科技指数大乱斗｜林小珍 - 星島頭條",
-      "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxNbWZ4TzlvU2JGS2NXY2xWUlIyMm1jc2RzT2tBOHU0dC1tMHhTZzZlbG9VUjEyaUhPQU50WHZiYW0tVWtNa0tTTjJWS1dHRHllZnBpclc5S0RLYXdla0NWdkRPeklhdFM0V3VkQURGQW5yNU50cGI3Tk5Id1l4WXVXSXZreGRqRkVXVjBzTDZzSGVQbjMxcHA5ODRtS3lydUt3TkMyOGkzVnBKNXRvNG1MNDlieEpQc1ZlbUREUWdZZkd6RFo4aHVKZVdPdVdpZVFFSEFxaEt2WjdBNDU1NG0yVDRJa0F2ajlDWlJJajBPd0Z3UG5h?oc=5",
-      "published": "2026-10-27T11:01+08:00",
-      "source": "星島頭條",
-      "source_url": "https://www.stheadline.com",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "港股科技指数大乱斗｜林小珍    星島頭條",
-      "query": "港股 人工智能 AI 半导体 算力 机器人 科技股",
-      "id": "S24"
-    },
-    {
-      "market": "港股",
-      "title": "恒指半日微跌31点 小米急挫逾4% 联想飙近6%冠蓝筹 AI概念股纷造好｜港股开市 - 星島頭條",
-      "url": "https://news.google.com/rss/articles/CBMizwNBVV95cUxOaTJjNzFhOGJFaXdSeElOYzVLTEdXaXl5S2xTRjN0VzRaNDRTbm13OHFtdTNmVS1rU3lyc3VSYTV3dHVkbkttWjFxNjZIVl9IdXNuRU5qeGZCQVJMTG5zdUtKVEhpUWhxOHBZV2hhWE1DZWg3dVJMR0NUbU9FaHhoU1NMZnZETElXUERnc2VZTnBEN3UwbS1tY2ZsazB6RFN0M3BENHhxR21WYnlEdXdPMHZrMHRoX1FwaFVUVG01dHdPY3Y2VG1iZHF1dmxqU1FORkdtSk03akNBWmF3WHg3cGlYTVFFMjJsWnVuU2NXYi14cERTUEZwM1g3MkZXTDBidlVMRS1neTAzN1ZrbXJ4c1ZSYlJMYUk3V2pSQXI2VWU5WnpNQTk5bzV6WC0wMDljYlE4OFkyRTNMMmJadFVhbzhGSVJJYWRxQ2FSQ250SnpodF9pVjl6V2hnT3hNSndwc1FTQUdqai11UVhlamxrdWxpQURQT2NNMzJ3UkpuY3lOX1JpSWxaWHdReTVnSUltYlRaOFFyb3NtbmcxR25mQnpybzNhU21TS3duSDhyZGpBMm1ESjBSYXlESU56eHphRk5hZGV5ZnVpbkFUbGNr?oc=5",
-      "published": "2026-10-27T09:24+08:00",
-      "source": "星島頭條",
-      "source_url": "https://www.stheadline.com",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "恒指半日微跌31点 小米急挫逾4% 联想飙近6%冠蓝筹 AI概念股纷造好｜港股开市    星島頭條",
-      "query": "港股 科技创新 腾讯 阿里 美团 小米 业绩",
-      "id": "S25"
-    },
-    {
-      "market": "港股",
-      "title": "港股午评：高开低走！恒指跌0.14%，科网股、中资券商股齐跌_市场分析 - 中金在线",
-      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9XSTdzNkZabTR0cXJwM25fSzRNTEJyTUQwaEpybmFRR0tBNkFOdEw1MS02dlMtWXpmcnVLRlZDakFycldWX0tpMGxpN3VYQnZlSW82SFhCSVpGYUMzcjN3QlVXXzY4MHhxcVNiNWFNdw?oc=5",
-      "published": "2026-10-27T15:14+08:00",
-      "source": "中金在线",
-      "source_url": "http://hkstock.cnfol.com",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "港股午评：高开低走！恒指跌0.14%，科网股、中资券商股齐跌_市场分析    中金在线",
-      "query": "港股 科技创新 腾讯 阿里 美团 小米 业绩",
-      "id": "S26"
-    },
-    {
-      "market": "市场",
-      "title": "中信建投：趋势性修复仍需等待确认 预计港股以震荡筑底为主 提供者 智通财经 - 英为财情 Investing.com",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5mQTliSmtvNzA5UERVOGNPcjRoRHBHZzE5OFUyWXhrYjRUSk5uaU12djZYVW1tanlBYV9MeWxVbVFOZWkxaDRsRVRCSFNFZWtVdUw4OVBGUkZyQTRKLUtxSjZMdHdIaUFncmtVM2o4UXo?oc=5",
-      "published": "2026-10-26T07:39+08:00",
-      "source": "英为财情 Investing.com",
-      "source_url": "https://cn.investing.com",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "中信建投：趋势性修复仍需等待确认 预计港股以震荡筑底为主 提供者 智通财经    英为财情 Investing.com",
-      "query": "A股 港股 市场 一周 科技板块 资金 政策",
-      "id": "S27"
-    },
-    {
-      "market": "市场",
-      "title": "A股、港股止跌反弹，趋势何时反转？ - 新浪网",
-      "url": "https://news.google.com/rss/articles/CBMiyAJBVV95cUxPMVJSZ3Vtd2hPd3l6WDh1dEFGUUFzWUxDQkZJWHQtMXcxM3FaRDF2MENfbXFWYnFqc01ucTZQZ1ZkYjZ1Q05RMG1xNFoxc3hvM2xqMlotLUxHR0htczBTXzRpSkRIbzBrRWhCd3htckVNVEE3cTMtMHJ5RENIWUoxdkxYcF9xakc4NC1JUUQ0VVo0c3VWb09pdGs5WU5XUlMzWHhpOV9aZjRNRGxoRDJPb29LM1lSTUt3bVl6VFhsbGg3QzJmbkg3SmtQeURVSC1OV3NqMFVjSU1hbnpJWl9GRENtNS1tWWZTa3E5ajFmOXZDU3ZOdU9BR3NSOTNhdEVZS2ZvSWV2aFcxaEplNThQRW9DOXF5ZktaTVAySVp0dlJMY3VldVpObjJGVTltNkJnME8ybmZWcjR4Z0lCMHNvUElqWkJwbHQx?oc=5",
-      "published": "2026-10-23T22:22+08:00",
-      "source": "新浪网",
-      "source_url": "https://finance.sina.cn",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "A股、港股止跌反弹，趋势何时反转？    新浪网",
-      "query": "A股 港股 市场 一周 科技板块 资金 政策",
-      "id": "S28"
-    },
-    {
-      "market": "市场",
-      "title": "港股调整背后：机构操作分化 静待“黄金坑” - 新浪财经",
-      "url": "https://news.google.com/rss/articles/CBMioARBVV95cUxPRTFWQVZCTjZlVGpsTEtBdjc4Y2RRWVF1ME1oUHQzd0UtOEdFaWRJMkJoeUllNUxpUG1VWXVYZUJyRHBSYWN0bko3bU1zQVR6WEotZ0Nab1Q3aUI1T25WRF9yX2ZfMUtINnpodG1TR2hnbktBYlNjMTc4eUdoVi13VGI0OWR3YURDLWlZRFdNNFlzbl95ZnFzS1MzalVDUEFEYVVlUUJqSHpSaHREMFphOUxMZDltMmVoOWtqdE9GYWZJUlg4SjQtTWVzNlJQbm8xWUstaURVcWNCVHZ6RVk4WjVZSzI5SGdpZDZrWF9ZcVdSRHVNYUY4YUpvR3Q3SjdCVkdPYmJkRF9RYkU5TVlDS2liaDlzVE1JVzdDczctdE14ZUhJbjktdVdIaGVXbWVIQk1wSzltOGdldm9HTWZJdmZXSUpWOVkwN193SnNvb1BaTU10MkJLN2NRMkhYbmRsNTJfSGQ4SDV5MHd4UVlXUVY3WUc4cG5UZzNXSUtGZnR3N1l4aVNVQnBaSGdZcmIteEh2UTEzeTRBdjRrbGNvZ2xwS2xIS3BJNnRiOVo4RGl3S0ZzNUp4dm8zN1M0WWE3TURtNTBRVFQ5M19kWWJmT1gtdUhtYndadHBSN0pnazVLUFJybXZxN2FHb3R2bTFVSFJfQ2paQmtxaThWLXRDeXVYMzV1Y0xpc0tKb01pR2FNZVNVNzJ4VFQzVUlNOFF1?oc=5",
-      "published": "2026-10-23T15:00+08:00",
-      "source": "新浪财经",
-      "source_url": "https://finance.sina.cn",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "港股调整背后：机构操作分化 静待“黄金坑”    新浪财经",
-      "query": "A股 港股 市场 一周 科技板块 资金 政策",
-      "id": "S29"
-    },
-    {
-      "market": "港股",
-      "title": "港股再迎调整：恒科指跌超5%，短线何时企稳？ - 华尔街见闻",
-      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5TNTg2Y3lKejZaeV9kVzhadzVYZ0EzSUc1MWpNNjdYTEdoN1Q1Nzk2V0Y4aVhDR29ZdktBX09PVFQ0cExLS0h4S2FKNUdlYlpXVXow?oc=5",
-      "published": "2026-10-22T23:33+08:00",
-      "source": "华尔街见闻",
-      "source_url": "https://wallstreetcn.com",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "港股再迎调整：恒科指跌超5%，短线何时企稳？    华尔街见闻",
-      "query": "港股 人工智能 AI 半导体 算力 机器人 科技股",
-      "id": "S30"
+      "id": "S06"
     },
     {
       "market": "A股",
@@ -567,36 +169,36 @@
       "source_tier_label": "财经媒体域名",
       "snippet": "科技股调整，高增长逻辑还在吗？科创板龙头公司发声：订单饱满、景气向上    财联社",
       "query": "A股 科技创新 产业政策 业绩 公司公告",
-      "id": "S31"
+      "id": "S07"
     },
     {
-      "market": "A股",
-      "title": "英伟达CEO黄仁勋：欧洲要想吃AI红利，全行业都该拥抱AI - 新浪财经",
-      "url": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxOV0F2ZDJUQnR1dFY0TUdSekItbEtlRmg0ZW5kRHZBUndxWHN2cXJqTlVjT1VKY053eldjOWZrN1A1LUdHaWphU3ljUkRXWF9nR1NlTTZBQ0FyMzAyN2huS2JuWUtCTHVSWVZnOXktSmtJa0RTOWUzaU9Vb21UMHNVS3pjbU5aSnR0Q2RkcE5VemRCWldWSXZDUWZYWkNjd3hwellLTmx3ZV9vVG10OUs1Y2R5WGRVSnQtLWFtcFZucFlocHBjVE1waWV5Y1FTcDh0RVZ3NDZFMm9qbEJNZ3ZZ?oc=5",
-      "published": "2026-10-21T19:24+08:00",
-      "source": "新浪财经",
-      "source_url": "https://finance.sina.com.cn",
+      "market": "港股",
+      "title": "港股收盘 | 科技指数跌破4000点关口 锂电及电信股表现承压 - 财联社",
+      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTFBHekUtUy1UaGM5eDRodW5yaE1pQTJ6SmhMTFZGVUdoYTB6WnhPcmRWaUlSNS1GQnNXZXdmekdZVVRsbVVMWnRLdQ?oc=5",
+      "published": "2026-10-21T16:35+08:00",
+      "source": "财联社",
+      "source_url": "https://www.cls.cn",
       "source_tier": "media",
       "source_tier_label": "财经媒体域名",
-      "snippet": "英伟达CEO黄仁勋：欧洲要想吃AI红利，全行业都该拥抱AI    新浪财经",
-      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S32"
+      "snippet": "港股收盘 | 科技指数跌破4000点关口 锂电及电信股表现承压    财联社",
+      "query": "港股 人工智能 AI 半导体 算力 机器人 科技股",
+      "id": "S08"
     },
     {
       "market": "A股",
-      "title": "AI指数收红的背后绝大多数板块正在被抽血？_股票_全球资讯 - www.bihainews.com",
-      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5oTy1zNFViM21pcHo0Mmw3SGF3Sk5pZ0ZRZklQRC1pU3ZQTXo5amNpZWJEem5XbkVSX3p1SE5lZTU3bnRybUFnOTAxcTlOMUcxSkFHMl9KMzlMZmdIMmI5SHVicUl5R1lm?oc=5",
-      "published": "2026-10-27T18:06+08:00",
-      "source": "www.bihainews.com",
-      "source_url": "https://www.bihainews.com",
+      "title": "平安证券：基本面、政策、业绩共振，把握长期配置机遇_滚动新闻 - 证券之星",
+      "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE94YnQwYTdQSzVqazBETkthbG93VmhEMFo5VnZIZzdLZk00RkRYbUNaWDA1VjU0WHV1VzdickwyRV9IcFZvOV9XX2hKZldIV1VBS3Vjc2xKUTdCQWREQWtJMmE4TlU?oc=5",
+      "published": "2026-10-25T21:39+08:00",
+      "source": "证券之星",
+      "source_url": "https://finance.stockstar.com",
       "source_tier": "unrated",
       "source_tier_label": "未分级来源",
-      "snippet": "AI指数收红的背后绝大多数板块正在被抽血？_股票_全球资讯    www.bihainews.com",
-      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S33"
+      "snippet": "平安证券：基本面、政策、业绩共振，把握长期配置机遇_滚动新闻    证券之星",
+      "query": "A股 科技创新 产业政策 业绩 公司公告",
+      "id": "S09"
     },
     {
-      "market": "A股",
+      "market": "港股",
       "title": "奇迹日再现！创业板暴涨超4%，“易中天”午后集体反攻，长鑫大涨6%，机器人掀涨停潮、宇树科技上市首板，恒科指涨超2% - 华尔街见闻",
       "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5Xdy05eG9CemVxcUQ1SFFudGs4WlJKOUxGbzdkNDVLS01yTF9raHlTMlNJTHppZXN2ek5BYXRaMWxRQmJPb1VRSGN6UEhva3RsdE80?oc=5",
       "published": "2026-10-23T16:15+08:00",
@@ -605,76 +207,24 @@
       "source_tier": "unrated",
       "source_tier_label": "未分级来源",
       "snippet": "奇迹日再现！创业板暴涨超4%，“易中天”午后集体反攻，长鑫大涨6%，机器人掀涨停潮、宇树科技上市首板，恒科指涨超2%    华尔街见闻",
-      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S34"
+      "query": "港股 人工智能 AI 半导体 算力 机器人 科技股",
+      "id": "S10"
     },
     {
-      "market": "A股",
-      "title": "8点1氪丨iPhone Duo约八成应用未适配；DeepSeek据悉完成1000亿元融资；长实集团再发澄清公告：李嘉诚健康情况良好 - 36Kr",
-      "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFB2MFZMdUZ6QUZMU0ZaMWVRRmFlaTJoc3hDVVNFcmpkNW9jYTNmYnFMVmNxdVBGSllVQS0yazRyLW9pMFVlOWZDbGZzY2pfZw?oc=5",
-      "published": "2026-10-22T16:49+08:00",
-      "source": "36Kr",
-      "source_url": "https://m.36kr.com",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "8点1氪丨iPhone Duo约八成应用未适配；DeepSeek据悉完成1000亿元融资；长实集团再发澄清公告：李嘉诚健康情况良好    36Kr",
-      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S35"
-    },
-    {
-      "market": "A股",
-      "title": "昂立教育成立科技公司，含AI软件开发业务 - www.caiwennews.com",
-      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE85a3F4dW51VDhWY0Iwa25pNUs0ZlhOUjIwVFhBZ1AyZm9ocTZ5Q1gwTkw4WEdkUEpVMV9RNGgzUG1leHBjS0t1ektSR0pBWXJUck9lN0d2S0dycmhw?oc=5",
-      "published": "2026-10-22T09:32+08:00",
-      "source": "www.caiwennews.com",
-      "source_url": "https://www.caiwennews.com",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "昂立教育成立科技公司，含AI软件开发业务    www.caiwennews.com",
-      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S36"
-    },
-    {
-      "market": "A股",
-      "title": "【立方早知道】AI短剧概念牛股遭监管警示/杉杉股份拟定增40亿加码锂电/多只连板股提示风险 - 大河财立方",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBUTXFvU2U1NWRWdnZUdEs1dWJWbXU1MmthSUVZUW5OMDFkdFNNVUV0UHBPaDlZbE8tLXVoLVRWVHNqdWp6anVTYTNVZGU5NEVkYy1mTEs4dHFkVzgteFZFQXhZZ3VQdTFyWnc?oc=5",
-      "published": "2026-10-22T08:00+08:00",
-      "source": "大河财立方",
-      "source_url": "https://app.dahecube.com",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "【立方早知道】AI短剧概念牛股遭监管警示/杉杉股份拟定增40亿加码锂电/多只连板股提示风险    大河财立方",
-      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S37"
-    },
-    {
-      "market": "A股",
-      "title": "“超级牛散”章建平大幅加仓，与葛卫东看中同一公司！答案就藏在AI算力里！ - 证券市场周刊",
-      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1tWDd3SmxfWVFaYVJnVmRPdC13dkEtMkNMZTJELU1icnM3bEVlaWtlb2tBWS1uM3E5dEFhb2ZQRmZDTFA1b2ZxUTZHcXNnOTdQemwwdWdZakJMV1d5dFFtMmdvX1VTUQ?oc=5",
-      "published": "2026-10-21T21:01+08:00",
-      "source": "证券市场周刊",
-      "source_url": "https://static.weeklyonstock.com",
-      "source_tier": "unrated",
-      "source_tier_label": "未分级来源",
-      "snippet": "“超级牛散”章建平大幅加仓，与葛卫东看中同一公司！答案就藏在AI算力里！    证券市场周刊",
-      "query": "A股 科技创新 产业政策 业绩 公司公告",
-      "id": "S38"
-    },
-    {
-      "market": "A股",
-      "title": "112家科创板公司三季报出炉 营收净利双高增印证“科技成色” - 21财经",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOdnNLbENoUFAtcHNUUE80Q2MwTzBQdmtwS081c1VnanJoT1gwM2VhQ1M3WGpjYmJiNDc4RE5Jcmd2Z05LZFh6dmxqN1dNZzRLWEVMOWkxd3dnLV9mR05mWWdJMmZKUy1yc240SGNlUWpJYjg1YkJCSFRvdG1sR0hrZzlLR1NtMHcwVTRBb0h3OA?oc=5",
-      "published": "2026-10-27T18:30+08:00",
-      "source": "21财经",
-      "source_url": "https://www.21jingji.com",
+      "market": "市场",
+      "title": "南华基金权益市场周报【2026/10/19-2026/10/23】 - 手机新浪网",
+      "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxOaWF0dVNMU0taQ3pHb204VlpBajJrYUt1eFNVVm82YWlDSmk5cEFWQjY1UDl3Z3NSZk85SWU2UXBmS2EwWWg0WFJGZ2lrZFdWNGxUMWU0dW5LWHJIZkRFUHlGX1ZUSmFJR0Z2MUpOWU84Q3NoaldLeEZNX0hxWVBobmtUOWZkZVRwTXB5a0FLaVAwUXNGZ0R5ZU5yVDlaX3MydXJ1bFkwNzB2c3lZN2tzOElIeFB2QUE5T0dwNnR6N0tSN0NGN0xxVVpCNmcwakM0M0NCa2xCRldIUnM5OXc?oc=5",
+      "published": "2026-10-27T17:49+08:00",
+      "source": "手机新浪网",
+      "source_url": "https://k.sina.com.cn",
       "source_tier": "media",
       "source_tier_label": "财经媒体域名",
-      "snippet": "112家科创板公司三季报出炉 营收净利双高增印证“科技成色”    21财经",
-      "query": "A股 科技创新 产业政策 业绩 公司公告",
-      "id": "S39"
+      "snippet": "南华基金权益市场周报【2026/10/19-2026/10/23】    手机新浪网",
+      "query": "A股 港股 市场 一周 科技板块 资金 政策",
+      "id": "S11"
     },
     {
-      "market": "A股",
+      "market": "港股",
       "title": "恒指跌逾1%，关注港股通互联网ETF国联 - 手机新浪网",
       "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQZXYzektNeFE4WFhEN3gxMWdpeDJIRmNHdkRkSVg0ZXpUQzdwWkdmNEl0ekRnUlNYTHpGQ1RXdUVZQ0JjSDJ3bkxPOU96WTdqMnRiTGNZUGxfczVoVXI3TWltWGdtRnpQU3Y1NVBNaWtzX3ZiWU5GQm9Ebzl0V0J3Q2xJUmpwOXdBTV8zRHllQXdPRHNEdEE?oc=5",
       "published": "2026-10-27T17:43+08:00",
@@ -683,74 +233,204 @@
       "source_tier": "media",
       "source_tier_label": "财经媒体域名",
       "snippet": "恒指跌逾1%，关注港股通互联网ETF国联    手机新浪网",
-      "query": "A股 科技创新 产业政策 业绩 公司公告",
-      "id": "S40"
+      "query": "港股 科技创新 腾讯 阿里 美团 小米 业绩",
+      "id": "S12"
     },
     {
-      "market": "A股",
-      "title": "Anthropic冲刺万亿级IPO引共振 智谱涨近9%领跑市场 - 财联社",
-      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE04U3pBbU13dVZmS1dlbmJDVnRPR0FUQS15U0VCSDEzT21DWjVYZHdLS0NOMGVaUWdwMlVWX1ZTWmMzc0NxamlCUA?oc=5",
-      "published": "2026-10-27T10:37+08:00",
-      "source": "财联社",
-      "source_url": "https://www.cls.cn",
-      "source_tier": "media",
-      "source_tier_label": "财经媒体域名",
-      "snippet": "Anthropic冲刺万亿级IPO引共振 智谱涨近9%领跑市场    财联社",
-      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
-      "id": "S41"
-    },
-    {
-      "market": "A股",
-      "title": "万联证券：A股修复逻辑渐清晰 - 21财经",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPMlNpdG4yN2JFOHhvVGFuamYyeTZoWkxCM2d1aWpuVGlaMGNyRGl1UHRLOXJqSVprWWJReTNPY2RaenVQbEJNeTZhaWhVbEFmMjYwdHlMREtyVWxROEp0dm4wWHdIRl9mRkI1TUVIemRPNXREVEUxdWZ4STFtRjNTdi1yQ1picUdTYTltd3BZYw?oc=5",
-      "published": "2026-10-26T21:53+08:00",
-      "source": "21财经",
-      "source_url": "https://www.21jingji.com",
-      "source_tier": "media",
-      "source_tier_label": "财经媒体域名",
-      "snippet": "万联证券：A股修复逻辑渐清晰    21财经",
-      "query": "A股 科技创新 产业政策 业绩 公司公告",
-      "id": "S42"
-    },
-    {
-      "market": "A股",
-      "title": "华夏基金：坚定看好A股中长期投资价值 - 手机新浪网",
-      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQTFU5YXlvSU9Ca1BxV2g0a0VMejZQckJXS1lYRDdweENPUGR5TEN3YlBZd01GUHpmbkc0UGNDS01WTnlzcF9NTVI2SDZSWDVTenc5Q0JfR0tHQlQtb1o1NnczXzBVVFg3Z0s4bG5sbEhsYVQ2aHVxWW9sY3NpU1BJN3dR?oc=5",
-      "published": "2026-10-26T05:33+08:00",
+      "market": "港股",
+      "title": "港股互联网跌了一年，现在能买吗？盈利拐点已现，国联159089建仓位置最好 - 手机新浪网",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOX3FRZXZfQWh2VGxvbTZxVG5iam13Z3dyc0hKT2VHNTdCQ3RZbUNRdHRjdm1hZzdhRG05YV9kR2l0blVXdklKdEpQb05DTnVsdDZKSWVYbWV4UGtuZmtIdDg4Zm5JLTRmblA3bEhtUy1JR3U5ZlJCN0lwaHFTWXU3d3RSNA?oc=5",
+      "published": "2026-10-26T17:40+08:00",
       "source": "手机新浪网",
       "source_url": "https://k.sina.com.cn",
       "source_tier": "media",
       "source_tier_label": "财经媒体域名",
-      "snippet": "华夏基金：坚定看好A股中长期投资价值    手机新浪网",
-      "query": "A股 科技创新 产业政策 业绩 公司公告",
-      "id": "S43"
+      "snippet": "港股互联网跌了一年，现在能买吗？盈利拐点已现，国联159089建仓位置最好    手机新浪网",
+      "query": "港股 科技创新 腾讯 阿里 美团 小米 业绩",
+      "id": "S13"
     },
     {
       "market": "A股",
-      "title": "三季报预增，这8家创新药产业链公司率先\"报喜\" - 财富号",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5Xemd2QkhJSFhyN0JDRmQ1S3UtSDNKcENKY081T2Z1YlFUb2xhV0ZEaGtTZVFHSzZNQUFWdHdWMVpVYWd4aVpNZmxnNFdNSXFDYVJaZjVvbjJ6bk1uZzdKcnU2NnFLN184R1dj?oc=5",
-      "published": "2026-10-24T10:10+08:00",
-      "source": "财富号",
-      "source_url": "https://caifuhao.eastmoney.com",
+      "title": "10月21日东方财富财经晚报（附新闻联播） - 东方财富",
+      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1JZlhMS0NRdDlXRlV1MGFiWG9pT1dZdG5wWFM4OUY4eWcyNHduVU1DMHo5MWZEQTlhbVJITzBfbElldjVrcHZPYUhUYm43SFd3UFBqZTFNTXJLWUtRLV82dlBJUDVJZw?oc=5",
+      "published": "2026-10-22T02:28+08:00",
+      "source": "东方财富",
+      "source_url": "https://finance.eastmoney.com",
       "source_tier": "media",
       "source_tier_label": "财经媒体域名",
-      "snippet": "三季报预增，这8家创新药产业链公司率先\"报喜\"    财富号",
+      "snippet": "10月21日东方财富财经晚报（附新闻联播）    东方财富",
       "query": "A股 科技创新 产业政策 业绩 公司公告",
-      "id": "S44"
+      "id": "S14"
+    },
+    {
+      "market": "市场",
+      "title": "“V”形反弹后再度回落，A股何时企稳？夏春：不要盲目抄底 - https://www.caiwennews.com/",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1Va2o2QVdiLUVBRGhoTFpvMUNsQ3JkVGJFQlI5VU9vLXBydTFzUnpxRkRGT2Q0a0lQXzA1dm1WSWkyMDlOTmdSNHZVVmVWSFNLVDNkYTFwS2RLeVZW?oc=5",
+      "published": "2026-10-28T07:00+08:00",
+      "source": "https://www.caiwennews.com/",
+      "source_url": "https://www.caiwennews.com",
+      "source_tier": "unrated",
+      "source_tier_label": "未分级来源",
+      "snippet": "“V”形反弹后再度回落，A股何时企稳？夏春：不要盲目抄底    https://www.caiwennews.com/",
+      "query": "A股 港股 市场 一周 科技板块 资金 政策",
+      "id": "S15"
+    },
+    {
+      "market": "港股",
+      "title": "港股科技指数大乱斗｜林小珍 - 星島頭條",
+      "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxNbWZ4TzlvU2JGS2NXY2xWUlIyMm1jc2RzT2tBOHU0dC1tMHhTZzZlbG9VUjEyaUhPQU50WHZiYW0tVWtNa0tTTjJWS1dHRHllZnBpclc5S0RLYXdla0NWdkRPeklhdFM0V3VkQURGQW5yNU50cGI3Tk5Id1l4WXVXSXZreGRqRkVXVjBzTDZzSGVQbjMxcHA5ODRtS3lydUt3TkMyOGkzVnBKNXRvNG1MNDlieEpQc1ZlbUREUWdZZkd6RFo4aHVKZVdPdVdpZVFFSEFxaEt2WjdBNDU1NG0yVDRJa0F2ajlDWlJJajBPd0Z3UG5h?oc=5",
+      "published": "2026-10-27T11:01+08:00",
+      "source": "星島頭條",
+      "source_url": "https://www.stheadline.com",
+      "source_tier": "unrated",
+      "source_tier_label": "未分级来源",
+      "snippet": "港股科技指数大乱斗｜林小珍    星島頭條",
+      "query": "港股 人工智能 AI 半导体 算力 机器人 科技股",
+      "id": "S16"
+    },
+    {
+      "market": "港股",
+      "title": "恒指半日微跌31点 小米急挫逾4% 联想飙近6%冠蓝筹 AI概念股纷造好｜港股开市 - 星島頭條",
+      "url": "https://news.google.com/rss/articles/CBMizwNBVV95cUxOaTJjNzFhOGJFaXdSeElOYzVLTEdXaXl5S2xTRjN0VzRaNDRTbm13OHFtdTNmVS1rU3lyc3VSYTV3dHVkbkttWjFxNjZIVl9IdXNuRU5qeGZCQVJMTG5zdUtKVEhpUWhxOHBZV2hhWE1DZWg3dVJMR0NUbU9FaHhoU1NMZnZETElXUERnc2VZTnBEN3UwbS1tY2ZsazB6RFN0M3BENHhxR21WYnlEdXdPMHZrMHRoX1FwaFVUVG01dHdPY3Y2VG1iZHF1dmxqU1FORkdtSk03akNBWmF3WHg3cGlYTVFFMjJsWnVuU2NXYi14cERTUEZwM1g3MkZXTDBidlVMRS1neTAzN1ZrbXJ4c1ZSYlJMYUk3V2pSQXI2VWU5WnpNQTk5bzV6WC0wMDljYlE4OFkyRTNMMmJadFVhbzhGSVJJYWRxQ2FSQ250SnpodF9pVjl6V2hnT3hNSndwc1FTQUdqai11UVhlamxrdWxpQURQT2NNMzJ3UkpuY3lOX1JpSWxaWHdReTVnSUltYlRaOFFyb3NtbmcxR25mQnpybzNhU21TS3duSDhyZGpBMm1ESjBSYXlESU56eHphRk5hZGV5ZnVpbkFUbGNr?oc=5",
+      "published": "2026-10-27T09:24+08:00",
+      "source": "星島頭條",
+      "source_url": "https://www.stheadline.com",
+      "source_tier": "unrated",
+      "source_tier_label": "未分级来源",
+      "snippet": "恒指半日微跌31点 小米急挫逾4% 联想飙近6%冠蓝筹 AI概念股纷造好｜港股开市    星島頭條",
+      "query": "港股 科技创新 腾讯 阿里 美团 小米 业绩",
+      "id": "S17"
     },
     {
       "market": "A股",
-      "title": "华夏基金轩伟：坚定看好A股中长期投资价值，资本市场中长期向好态势并未改变 - 财联社",
-      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE8tRTJ0N2tiVUp2OFNGSVNVT3V2WlRDSkphV1l1cC1JYkNyTE15SlN6UmRzSDlCanNEcEJnblJwdlk0THQ0ZkRpdw?oc=5",
-      "published": "2026-10-23T21:22+08:00",
-      "source": "财联社",
-      "source_url": "https://www.cls.cn",
-      "source_tier": "media",
-      "source_tier_label": "财经媒体域名",
-      "snippet": "华夏基金轩伟：坚定看好A股中长期投资价值，资本市场中长期向好态势并未改变    财联社",
+      "title": "直击寒武纪业绩会：陈天石回应存货与市场传言 - Moomoo",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOcWhhdm12X0FSc3liX0NZczYzVmRCX0FFcTdXZy1OdGJMcml6SkF1UlFOQm5ZdW5lMVZsWHJYY2RiU1g1T19RV2s3N2pUQ1dKb1V5cEgzQlc4akh6Mnd0OEZtR2YtSG1HVTQxaC0tenBfYVpjbHc1cGV4eXJIekxhSHJvTGR0eE9UTDk0TGkwQTV0dU1Yd1Vnd0RpcXdMU3F2M24tREt3M0czY19SWXRKUExvdFJZWU5id19YdGtB?oc=5",
+      "published": "2026-10-26T20:33+08:00",
+      "source": "Moomoo",
+      "source_url": "https://www.moomoo.com",
+      "source_tier": "unrated",
+      "source_tier_label": "未分级来源",
+      "snippet": "直击寒武纪业绩会：陈天石回应存货与市场传言    Moomoo",
       "query": "A股 科技创新 产业政策 业绩 公司公告",
-      "id": "S45"
+      "id": "S18"
+    },
+    {
+      "market": "A股",
+      "title": "英伟达GTC柏林大会要点：下一波人工智能机遇何在 - Moomoo",
+      "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOak9XN2Z3dTNLOWdJQTJyWEhIcTE1bjh5dnh5X0tvX0NtQkFEZEFIRzBXYkNJNUlSd0ZkbkRvVm5pNmNLeHhHRFdtdVppaFQ2VTg1WGtHU3Y3Njc5YXdNbWE4eXFWWVRhOVBjeC1RdUZib1A1dDdvVkVKNXJ4czIyQkxlSnp1RTBTMGl5MVJibXlOaUNUTV9GcVZwbEZNaEhKOFVjS09zdEU4QlZEbDF0cWgtbU15c1NKX0Vpa0RB?oc=5",
+      "published": "2026-10-22T19:02+08:00",
+      "source": "Moomoo",
+      "source_url": "http://www.moomoo.com",
+      "source_tier": "unrated",
+      "source_tier_label": "未分级来源",
+      "snippet": "英伟达GTC柏林大会要点：下一波人工智能机遇何在    Moomoo",
+      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
+      "id": "S19"
+    },
+    {
+      "market": "A股",
+      "title": "科技赛道剧烈波动！资金逆向布局：两类主动权益基金三季度获大额申购 - 证券之星",
+      "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1kUGlFbEtSTFB1QnQ0NU9MRmlOQmdlblpIdm1sUUNHajEyNUc2aG8zWHRfMzVvQloyQ3JnLTVfTm5ubWVpUnNiREplT1hfX1hRQVpRYWROZ2xEOUdyZGdwZUFR?oc=5",
+      "published": "2026-10-28T13:03+08:00",
+      "source": "证券之星",
+      "source_url": "https://stock.stockstar.com",
+      "source_tier": "unrated",
+      "source_tier_label": "未分级来源",
+      "snippet": "科技赛道剧烈波动！资金逆向布局：两类主动权益基金三季度获大额申购    证券之星",
+      "query": "A股 科技创新 产业政策 业绩 公司公告",
+      "id": "S20"
+    },
+    {
+      "market": "A股",
+      "title": "张一鸣以6700亿元刷新中国首富财富纪录！ - 文学城",
+      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE82R05YeHdTSzNXR0R1TzdYTVZaeWxKX05UdDAtV3BGdUhaWnZEWThsUUFCYVRid1F0d2IwNi1NbjNSMk40N1RXQVlyeV82eDh2ZVZWQ2dLbkMxdnpKWWpjWE5CYjI3UXdX?oc=5",
+      "published": "2026-10-28T11:40+08:00",
+      "source": "文学城",
+      "source_url": "https://www.wenxuecity.com",
+      "source_tier": "unrated",
+      "source_tier_label": "未分级来源",
+      "snippet": "张一鸣以6700亿元刷新中国首富财富纪录！    文学城",
+      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
+      "id": "S21"
+    },
+    {
+      "market": "港股",
+      "title": "临近收盘，601086直线涨停！A股这一赛道，尾盘异动！-证券之星 - 证券之星",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBLU19QcldLUktJU0N4b3lpc2ZSYlNvZENETUE4RVZDend0V1BZMndscjV3YWdLejhBZ1NScTRGc2dHRkhnYnFnQk82aXBIUFZtWVBlZXdjWERnLVVnUXc?oc=5",
+      "published": "2026-10-27T16:35+08:00",
+      "source": "证券之星",
+      "source_url": "https://hk.stockstar.com",
+      "source_tier": "unrated",
+      "source_tier_label": "未分级来源",
+      "snippet": "临近收盘，601086直线涨停！A股这一赛道，尾盘异动！-证券之星    证券之星",
+      "query": "港股 人工智能 AI 半导体 算力 机器人 科技股",
+      "id": "S22"
+    },
+    {
+      "market": "A股",
+      "title": "科创50跌4%，千元股仅剩贵州茅台，工行建行再创新高，30年期国债创年内新高，恒科指跌超1%，智谱涨9% - 华尔街见闻",
+      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE42bkRVQWlFZGVGQ3FORDNBY3BhSkNjTVcxV280eDhiSzM4bVg3azYzcjlScVN0OUN3dEVScXYyeE5yc1FkX2tDTlNuQmFZY3lvTE1F?oc=5",
+      "published": "2026-10-27T16:16+08:00",
+      "source": "华尔街见闻",
+      "source_url": "https://wallstreetcn.com",
+      "source_tier": "unrated",
+      "source_tier_label": "未分级来源",
+      "snippet": "科创50跌4%，千元股仅剩贵州茅台，工行建行再创新高，30年期国债创年内新高，恒科指跌超1%，智谱涨9%    华尔街见闻",
+      "query": "A股 人工智能 AI 半导体 算力 机器人 上市公司",
+      "id": "S23"
+    },
+    {
+      "market": "港股",
+      "title": "港股午评：高开低走！恒指跌0.14%，科网股、中资券商股齐跌_市场分析 - 中金在线",
+      "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9XSTdzNkZabTR0cXJwM25fSzRNTEJyTUQwaEpybmFRR0tBNkFOdEw1MS02dlMtWXpmcnVLRlZDakFycldWX0tpMGxpN3VYQnZlSW82SFhCSVpGYUMzcjN3QlVXXzY4MHhxcVNiNWFNdw?oc=5",
+      "published": "2026-10-27T15:14+08:00",
+      "source": "中金在线",
+      "source_url": "http://hkstock.cnfol.com",
+      "source_tier": "unrated",
+      "source_tier_label": "未分级来源",
+      "snippet": "港股午评：高开低走！恒指跌0.14%，科网股、中资券商股齐跌_市场分析    中金在线",
+      "query": "港股 科技创新 腾讯 阿里 美团 小米 业绩",
+      "id": "S24"
+    },
+    {
+      "market": "市场",
+      "title": "A股、港股止跌反弹，趋势何时反转？ - 新浪财经",
+      "url": "https://news.google.com/rss/articles/CBMikwtBVV95cUxQWkl5TUJtX3Y5dERHR2pjdXh4RG9MZzdUS042TS10U01FWFlZZTU0UFBZbnk0d1VwcFNfYVdXM1BJZUJIZ21TaF8wU190MnpXVDg2d3Q1RXdPNVFjWGRlVFgtS2xkRzJQLWhkTDhkM2VaOWFJOVFMUUZnWUNEMVFEbDBPSzVQS2paRlZ6bUhxT2dYMHJiampKR3g5UVhzSEhWa0gtSWV0N0ZmVXNzcDlpMmZETWY1SjhTb3ZBTy05Y1VKRER4RFY2dnpRekZUNDBWQms2SXY5M2tjWmU0MzJVQm5LZk5vYlZTR3VZUDlNTVZpdWwxVElXMnRFMTAwQjFUS0k0Z1NmVng0M2JTd0RoQ09JbEdNNlFQUldNZWhHc0dlWWVrUDU5N2I0MGhOZXBxNTMzQ0FQZ1RYVFZzWnNXNXlaUjZ6UjNKcVpXZERUQTFaRFkwbGZqSExyblluNWc3VHVCNjJ4MzdmN1ljeDd5S2RGQ2g2dDNRNFVsd242bkVobld0c3dlYXRRbkk3Z2dWeXdLZkRSMUF5ZVFpWkQtQUJKWGJfWnEwMTRtUi1DbF90N3U2TEtQVW5IaTI3dXJiWlloN0RLaUJnWWZDdmVYbGxJUmY5b242a0ozUm9HNXhtWmhURF9nWnJHYkNhNTdTNXRjOWVlQjNxMHFCRmJwcFNDY0RhVnpuR2dDYWhHNmZLSTJ4UmpvUlNkcmtnWTZFTUlaelZzWjFiTUlBenVUY2k3enpLT0FpVzRaUDdZdHhScFBMUGlIN1ZqVnpLSHNnUmhMOHZyd0p4Z1pCSUJTc1Y5Z3FLcDBsdXliSllIOWFyMkpnRDMxMFIwVEFQazNSSndPVExPMy0zc01MQ3ZfcFMyU0pMMGloOS1TZ08xaUpINXJJQjdvb0dwcy1BeU1FMDV5UWUwcURCRDZFNE9vSjJuQXdBcDZuX0tyaVZvXzFkdVlIMnQzS1FDRm9qeUJMb3dMclkxZ2FsbjN4SWxtNFNQQ2ZkVVZDM3h1bjM0dGl6ZnJxbmg2MWRBSURieDdRUDlBTm95LVFsNmhGUGxTNk5kVzltUFYtZjFBRDFYdEpUaEsxcUJnUm0weU9UR1ZEbGlLWEkzOGFHOFNaZVlKbnU1VVY2RmFVNzh2QmJ3OWluMHBWLXNHc0pRMGI4Tno3NzVBdEZIdnJVdU1NcmdocTYzd2NDMkVOc0NvYU8yTWZmZGllQktjU1Mtd2lZRmFKb0J2elFjN09wQzFhRDZ5M18zem1SdXR1NUd4X1NJQXljT016NkZNc2NjUTNmUFo5V2U1VU5Vbjl4eWQyNTVOMFpnLWdWM0tUdUgwQ2hPQ3hXUjBiU3c2WTVRMmNMZlFXR1AzN2d6N18yZVdQNWZxZzJjZGsxMVplWmRNVTZpU1E4ZzdPQnp2cVlxMW9ieWxJVjRPQklyRG9qdUFZaUc3dDR3UDVmdzZFVkc0T1VaN0p5RXZDdUFfOTh2alNZcTNfMDNqTHBvRG45cmt6S0dobnhoTllZNGtxbDFtaWtMeE5mZmIyTEdPMEFfV19xRGNWbzlUclprT095d202ZGU0cVhqeTRwWFM1OE9Nd3lzbDNxWWh5a0h2SV81M2ZidEVWX3RyejVWaFVUUWVNMlVkNkJlNC0yLWd0ZDFKZUZEbE5lb09aMzdySmZiME5wZjN0UVlQcldLQXhmWkdUeFQxODlTWnNhak8xMlNGTWxTdFB5Z2hpY1FNc3RxYmFGQ29vSFNiQmEzZUwySkt2a2ZLTkFmcnhCU1llNVltYnBma0o2ODBIdGJGOXNzaUt3UzRjNGhQOE10eF9PRWlia0NkTkZMcU9fX3A0NDgtN1lDSkxuU2RsYUR5VDRwdkxwUFd4cmVkU0tfYWVNZVV6WWg5QkFlWQ?oc=5",
+      "published": "2026-10-23T22:22+08:00",
+      "source": "新浪财经",
+      "source_url": "https://finance.sina.cn",
+      "source_tier": "unrated",
+      "source_tier_label": "未分级来源",
+      "snippet": "A股、港股止跌反弹，趋势何时反转？    新浪财经",
+      "query": "A股 港股 市场 一周 科技板块 资金 政策",
+      "id": "S25"
+    },
+    {
+      "market": "市场",
+      "title": "港股调整背后：机构操作分化 静待“黄金坑” - 新浪财经",
+      "url": "https://news.google.com/rss/articles/CBMioARBVV95cUxPRTFWQVZCTjZlVGpsTEtBdjc4Y2RRWVF1ME1oUHQzd0UtOEdFaWRJMkJoeUllNUxpUG1VWXVYZUJyRHBSYWN0bko3bU1zQVR6WEotZ0Nab1Q3aUI1T25WRF9yX2ZfMUtINnpodG1TR2hnbktBYlNjMTc4eUdoVi13VGI0OWR3YURDLWlZRFdNNFlzbl95ZnFzS1MzalVDUEFEYVVlUUJqSHpSaHREMFphOUxMZDltMmVoOWtqdE9GYWZJUlg4SjQtTWVzNlJQbm8xWUstaURVcWNCVHZ6RVk4WjVZSzI5SGdpZDZrWF9ZcVdSRHVNYUY4YUpvR3Q3SjdCVkdPYmJkRF9RYkU5TVlDS2liaDlzVE1JVzdDczctdE14ZUhJbjktdVdIaGVXbWVIQk1wSzltOGdldm9HTWZJdmZXSUpWOVkwN193SnNvb1BaTU10MkJLN2NRMkhYbmRsNTJfSGQ4SDV5MHd4UVlXUVY3WUc4cG5UZzNXSUtGZnR3N1l4aVNVQnBaSGdZcmIteEh2UTEzeTRBdjRrbGNvZ2xwS2xIS3BJNnRiOVo4RGl3S0ZzNUp4dm8zN1M0WWE3TURtNTBRVFQ5M19kWWJmT1gtdUhtYndadHBSN0pnazVLUFJybXZxN2FHb3R2bTFVSFJfQ2paQmtxaThWLXRDeXVYMzV1Y0xpc0tKb01pR2FNZVNVNzJ4VFQzVUlNOFF1?oc=5",
+      "published": "2026-10-23T15:00+08:00",
+      "source": "新浪财经",
+      "source_url": "https://finance.sina.cn",
+      "source_tier": "unrated",
+      "source_tier_label": "未分级来源",
+      "snippet": "港股调整背后：机构操作分化 静待“黄金坑”    新浪财经",
+      "query": "A股 港股 市场 一周 科技板块 资金 政策",
+      "id": "S26"
+    },
+    {
+      "market": "港股",
+      "title": "港股再迎调整：恒科指跌超5%，短线何时企稳？ - 华尔街见闻",
+      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5TNTg2Y3lKejZaeV9kVzhadzVYZ0EzSUc1MWpNNjdYTEdoN1Q1Nzk2V0Y4aVhDR29ZdktBX09PVFQ0cExLS0h4S2FKNUdlYlpXVXow?oc=5",
+      "published": "2026-10-22T23:33+08:00",
+      "source": "华尔街见闻",
+      "source_url": "https://wallstreetcn.com",
+      "source_tier": "unrated",
+      "source_tier_label": "未分级来源",
+      "snippet": "港股再迎调整：恒科指跌超5%，短线何时企稳？    华尔街见闻",
+      "query": "港股 人工智能 AI 半导体 算力 机器人 科技股",
+      "id": "S27"
     }
   ],
-  "generated_at": "2026-10-28T09:57:00+08:00"
+  "generated_at": "2026-10-28T15:12:00+08:00"
 }
