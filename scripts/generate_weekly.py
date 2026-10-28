@@ -211,8 +211,10 @@ def call_deepseek(items: list[dict], period: dict) -> dict:
         report = json.loads(output)
     except json.JSONDecodeError as exc:
         raise RuntimeError(f"Model output was not valid JSON: {output[:500]}") from exc
+    valid_ids = {item["id"] for item in items}
+    validate_report(report, valid_ids)
     apply_quality_filters(report, items)
-    validate_report(report, {item["id"] for item in items})
+    validate_report(report, valid_ids)
     return report
 
 
@@ -257,8 +259,9 @@ def deduplicate_stories(stories: list[dict], sources: dict[str, dict]) -> list[d
         ids = set(story.get("source_ids", []))
         duplicate = next(
             (existing for existing in kept
-             if ids & set(existing.get("source_ids", []))
-             or title_similarity(story_text(story), story_text(existing)) >= 0.48),
+             if title_similarity(story_text(story), story_text(existing)) >= 0.48
+             or (ids & set(existing.get("source_ids", []))
+                 and title_similarity(story_text(story), story_text(existing)) >= 0.25)),
             None,
         )
         if duplicate is not None:
