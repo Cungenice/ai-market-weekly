@@ -15,6 +15,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
+from html.parser import HTMLParser
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -37,7 +38,7 @@ TOPIC_TERMS = ("人工智能", "AI", "半导体", "芯片", "算力", "机器人
 EVENT_TERMS = ("公告", "披露", "业绩", "财报", "订单", "合同", "融资", "上市", "政策", "指数", "监管", "发布", "收购")
 OPINION_TERMS = ("传闻", "预测", "或将", "有望", "押注", "观点", "策略")
 MARKET_SIGNAL_TERMS = ("指数", "成交额", "成交量", "换手率", "资金流", "南向资金", "北向资金", "港股通", "融资融券", "回购", "增持", "减持", "解禁", "股价", "收盘", "涨幅", "跌幅", "波动", "估值", "交易异动", "大宗交易")
-ROUTINE_FUND_TERMS = ("ETF季度报告", "ETF季报", "基金季度报告", "基金季报", "基金净值", "基金份额", "基金规模")
+ROUTINE_FUND_TERMS = ("净申购", "净赎回", "基金份额增加", "基金份额减少", "份额变动", "持仓变动", "规模明显变化", "规模增长", "规模下降")
 CONTEXT_TERMS = ("科创50", "科创板", "恒生科技", "恒科指", "港股科技", "科技股", "科网股", "南向资金", "港股通互联网", "科技板块", "科技赛道", "人工智能指数", "半导体指数", "产业政策", "AI主题基金", "科技主题基金")
 MARKET_TERMS = ("A股", "港股", "上市公司", "股票", "股价", "股市", "指数", "ETF", "资金", "成交", "涨", "跌", "市值", "营收", "净利润", "业绩", "财报", "三季报", "订单", "合同", "融资", "IPO", "招股", "港交所", "交易所", "公告", "监管", "产业政策", "基金", "投资者", "资本市场")
 
@@ -95,15 +96,109 @@ def fetch_feed(market: str, query: str, start: dt.datetime, end: dt.datetime) ->
     return entries
 
 
+def fetch_sse_weekly_item(start: dt.datetime, end: dt.datetime) -> dict:
+    """Fetch the exchange's published weekly stock-trading statistics."""
+    url = "https://www.sse.com.cn/market/stockdata/overview/weekly/"
+    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+
+    class TableParser(HTMLParser):
+        def __init__(self) -> None:
+            super().__init__(convert_charrefs=True)
+            self.tables: list[list[list[str]]] = []
+            self.current_table: list[list[str]] | None = None
+            self.current_row: list[str] | None = None
+            self.current_cell: list[str] | None = None
+
+        def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+            if tag == "table":
+                self.current_table = []
+            elif tag == "tr" and self.current_table is not None:
+                self.current_row = []
+            elif tag in ("td", "th") and self.current_row is not None:
+                self.current_cell = []
+
+        def handle_data(self, data: str) -> None:
+            if self.current_cell is not None:
+                self.current_cell.append(data)
+
+        def handle_endtag(self, tag: str) -> None:
+            if tag in ("td", "th") and self.current_cell is not None and self.current_row is not None:
+                self.current_row.append(re.sub(r"\\s+", " ", "".join(self.current_cell)).strip())
+                self.current_cell = None
+            elif tag == "tr" and self.current_row is not None and self.current_table is not None:
+                self.current_table.append(self.current_row)
+                self.current_row = None
+            elif tag == "table" and self.current_table is not None:
+                self.tables.append(self.current_table)
+                self.current_table = None
+
+    with urllib.request.urlopen(request, timeout=25) as response:
+        page = response.read().decode("utf-8", errors="replace")
+    text = html.unescape(re.sub(r"<[^>]+>", " ", page))
+    text = re.sub(r"\\s+", " ", text)
+    date_match = re.search(
+        r"数据日期\\s*[：:]\\s*(20\\d{2}-\\d{2}-\\d{2})\\s*至\\s*(20\\d{2}-\\d{2}-\\d{2})",
+        text,
+    )
+    if not date_match:
+        raise RuntimeError("SSE weekly page did not expose a dated statistics period")
+    period_start, period_end = date_match.groups()
+
+    parser = TableParser()
+    parser.feed(page)
+    weekly_table = next(
+        (table for table in parser.tables if table and "本周情况" in table[0] and "科创板" in table[0]),
+        None,
+    )
+    if not weekly_table:
+        raise RuntimeError("SSE weekly page did not expose its statistics table")
+    header = weekly_table[0]
+    kcb_column = header.index("科创板")
+    total_column = header.index("股票")
+
+    def metric(name: str, column: int) -> str:
+        row = next((row for row in weekly_table[1:] if row and name in row[0]), None)
+        if row is None or len(row) <= column:
+            return ""
+        return row[column]
+
+    total_turnover = metric("成交金额(亿元)", total_column)
+    kcb_turnover = metric("成交金额(亿元)", kcb_column)
+    kcb_turnover_rate = metric("换手率(%)", kcb_column)
+    if not total_turnover or not kcb_turnover:
+        raise RuntimeError("SSE weekly statistics table is missing turnover values")
+
+    return {
+        "market": "A股",
+        "title": f"上交所周度股票成交统计：科创板成交额与换手率（{period_start}至{period_end}）",
+        "url": url,
+        "published": end.isoformat(timespec="minutes"),
+        "source": "上海证券交易所",
+        "source_url": "https://www.sse.com.cn",
+        "source_tier": "official",
+        "source_tier_label": "交易所官方周度市场数据",
+        "snippet": (
+            f"上交所每周股票情况，官方数据日期为{period_start}至{period_end}。"
+            f"股票市场成交金额{total_turnover}亿元；科创板成交金额{kcb_turnover}亿元，"
+            f"科创板换手率{kcb_turnover_rate or '页面未提供'}%。"
+            "该统计反映成交活跃度，不代表指数涨跌或AI子行业表现。"
+        ),
+        "query": "上海证券交易所每周股票情况（官方市场统计）",
+    }
+
+
 def is_relevant_source(item: dict) -> bool:
     text = f"{item['title']} {item['snippet']}".lower()
     has_topic = any(term.lower() in text for term in TOPIC_TERMS + CONTEXT_TERMS)
     has_market_link = any(term.lower() in text for term in MARKET_TERMS)
-    routine_fund_report = any(term.lower() in text for term in ROUTINE_FUND_TERMS)
-    # Routine ETF/fund filings are retained only when they contain a distinct,
-    # market-relevant signal such as flows, turnover, or a material position change.
+    fund_product = any(term in text for term in ("ETF", "基金", "QDII", "交易型开放式指数证券投资基金"))
+    periodic_report = bool(re.search(r"(第\\s*[123四三二一]\\s*季度报告|[三二一]季报|季度报告)", text))
+    routine_fund_report = fund_product and periodic_report
+    # A routine fund filing is retained only when its visible title/snippet
+    # actually states a flow, position, or scale change with market meaning.
     has_market_signal = any(term.lower() in text for term in MARKET_SIGNAL_TERMS)
-    if routine_fund_report and not has_market_signal:
+    has_fund_change = any(term in text for term in ROUTINE_FUND_TERMS)
+    if routine_fund_report and not has_fund_change:
         return False
     return has_topic and has_market_link
 
@@ -138,6 +233,12 @@ def collect_news(start: dt.datetime, end: dt.datetime) -> list[dict]:
                     existing["market"] = item["market"]
                 if item["source_tier"] == "official" and existing["source_tier"] != "official":
                     existing.update({key: item[key] for key in ("source", "source_url", "source_tier", "source_tier_label")})
+    try:
+        market_item = fetch_sse_weekly_item(start, end)
+        by_url[market_item["url"]] = market_item
+        print(f"Added official SSE weekly market data for {market_item['title'].rsplit('（', 1)[-1].rstrip('）')}")
+    except (urllib.error.URLError, TimeoutError, ValueError, RuntimeError) as exc:
+        print(f"SSE weekly market data unavailable: {exc}", file=sys.stderr)
     all_candidates = list(by_url.values())
     primary_candidates = [item for item in all_candidates if item["source_tier"] == "official"]
     resolve_primary_source_urls(primary_candidates)
@@ -185,7 +286,7 @@ def call_deepseek(items: list[dict], period: dict) -> dict:
 
 仅返回有效 JSON 对象，键为：headline, overview, overview_source_ids, ashare (summary, summary_source_ids, drivers), hk (summary, summary_source_ids, drivers), highlights (market, category, title, reported, analysis, watch, source_ids), other_updates (market, category, title, reported, source_ids), next_watch (text, source_ids)。示例：{"headline":"标题","overview":"概述","overview_source_ids":["S01"],"ashare":{"summary":"摘要","summary_source_ids":["S02"],"drivers":[{"text":"业绩披露","source_ids":["S02"]}]},"hk":{"summary":"摘要","summary_source_ids":["S03"],"drivers":[]},"highlights":[],"other_updates":[],"next_watch":[{"text":"后续观察事项","source_ids":["S04"]}]}。
 
-筛选口径：只有来自交易所、监管机构或上市公司披露等一手来源，且同时关联 AI/科技创新和二级市场、上市公司经营/业绩/订单/资本行动的资讯才纳入；纯技术进展、医疗科研、会议活动、媒体转述和聚合平台二手内容不纳入。市场表现只引用输入中的官方交易/披露数据。优先直接的指数、成交、南向/北向交易统计、融资融券、回购增减持、解禁和交易异动等二级市场数据；其次纳入能解释科技资产变化的上市公司业绩、订单和资本行动。输入来源必须已解析为交易所、监管机构或上市公司官网直达链接；Google News 只用于发现候选，不作为证据。来源域名不等于事实已独立核实。纯观点、传闻、重复转载和跑题内容不纳入重点。重点及其他动态各最多 6 则，相同事件只写一次并合并引用来源；材料不足时返回更少条或空数组。
+筛选口径：只有来自交易所、监管机构或上市公司披露等一手来源，且同时关联二级市场或AI/科技创新上市公司经营/业绩/订单/资本行动的资讯才纳入；常规ETF/基金季度报告若标题和摘要没有明确呈现净申赎、持仓、份额或规模变化，不得作为重点；纯技术进展、医疗科研、会议活动、媒体转述和聚合平台二手内容不纳入。市场表现只引用输入中的官方交易/披露数据。上交所每周股票情况可用于说明A股整体及科创板成交额、换手率，不得外推为指数涨跌或AI细分行业表现；优先直接的指数、成交、南向/北向交易统计、融资融券、回购增减持、解禁和交易异动等二级市场数据；其次纳入能解释科技资产变化的上市公司业绩、订单和资本行动。输入来源必须已解析为交易所、监管机构或上市公司官网直达链接；Google News 只用于发现候选，不作为证据。来源域名不等于事实已独立核实。纯观点、传闻、重复转载和跑题内容不纳入重点。重点及其他动态各最多 6 则，相同事件只写一次并合并引用来源；材料不足时返回更少条或空数组。
 
 重点条目中文简洁、顺畅且有信息密度：title 用短语；reported 一句、最多 80 字，仅概括报道核心；analysis 最多 60 字，解释市场含义；watch 最多 50 字，指出具体后续变量。overview 用 2—3 句概括主线。市场材料不足时简洁带过。"""
     body = {
@@ -310,7 +411,7 @@ def apply_quality_filters(report: dict, items: list[dict]) -> None:
         score, _ = story_evidence(story, sources)
         cited = [sources[source_id] for source_id in story.get("source_ids", []) if source_id in sources]
         material = " ".join(f"{row.get('title', '')} {row.get('snippet', '')}" for row in cited)
-        has_topic = any(term.lower() in material.lower() for term in TOPIC_TERMS)
+        has_topic = any(term.lower() in material.lower() for term in TOPIC_TERMS + CONTEXT_TERMS)
         if has_topic and score >= 4:
             story["_quality_score"] = score
             qualified.append(story)
@@ -327,8 +428,8 @@ def apply_quality_filters(report: dict, items: list[dict]) -> None:
     ][:6]
 
 
-def require_source_ids(ids: object, valid_ids: set[str], label: str) -> None:
-    if not isinstance(ids, list) or not ids or any(source_id not in valid_ids for source_id in ids):
+def require_source_ids(ids: object, valid_ids: set[str], label: str, allow_empty: bool = False) -> None:
+    if not isinstance(ids, list) or (not ids and not allow_empty) or any(source_id not in valid_ids for source_id in ids):
         raise RuntimeError(f"{label} has missing or unknown source_ids: {ids}")
 
 
@@ -344,7 +445,7 @@ def validate_report(report: dict, valid_ids: set[str]) -> None:
         section = report[key]
         if not isinstance(section, dict) or not isinstance(section.get("drivers"), list):
             raise RuntimeError(f"{key} must include a summary and drivers array")
-        require_source_ids(section.get("summary_source_ids"), valid_ids, f"{key}.summary")
+        require_source_ids(section.get("summary_source_ids"), valid_ids, f"{key}.summary", allow_empty=True)
         for driver in section["drivers"]:
             if not isinstance(driver, dict) or not driver.get("text"):
                 raise RuntimeError(f"{key}.drivers entries must include text and source_ids")
@@ -492,11 +593,15 @@ def render_report(report: dict, items: list[dict], period: dict, generated: dt.d
             f'<li>{esc(driver["text"])}<small class="claim-sources">依据：{render_source_links(driver["source_ids"], sources)}</small></li>'
             for driver in section.get("drivers", [])
         )
+        summary_sources = (
+            f'<p class="claim-sources">依据：{render_source_links(section["summary_source_ids"], sources)}</p>'
+            if section.get("summary_source_ids") else
+            '<p class="note">本期未获取到可引用的官方行情或披露数据。</p>'
+        )
         market_cards.append(
             f'<article class="market"><span class="tag">{label}</span><h3>{label}市场观察</h3>'
             f'<p>{esc(section.get("summary"))}</p>'
-            f'<p class="claim-sources">依据：{render_source_links(section["summary_source_ids"], sources)}</p>'
-            f'<ul>{driver_html}</ul></article>'
+            f'{summary_sources}<ul>{driver_html}</ul></article>'
         )
     stories = []
     for story in report.get("highlights", []):
@@ -660,7 +765,7 @@ def render_report(report: dict, items: list[dict], period: dict, generated: dt.d
 <section id="highlights" class="section"><div class="section-heading"><h2>本周重点 · {len(stories)} 则</h2><div class="export-actions"><button class="export-button" type="button" data-export-highlights>下载本周重点长图</button><span class="export-status" data-export-status aria-live="polite"></span></div></div>{"".join(stories) if stories else '<p class="note">本期没有足够的可引用新闻线索形成重点条目。</p>'}</section>
 {other_section}
 <section id="outlook" class="section"><h2>下周观察</h2><ul>{watch}</ul></section>
-<section id="sources" class="section"><h2>来源与说明</h2><p class="note">本期聚焦二级市场相关的指数、成交、资金、估值、交易异动及上市公司资本行动；只保留已解析到交易所、监管机构或上市公司官网的直达来源。当前公开输入未覆盖的指数周涨跌、成交统计或资金数据不会由模型补写。正文来源链接对应各段引用，完整采集线索可展开查看。</p><details class="source-details"><summary>查看报告引用来源（{len(source_rows)} 条）</summary><ol class="sources">{"".join(source_rows) if source_rows else '<li>暂无引用来源。</li>'}</ol></details><details class="source-details"><summary>查看未引用采集线索（{len(other_source_rows)} 条）</summary><ol class="sources">{"".join(other_source_rows) if other_source_rows else '<li>没有额外采集线索。</li>'}</ol></details></section>
+<section id="sources" class="section"><h2>来源与说明</h2><p class="note">本期聚焦二级市场相关的指数、成交、资金、估值、交易异动及上市公司资本行动；只保留已解析到交易所、监管机构或上市公司官网的直达来源。上交所每周股票统计作为A股市场成交背景；当前公开输入未覆盖的港股周度指数涨跌、成交统计或资金数据不会由模型补写。正文来源链接对应各段引用，完整采集线索可展开查看。</p><details class="source-details"><summary>查看报告引用来源（{len(source_rows)} 条）</summary><ol class="sources">{"".join(source_rows) if source_rows else '<li>暂无引用来源。</li>'}</ol></details><details class="source-details"><summary>查看未引用采集线索（{len(other_source_rows)} 条）</summary><ol class="sources">{"".join(other_source_rows) if other_source_rows else '<li>没有额外采集线索。</li>'}</ol></details></section>
 <footer>公开市场资讯自动整理 · A 股 / 港股 · AI 与科技创新 · 不构成投资建议</footer></div></div></main><script>{export_script}</script></body></html>'''
 
 
