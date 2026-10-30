@@ -1,8 +1,8 @@
 {
   "date": "2026-10-30",
   "period": {
-    "start": "2026-10-23 11:32",
-    "end": "2026-10-30 11:32"
+    "start": "2026-10-23 11:36",
+    "end": "2026-10-30 11:36"
   },
   "headline": "港股行情与 A 股公司披露",
   "overview": "本期港交所每日行情与 A 股公司公告均有一手资料，具体记录见下文。",
@@ -10,17 +10,8 @@
     "headline": "港股行情与 A 股公司披露",
     "overview": "本期港交所每日行情与 A 股公司公告均有一手资料，具体记录见下文。",
     "overview_source_ids": [
-      "S05",
-      "S04",
-      "S03",
-      "S02",
       "S01",
-      "S06",
-      "S09",
-      "S10",
-      "S11",
-      "S07",
-      "S08"
+      "S06"
     ],
     "ashare": {
       "summary": "本期 A 股股票池内有公司公告，见其他动态。",
@@ -76,8 +67,8 @@
       {
         "market": "A股",
         "category": "公司公告",
-        "title": "关于回购股份事项前十名股东和前十名无限售条件股东持股情况的公告",
-        "reported": "新易盛（300502）于 2026-10-30 发布《关于回购股份事项前十名股东和前十名无限售条件股东持股情况的公告》。内容细节以公告原文为准。",
+        "title": "关于变更回购A股股份用途并注销的公告",
+        "reported": "中际旭创（300308）于 2026-10-30 发布《关于变更回购A股股份用途并注销的公告》。内容细节以公告原文为准。",
         "source_ids": [
           "S06"
         ]
@@ -85,10 +76,10 @@
       {
         "market": "A股",
         "category": "公司公告",
-        "title": "关于2026年第三季度报告披露的提示性公告",
-        "reported": "新易盛（300502）于 2026-10-30 发布《关于2026年第三季度报告披露的提示性公告》。内容细节以公告原文为准。",
+        "title": "2026年三季度报告",
+        "reported": "中际旭创（300308）于 2026-10-30 发布《2026年三季度报告》。内容细节以公告原文为准。",
         "source_ids": [
-          "S09"
+          "S08"
         ]
       },
       {
@@ -97,16 +88,7 @@
         "title": "2026年三季度报告",
         "reported": "新易盛（300502）于 2026-10-30 发布《2026年三季度报告》。内容细节以公告原文为准。",
         "source_ids": [
-          "S10"
-        ]
-      },
-      {
-        "market": "A股",
-        "category": "公司公告",
-        "title": "2026年第三季度报告",
-        "reported": "寒武纪（688256）于 2026-10-24 发布《2026年第三季度报告》。内容细节以公告原文为准。",
-        "source_ids": [
-          "S11"
+          "S09"
         ]
       },
       {
@@ -116,15 +98,6 @@
         "reported": "新易盛（300502）于 2026-10-23 发布《关于回购公司股份方案的公告》。内容细节以公告原文为准。",
         "source_ids": [
           "S07"
-        ]
-      },
-      {
-        "market": "A股",
-        "category": "公司公告",
-        "title": "回购股份报告书",
-        "reported": "新易盛（300502）于 2026-10-23 发布《回购股份报告书》。内容细节以公告原文为准。",
-        "source_ids": [
-          "S08"
         ]
       }
     ],
@@ -208,14 +181,14 @@
     },
     {
       "market": "A股",
-      "title": "关于回购股份事项前十名股东和前十名无限售条件股东持股情况的公告",
-      "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225643324.PDF",
+      "title": "关于变更回购A股股份用途并注销的公告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225643958.PDF",
       "published": "2026-10-30T00:00+08:00",
       "source": "巨潮资讯网",
       "source_url": "https://www.cninfo.com.cn",
       "source_tier": "official",
       "source_tier_label": "上市公司一手公告",
-      "snippet": "新易盛（300502）于 2026-10-30 发布《关于回购股份事项前十名股东和前十名无限售条件股东持股情况的公告》。内容细节以公告原文为准。",
+      "snippet": "中际旭创（300308）于 2026-10-30 发布《关于变更回购A股股份用途并注销的公告》。内容细节以公告原文为准。",
       "query": "cninfo_company_filings",
       "registered_source_id": "cninfo",
       "channel": "company_fact",
@@ -238,33 +211,18 @@
     },
     {
       "market": "A股",
-      "title": "回购股份报告书",
-      "url": "https://static.cninfo.com.cn/finalpage/2026-10-23/1225617674.pdf",
-      "published": "2026-10-23T12:09+08:00",
-      "source": "巨潮资讯网",
-      "source_url": "https://www.cninfo.com.cn",
-      "source_tier": "official",
-      "source_tier_label": "上市公司一手公告",
-      "snippet": "新易盛（300502）于 2026-10-23 发布《回购股份报告书》。内容细节以公告原文为准。",
-      "query": "cninfo_company_filings",
-      "registered_source_id": "cninfo",
-      "channel": "company_fact",
-      "id": "S08"
-    },
-    {
-      "market": "A股",
-      "title": "关于2026年第三季度报告披露的提示性公告",
-      "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225642950.PDF",
+      "title": "2026年三季度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225643953.PDF",
       "published": "2026-10-30T00:00+08:00",
       "source": "巨潮资讯网",
       "source_url": "https://www.cninfo.com.cn",
       "source_tier": "official",
       "source_tier_label": "上市公司一手公告",
-      "snippet": "新易盛（300502）于 2026-10-30 发布《关于2026年第三季度报告披露的提示性公告》。内容细节以公告原文为准。",
+      "snippet": "中际旭创（300308）于 2026-10-30 发布《2026年三季度报告》。内容细节以公告原文为准。",
       "query": "cninfo_company_filings",
       "registered_source_id": "cninfo",
       "channel": "company_fact",
-      "id": "S09"
+      "id": "S08"
     },
     {
       "market": "A股",
@@ -279,23 +237,8 @@
       "query": "cninfo_company_filings",
       "registered_source_id": "cninfo",
       "channel": "company_fact",
-      "id": "S10"
-    },
-    {
-      "market": "A股",
-      "title": "2026年第三季度报告",
-      "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225620944.PDF",
-      "published": "2026-10-24T00:00+08:00",
-      "source": "巨潮资讯网",
-      "source_url": "https://www.cninfo.com.cn",
-      "source_tier": "official",
-      "source_tier_label": "上市公司一手公告",
-      "snippet": "寒武纪（688256）于 2026-10-24 发布《2026年第三季度报告》。内容细节以公告原文为准。",
-      "query": "cninfo_company_filings",
-      "registered_source_id": "cninfo",
-      "channel": "company_fact",
-      "id": "S11"
+      "id": "S09"
     }
   ],
-  "generated_at": "2026-10-30T11:32:00+08:00"
+  "generated_at": "2026-10-30T11:36:00+08:00"
 }
