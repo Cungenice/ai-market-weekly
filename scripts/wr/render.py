@@ -92,12 +92,32 @@ def source_link(sid: str, item: dict) -> str:
     return label
 
 
+def sid_link(sid: str, url: str) -> str:
+    """同一来源多条时只写编号，每条各自可点开对应的原文。"""
+    if url.startswith(("http://", "https://")):
+        return (f'<a class="sid" href="{S.esc(url)}" target="_blank" rel="noopener noreferrer" '
+                f'title="打开原文">{S.esc(sid)}</a>')
+    return S.esc(sid)
+
+
 def source_line(ids: list[str], sources: dict[str, dict], metric_ids: list[str] | None = None,
                 basis: str = "") -> str:
     parts = []
     if ids:
-        labels = [source_link(sid, sources.get(sid, {})) for sid in dict.fromkeys(ids)]
-        parts.append("来源：" + "、".join(labels))
+        groups: dict[str, list[tuple[str, str]]] = {}
+        for sid in dict.fromkeys(ids):
+            item = sources.get(sid, {})
+            name = str(item.get("source") or "来源")
+            groups.setdefault(name, []).append((sid, str(item.get("url") or "").strip()))
+        chunks = []
+        for name, entries in groups.items():
+            if len(entries) == 1:
+                sid, url = entries[0]
+                chunks.append(source_link(sid, {"source": name, "url": url}))
+            else:
+                codes = "·".join(sid_link(sid, url) for sid, url in entries)
+                chunks.append(f"{S.esc(name)} {codes}")
+        parts.append("来源：" + "，".join(chunks))
     if metric_ids:
         keys = [mid.removeprefix("m:") for mid in metric_ids]
         shown = "、".join(keys[:6])

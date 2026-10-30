@@ -31,3 +31,5 @@
 .update .takeaway b{display:block;color:var(--blue);font:800 11px/1.6 Arial,sans-serif;letter-spacing:.08em;margin-bottom:2px}
 .source a .ext{font-size:10px;margin-left:2px;font-weight:700}
 .source{font-size:12px;color:var(--muted);margin:8px 0 0}
+.source a.sid{font-weight:800;color:var(--red);text-decoration:none;border-bottom:1px dashed currentColor}
+.source a.sid:hover{border-bottom-style:solid}
