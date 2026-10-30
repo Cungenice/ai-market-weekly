@@ -243,6 +243,8 @@ def fetch_cninfo_announcements(start: dt.datetime, end: dt.datetime) -> list[dic
                 published = dt.datetime.fromtimestamp(stamp / 1000, SHANGHAI)
                 if not start <= published <= end:
                     continue
+                if any(term in title for term in ("提示性公告", "前十名股东", "回购股份报告书")):
+                    continue
                 if not any(term in title for term in ("业绩预告", "季度报告", "年度报告", "半年度报告",
                             "重大合同", "订单", "回购", "增持", "减持", "股权激励",
                             "问询回复", "资产重组", "发行股份", "利润分配")):
@@ -755,7 +757,7 @@ def render_report(report: dict, items: list[dict], period: dict, generated: dt.d
     watch = "".join(
         f'<li>{esc(item["text"])}<small class="claim-sources">依据：{render_source_links(item["source_ids"], sources)}</small></li>'
         for item in report.get("next_watch", [])
-    ) or "<li>暂无足够来源形成下周观察清单。</li>"
+    )
     headline = esc(report.get("headline") or "A 股与港股 AI 市场周报")
     export_script = r"""(() => {
   const button = document.querySelector('[data-export-highlights]');
@@ -915,7 +917,7 @@ def main() -> None:
             overview = "本期 A 股公司公告已有一手记录；港股行情资料暂缺。"
         report = {
             "headline": headline, "overview": overview,
-            "overview_source_ids": quote_ids + filing_ids,
+            "overview_source_ids": ([quotes[-1]["id"]] if quotes else []) + ([filings[0]["id"]] if filings else []),
             "ashare": {
                 "summary": "本期 A 股股票池内有公司公告，见其他动态。" if filings else "本期未采到 A 股市场数据。",
                 "summary_source_ids": [filings[0]["id"]] if filings else [],
