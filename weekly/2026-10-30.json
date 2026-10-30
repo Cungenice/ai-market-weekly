@@ -1,278 +1,29 @@
 {
   "date": "2026-10-30",
   "period": {
-    "start": "2026-10-23 10:11",
-    "end": "2026-10-30 10:11"
+    "start": "2026-10-23 10:20",
+    "end": "2026-10-30 10:20"
   },
-  "headline": "AI与芯片ETF三季报集中披露，本期缺官方行情数据仅作事件观察",
-  "overview": "本期输入以上交所基金三季报披露为主，集中在科创芯片、科创板人工智能、科创创业人工智能及港股通互联网等ETF产品，属于基金定期信息披露而非指数或成交数据。由于缺少交易所官方指数涨跌、成交额、市场宽度与资金流数据，本期只能做事件观察，市场表现方向不作判断。",
+  "headline": "本期可核验市场信号不足",
+  "overview": "本期自动采集未找到同时满足一手来源、市场相关性和事件明确度的材料。因此不对 A 股、港股或 AI 与科技创新方向的行情、成交和资金流作结论。",
   "report": {
-    "headline": "AI与芯片ETF三季报集中披露，本期缺官方行情数据仅作事件观察",
-    "overview": "本期输入以上交所基金三季报披露为主，集中在科创芯片、科创板人工智能、科创创业人工智能及港股通互联网等ETF产品，属于基金定期信息披露而非指数或成交数据。由于缺少交易所官方指数涨跌、成交额、市场宽度与资金流数据，本期只能做事件观察，市场表现方向不作判断。",
-    "overview_source_ids": [
-      "S01",
-      "S03",
-      "S05",
-      "S08"
-    ],
+    "headline": "本期可核验市场信号不足",
+    "overview": "本期自动采集未找到同时满足一手来源、市场相关性和事件明确度的材料。因此不对 A 股、港股或 AI 与科技创新方向的行情、成交和资金流作结论。",
+    "overview_source_ids": [],
     "ashare": {
-      "summary": "A股相关披露为科创板芯片、人工智能主题ETF及科创板基金的三季报，覆盖芯片设计、新一代信息技术等细分方向，均为定期报告披露，未提供行情量价数据。",
-      "summary_source_ids": [
-        "S03",
-        "S04",
-        "S05",
-        "S06",
-        "S09",
-        "S10",
-        "S11"
-      ],
-      "drivers": [
-        {
-          "text": "科创板芯片、人工智能主题ETF集中披露2026年三季报，属定期信息披露。",
-          "source_ids": [
-            "S03",
-            "S04",
-            "S05",
-            "S06",
-            "S09"
-          ]
-        },
-        {
-          "text": "富国科创板两年定开混合披露三季度报告，覆盖科创板主动管理产品线。",
-          "source_ids": [
-            "S11"
-          ]
-        }
-      ]
+      "summary": "本期没有达到筛选标准的 A 股官方市场数据或公司披露。",
+      "summary_source_ids": [],
+      "drivers": []
     },
     "hk": {
-      "summary": "港股相关披露仅见港股通互联网ETF三季报，为定期报告信息，无港股指数、南向交易或资金流数据。",
-      "summary_source_ids": [
-        "S01",
-        "S02"
-      ],
-      "drivers": [
-        {
-          "text": "易方达、广发旗下中证港股通互联网ETF披露2026年三季报。",
-          "source_ids": [
-            "S01",
-            "S02"
-          ]
-        }
-      ]
+      "summary": "本期没有达到筛选标准的港股官方市场数据或公司披露。",
+      "summary_source_ids": [],
+      "drivers": []
     },
-    "highlights": [
-      {
-        "market": "A股",
-        "category": "基金定期报告",
-        "title": "多只科创板芯片主题ETF披露三季报",
-        "reported": "国泰、华安、广发、永赢等科创板芯片及芯片设计ETF于10月27日集中披露2026年三季度报告。",
-        "analysis": "反映AI算力链条被动产品线持续扩容，但报告本身不构成行情或资金流证据。",
-        "watch": "后续关注三季报披露的份额与持仓变化能否与官方资金数据相互印证。",
-        "source_ids": [
-          "S03",
-          "S04",
-          "S06",
-          "S09"
-        ],
-        "selection_reason": "直接关联 AI/科技创新；涉及明确事件或披露；包含二级市场信号；有官方一手来源"
-      },
-      {
-        "market": "A股",
-        "category": "基金定期报告",
-        "title": "科创板人工智能主题ETF季报出炉",
-        "reported": "广发上证科创板人工智能ETF、华安中证科创创业人工智能ETF披露2026年三季度报告。",
-        "analysis": "AI主题产品线覆盖科创板与创业板，定期报告属披露事项，不含指数表现数据。",
-        "watch": "待官方成交与资金数据披露后再评估主题产品活跃度。",
-        "source_ids": [
-          "S05",
-          "S08"
-        ],
-        "selection_reason": "直接关联 AI/科技创新；涉及明确事件或披露；包含二级市场信号；有官方一手来源"
-      }
-    ],
-    "other_updates": [
-      {
-        "market": "A股",
-        "category": "基金定期报告",
-        "title": "中韩半导体QDII季报披露",
-        "reported": "华泰柏瑞中证韩交所中韩半导体ETF（QDII）披露2026年三季度报告。",
-        "source_ids": [
-          "S07"
-        ]
-      },
-      {
-        "market": "A股",
-        "category": "基金定期报告",
-        "title": "科创板两年定开混合基金季报",
-        "reported": "富国科创板两年定期开放混合基金披露2026年三季度报告。",
-        "source_ids": [
-          "S11"
-        ]
-      }
-    ],
-    "next_watch": [
-      {
-        "text": "交易所后续披露的指数涨跌、成交额与市场宽度数据，用于评估本期事件的实际市场影响。",
-        "source_ids": [
-          "S03",
-          "S05"
-        ]
-      },
-      {
-        "text": "上述ETF三季报中的份额与持仓明细变化，是否与官方资金流数据相互印证。",
-        "source_ids": [
-          "S01",
-          "S02",
-          "S08"
-        ]
-      }
-    ]
+    "highlights": [],
+    "other_updates": [],
+    "next_watch": []
   },
-  "sources": [
-    {
-      "market": "A股",
-      "title": "易方达中证港股通互联网交易型开放式指数证券投资基金2026 年第3 季度报告 - 上海证券交易所",
-      "url": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-10-27/513040_20261027_7NCD.pdf",
-      "published": "2026-10-27T03:27+08:00",
-      "source": "上海证券交易所",
-      "source_url": "https://www.sse.com.cn",
-      "source_tier": "official",
-      "source_tier_label": "交易所/监管/公司官网直达",
-      "snippet": "易方达中证港股通互联网交易型开放式指数证券投资基金2026 年第3 季度报告    上海证券交易所",
-      "query": "A股 AI 半导体 芯片 业绩 公告 site:sse.com.cn",
-      "id": "S01"
-    },
-    {
-      "market": "A股",
-      "title": "广发中证港股通互联网交易型开放式指数证券投资基金2026 年第3 季度报告 - 上海证券交易所",
-      "url": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-10-27/520630_20261027_VH4O.pdf",
-      "published": "2026-10-27T03:26+08:00",
-      "source": "上海证券交易所",
-      "source_url": "https://www.sse.com.cn",
-      "source_tier": "official",
-      "source_tier_label": "交易所/监管/公司官网直达",
-      "snippet": "广发中证港股通互联网交易型开放式指数证券投资基金2026 年第3 季度报告    上海证券交易所",
-      "query": "A股 AI 半导体 芯片 业绩 公告 site:sse.com.cn",
-      "id": "S02"
-    },
-    {
-      "market": "A股",
-      "title": "国泰上证科创板芯片交易型开放式指数证券投资基金2026 年第3 季度报告 - 上海证券交易所",
-      "url": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-10-27/589100_20261027_30SR.pdf",
-      "published": "2026-10-27T15:00+08:00",
-      "source": "上海证券交易所",
-      "source_url": "https://www.sse.com.cn",
-      "source_tier": "official",
-      "source_tier_label": "交易所/监管/公司官网直达",
-      "snippet": "国泰上证科创板芯片交易型开放式指数证券投资基金2026 年第3 季度报告    上海证券交易所",
-      "query": "A股 AI 半导体 芯片 业绩 公告 site:sse.com.cn",
-      "id": "S03"
-    },
-    {
-      "market": "A股",
-      "title": "华安上证科创板芯片交易型开放式指数证 券投资基金2026 年第3 季度报告 - 上海证券交易所",
-      "url": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-10-27/588290_20261027_XE39.pdf",
-      "published": "2026-10-27T11:27+08:00",
-      "source": "上海证券交易所",
-      "source_url": "https://www.sse.com.cn",
-      "source_tier": "official",
-      "source_tier_label": "交易所/监管/公司官网直达",
-      "snippet": "华安上证科创板芯片交易型开放式指数证 券投资基金2026 年第3 季度报告    上海证券交易所",
-      "query": "A股 AI 半导体 芯片 业绩 公告 site:sse.com.cn",
-      "id": "S04"
-    },
-    {
-      "market": "A股",
-      "title": "广发上证科创板人工智能交易型开放式指数证券投资基金2026 年第3 季度报告 - 上海证券交易所",
-      "url": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-10-27/588760_20261027_3DZU.pdf",
-      "published": "2026-10-27T11:27+08:00",
-      "source": "上海证券交易所",
-      "source_url": "https://www.sse.com.cn",
-      "source_tier": "official",
-      "source_tier_label": "交易所/监管/公司官网直达",
-      "snippet": "广发上证科创板人工智能交易型开放式指数证券投资基金2026 年第3 季度报告    上海证券交易所",
-      "query": "A股 AI 半导体 芯片 业绩 公告 site:sse.com.cn",
-      "id": "S05"
-    },
-    {
-      "market": "A股",
-      "title": "广发上证科创板芯片交易型开放式指数证券投资基金2026 年第3 季度报告 - 上海证券交易所",
-      "url": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-10-27/589160_20261027_HD46.pdf",
-      "published": "2026-10-27T03:27+08:00",
-      "source": "上海证券交易所",
-      "source_url": "https://www.sse.com.cn",
-      "source_tier": "official",
-      "source_tier_label": "交易所/监管/公司官网直达",
-      "snippet": "广发上证科创板芯片交易型开放式指数证券投资基金2026 年第3 季度报告    上海证券交易所",
-      "query": "A股 AI 半导体 芯片 业绩 公告 site:sse.com.cn",
-      "id": "S06"
-    },
-    {
-      "market": "A股",
-      "title": "华泰柏瑞中证韩交所中韩半导体交易型开 放式指数证券投资基金（QDII） 2026 年第3 季度报告 - 上海证券交易所",
-      "url": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-10-27/513310_20261027_F8RI.pdf",
-      "published": "2026-10-27T03:27+08:00",
-      "source": "上海证券交易所",
-      "source_url": "https://www.sse.com.cn",
-      "source_tier": "official",
-      "source_tier_label": "交易所/监管/公司官网直达",
-      "snippet": "华泰柏瑞中证韩交所中韩半导体交易型开 放式指数证券投资基金（QDII） 2026 年第3 季度报告    上海证券交易所",
-      "query": "A股 AI 半导体 芯片 业绩 公告 site:sse.com.cn",
-      "id": "S07"
-    },
-    {
-      "market": "A股",
-      "title": "华安中证科创创业人工智能交易型开放式指数证券投资基金2026 年第3 季度报告 - 上海证券交易所",
-      "url": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-10-27/588470_20261027_AW5Z.pdf",
-      "published": "2026-10-27T03:27+08:00",
-      "source": "上海证券交易所",
-      "source_url": "https://www.sse.com.cn",
-      "source_tier": "official",
-      "source_tier_label": "交易所/监管/公司官网直达",
-      "snippet": "华安中证科创创业人工智能交易型开放式指数证券投资基金2026 年第3 季度报告    上海证券交易所",
-      "query": "A股 AI 半导体 芯片 业绩 公告 site:sse.com.cn",
-      "id": "S08"
-    },
-    {
-      "market": "A股",
-      "title": "永赢上证科创板芯片设计主题交易型开放式指数证券投资基金2026 年第3 季度报告 - 上海证券交易所",
-      "url": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-10-27/589420_20261027_AYRR.pdf",
-      "published": "2026-10-27T03:26+08:00",
-      "source": "上海证券交易所",
-      "source_url": "https://www.sse.com.cn",
-      "source_tier": "official",
-      "source_tier_label": "交易所/监管/公司官网直达",
-      "snippet": "永赢上证科创板芯片设计主题交易型开放式指数证券投资基金2026 年第3 季度报告    上海证券交易所",
-      "query": "A股 AI 半导体 芯片 业绩 公告 site:sse.com.cn",
-      "id": "S09"
-    },
-    {
-      "market": "A股",
-      "title": "华安上证科创板新一代信息技术交易型开 放式指数证券投资基金2026 年第3 季度报告 - 上海证券交易所",
-      "url": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-10-27/588260_20261027_GX5J.pdf",
-      "published": "2026-10-27T03:28+08:00",
-      "source": "上海证券交易所",
-      "source_url": "https://www.sse.com.cn",
-      "source_tier": "official",
-      "source_tier_label": "交易所/监管/公司官网直达",
-      "snippet": "华安上证科创板新一代信息技术交易型开 放式指数证券投资基金2026 年第3 季度报告    上海证券交易所",
-      "query": "A股 AI 半导体 芯片 业绩 公告 site:sse.com.cn",
-      "id": "S10"
-    },
-    {
-      "market": "A股",
-      "title": "富国科创板两年定期开放混合型证券投资基金二0 二六年第3 季度报告 - 上海证券交易所",
-      "url": "https://www.sse.com.cn/disclosure/fund/announcement/c/new/2026-10-27/506003_20261027_ZREP.pdf",
-      "published": "2026-10-27T15:00+08:00",
-      "source": "上海证券交易所",
-      "source_url": "https://www.sse.com.cn",
-      "source_tier": "official",
-      "source_tier_label": "交易所/监管/公司官网直达",
-      "snippet": "富国科创板两年定期开放混合型证券投资基金二0 二六年第3 季度报告    上海证券交易所",
-      "query": "A股 AI 半导体 芯片 业绩 公告 site:sse.com.cn",
-      "id": "S11"
-    }
-  ],
-  "generated_at": "2026-10-30T10:11:00+08:00"
+  "sources": [],
+  "generated_at": "2026-10-30T10:20:00+08:00"
 }
