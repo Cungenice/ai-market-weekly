@@ -114,6 +114,10 @@ def source_line(ids: list[str], sources: dict[str, dict], metric_ids: list[str] 
             if len(entries) == 1:
                 sid, url = entries[0]
                 chunks.append(source_link(sid, {"source": name, "url": url}))
+            elif len(entries) > 8:
+                codes = "·".join(sid_link(sid, url) for sid, url in entries[:8])
+                chunks.append(f'{S.esc(name)} {codes} 等 {len(entries)} 条'
+                              '<a class="sid-more" href="#sources">完整列表 ↓</a>')
             else:
                 codes = "·".join(sid_link(sid, url) for sid, url in entries)
                 chunks.append(f"{S.esc(name)} {codes}")
