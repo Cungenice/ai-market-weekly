@@ -234,7 +234,7 @@ def call_deepseek(items: list[dict], period: dict) -> dict:
     validate_report(report, valid_ids)
     apply_quality_filters(report, items)
     validate_report(report, valid_ids)
-    resolve_cited_source_urls(report, items)
+    resolve_primary_source_urls(items)
     return report
 
 
@@ -372,13 +372,15 @@ def resolve_google_news_url(url: str) -> str:
     return url
 
 
-def resolve_cited_source_urls(report: dict, items: list[dict]) -> None:
-    cited_ids = report_source_ids(report)
-    cited_items = [item for item in items if item["id"] in cited_ids and "news.google.com" in item["url"]]
+def resolve_primary_source_urls(items: list[dict]) -> None:
+    primary_items = [item for item in items if item["source_tier"] == "official" and "news.google.com" in item["url"]]
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
-        resolved_urls = list(executor.map(lambda item: resolve_google_news_url(item["url"]), cited_items))
-    for item, resolved in zip(cited_items, resolved_urls):
+        resolved_urls = list(executor.map(lambda item: resolve_google_news_url(item["url"]), primary_items))
+    unresolved = 0
+    for item, resolved in zip(primary_items, resolved_urls):
         item["url"] = resolved
+        unresolved += "news.google.com" in resolved
+    print(f"Resolved {len(primary_items) - unresolved}/{len(primary_items)} official-source links to publisher URLs")
 
 
 def report_source_ids(report: dict) -> set[str]:
