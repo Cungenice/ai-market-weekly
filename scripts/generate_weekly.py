@@ -731,6 +731,18 @@ def main() -> None:
     items = collect_news(start, now)
     print(f"Collected {len(items)} unique articles")
     report = call_deepseek(items, period)
+    # Model-written quantities are not publishable until structured market data is available.
+    def reject_generated_numbers(value, key="report"):
+        if isinstance(value, dict):
+            for child_key, child in value.items():
+                if child_key != "source_ids" and child_key != "overview_source_ids" and child_key != "summary_source_ids":
+                    reject_generated_numbers(child, f"{key}.{child_key}")
+        elif isinstance(value, list):
+            for index, child in enumerate(value):
+                reject_generated_numbers(child, f"{key}[{index}]")
+        elif isinstance(value, str) and re.search(r"(?<![A-Za-z])\\d+(?:[.,]\\d+)?\\s*(?:%|％|亿|万|元|股|点|倍)?", value):
+            raise RuntimeError(f"UNVERIFIED_NUMBER: {key} contains a model-written number")
+    reject_generated_numbers(report)
     if not report["highlights"]:
         raise RuntimeError("EMPTY_REPORT: no supported highlights; retaining previous publication")
     for key in ("ashare", "hk"):
