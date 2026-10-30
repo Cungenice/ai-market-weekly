@@ -7,6 +7,9 @@ import concurrent.futures
 import datetime as dt
 import email.utils
 import html
+import hashlib
+import time
+import uuid
 import json
 import os
 import re
@@ -48,9 +51,28 @@ def fetch_feed(market: str, query: str, start: dt.datetime, end: dt.datetime) ->
     )
     url = f"https://news.google.com/rss/search?{params}"
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(request, timeout=35) as response:
-        payload = response.read()
-    root = ET.fromstring(payload)
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(request, timeout=35) as response:
+                payload = response.read()
+                status = response.status
+            if not payload.strip():
+                raise ValueError("Empty HTTP response")
+            root = ET.fromstring(payload)
+            if root.tag != "rss" or root.find("channel") is None:
+                raise ValueError("Unexpected RSS schema")
+            break
+        except (urllib.error.URLError, TimeoutError, ET.ParseError, ValueError):
+            if attempt == 2:
+                raise
+            time.sleep(2 ** attempt)
+    digest = hashlib.sha256(payload).hexdigest()
+    audit_dir = Path(os.environ.get("RUNNER_TEMP", str(ROOT.parent))) / "market-weekly-audit"
+    audit_dir.mkdir(exist_ok=True)
+    (audit_dir / f"{digest}.xml").write_bytes(payload)
+    print(json.dumps({"stage": "fetch", "url": url, "fetched_at": dt.datetime.now(SHANGHAI).isoformat(),
+                      "http_status": status, "sha256": digest, "raw_items": len(root.findall("./channel/item"))},
+                     ensure_ascii=False))
     entries: list[dict] = []
     for node in root.findall("./channel/item"):
         title = (node.findtext("title") or "").strip()
@@ -123,13 +145,15 @@ def news_priority(item: dict) -> int:
 
 
 def collect_news(start: dt.datetime, end: dt.datetime) -> list[dict]:
+    failures = []
     by_url: dict[str, dict] = {}
     for market, query in FEEDS:
         try:
             found = fetch_feed(market, query, start, end)
             print(f"{market}: fetched {len(found)} in-window items")
-        except (urllib.error.URLError, TimeoutError, ET.ParseError) as exc:
+        except (urllib.error.URLError, TimeoutError, ET.ParseError, ValueError) as exc:
             print(f"RSS feed failed ({market}, {query}): {exc}", file=sys.stderr)
+            failures.append({"market": market, "query": query, "error": str(exc)})
             continue
         for item in found:
             normalized = item["url"].split("&ved=")[0]
@@ -141,6 +165,8 @@ def collect_news(start: dt.datetime, end: dt.datetime) -> list[dict]:
                     existing["market"] = item["market"]
                 if item["source_tier"] == "official" and existing["source_tier"] != "official":
                     existing.update({key: item[key] for key in ("source", "source_url", "source_tier", "source_tier_label")})
+    if failures:
+        raise RuntimeError("COLLECTION_FAILED: " + json.dumps(failures, ensure_ascii=False))
     all_candidates = list(by_url.values())
     primary_candidates = [item for item in all_candidates if item["source_tier"] == "official"]
     resolve_primary_source_urls(primary_candidates)
@@ -174,6 +200,11 @@ def collect_news(start: dt.datetime, end: dt.datetime) -> list[dict]:
                     break
     for index, item in enumerate(selected, 1):
         item["id"] = f"S{index:02d}"
+    if not selected:
+        raise RuntimeError("NO_ELIGIBLE_ITEMS: feeds responded but no eligible first-party material survived filtering")
+    missing_markets = {"A股", "港股"} - {item["market"] for item in selected}
+    if missing_markets:
+        raise RuntimeError(f"COVERAGE_INCOMPLETE: {sorted(missing_markets)}")
     return selected
 
 def call_deepseek(items: list[dict], period: dict) -> dict:
@@ -337,12 +368,17 @@ def require_source_ids(ids: object, valid_ids: set[str], label: str, allow_empty
 
 
 def validate_report(report: dict, valid_ids: set[str]) -> None:
+    if not isinstance(report, dict):
+        raise RuntimeError("Report must be a JSON object")
     for field in ("headline", "overview", "overview_source_ids", "ashare", "hk", "highlights", "other_updates", "next_watch"):
         if field not in report:
             raise RuntimeError(f"Report is missing required field: {field}")
     for field in ("highlights", "other_updates", "next_watch"):
         if not isinstance(report[field], list):
             raise RuntimeError(f"{field} must be an array")
+    for field in ("headline", "overview"):
+        if not isinstance(report[field], str) or not report[field].strip():
+            raise RuntimeError(f"{field} must be nonempty text")
     require_source_ids(report["overview_source_ids"], valid_ids, "overview")
     for key in ("ashare", "hk"):
         section = report[key]
@@ -357,6 +393,10 @@ def validate_report(report: dict, valid_ids: set[str]) -> None:
         for story in report[group]:
             if not isinstance(story, dict):
                 raise RuntimeError(f"Each {group} item must be an object")
+            fields = ("market", "category", "title", "reported", "analysis", "watch") if group == "highlights" else ("market", "category", "title", "reported")
+            for field in fields:
+                if not isinstance(story.get(field), str) or not story[field].strip():
+                    raise RuntimeError(f"{group}.{field} must be nonempty text")
             require_source_ids(story.get("source_ids"), valid_ids, f"{group}.{story.get('title', '(untitled)')}")
     for item in report["next_watch"]:
         if not isinstance(item, dict) or not item.get("text"):
@@ -690,19 +730,12 @@ def main() -> None:
     print(f"Collecting market news from {period['start']} through {period['end']} Asia/Shanghai")
     items = collect_news(start, now)
     print(f"Collected {len(items)} unique articles")
-    if items:
-        report = call_deepseek(items, period)
-    else:
-        report = {
-            "headline": "A股与港股 · AI科技市场周报",
-            "overview": "本期暂无入选条目。可通过历史周报查看往期内容。",
-            "overview_source_ids": [],
-            "ashare": {"summary": "本期没有达到筛选标准的 A 股官方市场数据或公司披露。", "summary_source_ids": [], "drivers": []},
-            "hk": {"summary": "本期没有达到筛选标准的港股官方市场数据或公司披露。", "summary_source_ids": [], "drivers": []},
-            "highlights": [],
-            "other_updates": [],
-            "next_watch": [],
-        }
+    report = call_deepseek(items, period)
+    if not report["highlights"]:
+        raise RuntimeError("EMPTY_REPORT: no supported highlights; retaining previous publication")
+    for key in ("ashare", "hk"):
+        if not report[key].get("summary_source_ids"):
+            raise RuntimeError(f"UNSUPPORTED_MARKET_SUMMARY: {key}")
     archive_path = ROOT / "weekly" / f"{edition}.html"
     archive_path.parent.mkdir(parents=True, exist_ok=True)
     # Keep links portable: the root report links into weekly/, while an archived
@@ -726,5 +759,12 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    trace_id = uuid.uuid4().hex
+    print(f"trace_id={trace_id} state=collecting", flush=True)
+    try:
+        main()
+    except Exception as exc:
+        print(f"::error::trace_id={trace_id} state=blocked {type(exc).__name__}: {exc}", file=sys.stderr)
+        raise
+    print(f"trace_id={trace_id} state=checked publication_files_ready", flush=True)
 
