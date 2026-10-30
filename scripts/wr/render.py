@@ -82,14 +82,21 @@ def cite(ids: list[str]) -> str:
     return f'<sup class="cite">{links}</sup>'
 
 
+def source_link(sid: str, item: dict) -> str:
+    """来源标签直接链到原文，读到这里就能点开核对，不必再翻到页脚。"""
+    label = S.esc(f'{sid} {item.get("source", "来源")}')
+    url = str(item.get("url") or "").strip()
+    if url.startswith(("http://", "https://")):
+        return (f'<a href="{S.esc(url)}" target="_blank" rel="noopener noreferrer">'
+                f'{label}<span class="ext">↗</span></a>')
+    return label
+
+
 def source_line(ids: list[str], sources: dict[str, dict], metric_ids: list[str] | None = None,
                 basis: str = "") -> str:
     parts = []
     if ids:
-        labels = []
-        for sid in dict.fromkeys(ids):
-            item = sources.get(sid, {})
-            labels.append(f'{sid} {item.get("source", "来源")}')
+        labels = [source_link(sid, sources.get(sid, {})) for sid in dict.fromkeys(ids)]
         parts.append("来源：" + "、".join(labels))
     if metric_ids:
         keys = [mid.removeprefix("m:") for mid in metric_ids]
@@ -98,6 +105,28 @@ def source_line(ids: list[str], sources: dict[str, dict], metric_ids: list[str] 
     if basis:
         parts.append(basis)
     return f'<p class="source">{"；".join(parts)}</p>' if parts else ""
+
+
+def updates_lead(metrics: dict, others: list[dict]) -> str:
+    """栏目导读：先说清这一栏是什么、覆盖多大范围、该怎么读。"""
+    if not others:
+        return ""
+    cats = metrics.get("category_counts") or {}
+    themes = metrics.get("themes") or {}
+    total = int(metrics.get("issuers") or len(others))
+    top_cat = max(cats.items(), key=lambda kv: kv[1])[0] if cats else ""
+    top_themes = [name for name, _ in sorted(themes.items(), key=lambda kv: kv[1], reverse=True)[:3]]
+
+    bits = [f"本期共 {total} 家标的披露公告"]
+    if total > len(others):
+        bits.append(f"本栏按信息量列示其中 {len(others)} 家")
+    if top_cat:
+        bits.append(f"以{top_cat}为主")
+    if top_themes:
+        bits.append("覆盖" + "、".join(top_themes))
+    return ("，".join(bits) +
+            "。每条先记披露事实，再给一句小结说明它在板块节奏中的位置与观察点；"
+            "报告期财务数值未解析，点条目末尾的来源即可打开原文核对。")
 
 
 # ---------------------------------------------------------------- 页面
@@ -130,8 +159,8 @@ def render_report(report: dict, items: list[dict], period: dict, metrics: dict,
         story_html.append(
             f'<article class="story"><p class="meta">{S.esc(story.get("market"))} · {S.esc(story.get("category"))}</p>'
             f'<h3>{S.esc(story.get("title"))}{cite(story.get("source_ids", []))}</h3>'
-            f'<p class="reported"><b>变了什么</b>{S.esc(story.get("reported"))}</p>'
-            f'<div class="triple"><div class="analysis"><b>意味着什么</b>{S.esc(story.get("analysis"))}</div>'
+            f'<p class="reported"><b>发生了什么</b>{S.esc(story.get("reported"))}</p>'
+            f'<div class="triple"><div class="analysis"><b>为什么重要</b>{S.esc(story.get("analysis"))}</div>'
             f'<div class="watch"><b>下周验证</b>{S.esc(story.get("watch"))}</div></div>'
             f'{source_line(story.get("source_ids", []), sources, story.get("metric_ids"))}</article>'
         )
@@ -141,8 +170,10 @@ def render_report(report: dict, items: list[dict], period: dict, metrics: dict,
         update_html.append(
             f'<article class="update"><p class="meta">{S.esc(story.get("market"))} · {S.esc(story.get("category"))}</p>'
             f'<h3>{S.esc(story.get("title"))}{cite(story.get("source_ids", []))}</h3>'
-            f'<p>{S.esc(story.get("reported"))}</p>'
-            f'{source_line(story.get("source_ids", []), sources)}</article>'
+            f'<p class="reported">{S.esc(story.get("reported"))}</p>'
+            + (f'<p class="takeaway"><b>小结</b>{S.esc(story.get("note"))}</p>'
+               if str(story.get("note") or "").strip() else "")
+            + f'{source_line(story.get("source_ids", []), sources)}</article>'
         )
 
     calendar_html = "".join(
@@ -224,7 +255,7 @@ def render_report(report: dict, items: list[dict], period: dict, metrics: dict,
 <section id="highlights" class="section"><div class="section-heading"><h2>本周重点 · {len(story_html)} 则</h2>
 <div class="export-actions"{"" if story_html else " hidden"}><button class="export-button" type="button" data-export-highlights>下载本周重点长图</button><span class="export-status" data-export-status aria-live="polite"></span></div></div>
 {"".join(story_html) if story_html else '<p class="note">本期未能形成通过校验的判断条目。</p>'}</section>
-{f'<section id="more" class="section"><h2>其他动态 · {len(update_html)} 则</h2>{"".join(update_html)}</section>' if update_html else ''}
+{f'<section id="more" class="section"><h2>其他动态 · {len(update_html)} 则</h2><p class="note">{updates_lead(metrics, others)}</p>{"".join(update_html)}</section>' if update_html else ''}
 {f'<section id="outlook" class="section"><h2>下周日历</h2><ul class="calendar">{calendar_html}</ul><p class="note">「规则推算」依据历史发布惯例估算，「法定截止日」为监管规定，「已登记」为人工维护事项。</p></section>' if calendar_html else ''}
 {f'<section id="previous" class="section"><h2>上期判断</h2><ul class="prev-check">{previous_html}</ul><p class="note">「待验证」表示本期未取得足以判定的新证据，不代表判断成立。</p></section>' if previous_html else ''}
 <section id="sources" class="section"><h2>来源与说明</h2>

@@ -57,8 +57,7 @@ def validate_schema(report: dict, valid_source_ids: set[str]) -> None:
             if not isinstance(story, dict):
                 raise ReportError(f"{group} 的每个条目必须是对象")
             fields = ("market", "category", "title", "reported")
-            if group == "highlights":
-                fields += ("analysis", "watch")
+            fields += ("analysis", "watch") if group == "highlights" else ("note",)
             for field in fields:
                 if not isinstance(story.get(field), str) or not story[field].strip():
                     raise ReportError(f"{group}.{field} 必须是非空文本")

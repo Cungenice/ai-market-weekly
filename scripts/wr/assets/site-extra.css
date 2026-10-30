@@ -23,3 +23,11 @@
 .announcements li{margin:2px 0}
 .theme-chip{display:inline-block;font-size:11px;color:var(--blue);border:1px solid var(--blue);padding:0 6px;margin-left:6px;vertical-align:1px}
 @media(max-width:760px){.calendar li{gap:4px}.calendar .when{min-width:auto}}
+/* 三问标签统一成小标签，避免被误读成正文的一部分 */
+.reported b{display:inline-block;background:#f2e3e3;color:#862430;font:800 11px/1.7 Arial,sans-serif;letter-spacing:.04em;padding:0 8px;margin-right:9px;vertical-align:1px}
+.update .reported{margin:6px 0 0}
+/* 其他动态里的小结：视觉上独立于事实段，但比重点条目的分析弱一档 */
+.update .takeaway{margin:9px 0 2px;padding:9px 13px;background:#fff;border-left:3px solid var(--blue);font-size:13.5px;line-height:1.65;color:#2f3438}
+.update .takeaway b{display:block;color:var(--blue);font:800 11px/1.6 Arial,sans-serif;letter-spacing:.08em;margin-bottom:2px}
+.source a .ext{font-size:10px;margin-left:2px;font-weight:700}
+.source{font-size:12px;color:var(--muted);margin:8px 0 0}

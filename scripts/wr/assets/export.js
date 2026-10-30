@@ -33,8 +33,8 @@
       meta: article.querySelector('.meta')?.textContent.trim() || '',
       title: article.querySelector('h3')?.textContent.trim() || '',
       fields: [
-        ['变了什么', readField(article, '.reported')],
-        ['意味着什么', readField(article, '.analysis')],
+        ['发生了什么', readField(article, '.reported')],
+        ['为什么重要', readField(article, '.analysis')],
         ['下周验证', readField(article, '.watch')]
       ].filter(([, text]) => text)
     }));

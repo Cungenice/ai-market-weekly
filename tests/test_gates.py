@@ -192,6 +192,44 @@ def test_model_payload_serializable() -> None:
     assert "2026-10-26" in text and "Asia/Shanghai" not in text
 
 
+def test_update_requires_note() -> None:
+    report = base_report()
+    report["other_updates"] = [{"market": "A股", "category": "定期报告", "title": "某公司三季报",
+                                "reported": "某公司披露三季度报告。", "source_ids": ["S01"]}]
+    try:
+        V.validate_schema(report, {"S01"})
+    except V.ReportError as exc:
+        assert "note" in str(exc), exc
+        return
+    raise AssertionError("其他动态缺小结未被拦截")
+
+
+def test_update_note_passes() -> None:
+    report = base_report()
+    report["other_updates"] = [{"market": "A股", "category": "定期报告", "title": "某公司三季报",
+                                "reported": "某公司披露三季度报告。",
+                                "note": "半导体设计板块本期另有他标的披露，属板块性节奏。",
+                                "source_ids": ["S01"]}]
+    V.validate_schema(report, {"S01"})
+
+
+def test_source_link_clickable():
+    from wr import render
+
+    sources = {"S11": {"source": "巨潮资讯网", "url": "https://static.cninfo.com.cn/a.PDF"}}
+    html = render.source_line(["S11"], sources)
+    assert 'href="https://static.cninfo.com.cn/a.PDF"' in html, html
+    assert "target=\"_blank\"" in html, html
+    assert 'rel="noopener noreferrer"' in html, html
+
+
+def test_source_without_url_stays_text():
+    from wr import render
+
+    html = render.source_line(["S11"], {"S11": {"source": "巨潮资讯网"}})
+    assert "<a " not in html, html
+
+
 def main() -> None:
     for name, fn in list(globals().items()):
         if name.startswith("test_"):

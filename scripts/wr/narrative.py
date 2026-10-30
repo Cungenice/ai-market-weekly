@@ -237,6 +237,47 @@ def _highlights(metrics: dict, filings: list[dict], calendar_events: list[dict])
     return items[: int(S.cfg("universe.max_highlights", 4))]
 
 
+def _update_reported(row: dict) -> str:
+    """正文只补标题没给的信息：具体披露了哪几份公告。"""
+    announcements = row.get("announcements") or []
+    if not announcements:
+        return row.get("snippet", "")
+    titles = [f"《{item['title'].removesuffix('的公告')}》" for item in announcements]
+    shown = "、".join(titles[:2])
+    more = f"等 {len(titles)} 份" if len(titles) > 2 else ""
+    return f"本期披露{shown}{more}。"
+
+
+def _category_meta() -> dict[str, dict]:
+    return {item["label"]: item for item in S.cfg("filings.categories", [])}
+
+
+def _update_note(row: dict, filings: list[dict]) -> str:
+    """单条小结：这条公告在板块与周期中的位置，以及该类型的观察点。
+
+    只使用采集到的字段（主题、类型、同批披露名单）与配置里的类型口径，
+    不引入任何未见数据；因此不含数字，可安全绕开台账校验。
+    """
+    meta = _category_meta()
+    theme = row.get("theme") or "其他"
+    categories = row.get("categories") or []
+    peers = [r for r in filings
+             if r["id"] != row["id"] and (r.get("theme") or "其他") == theme]
+    peer_names = [r["issuer_name"] for r in peers][:2]
+
+    parts: list[str] = []
+    if peer_names:
+        parts.append(f"{theme}板块本期另有{'、'.join(peer_names)}披露公告，已进入成批披露阶段，可对照阅读")
+    elif categories:
+        parts.append(f"本期{theme}板块仅该标的披露{'、'.join(categories)}，暂无板块性共振，按个体事件处理")
+
+    focus = [meta[c]["focus"] for c in categories if c in meta and meta[c].get("focus")]
+    if focus:
+        parts.append("；".join(focus[:2]))
+
+    return "；".join(parts) + "。" if parts else ""
+
+
 def _other_updates(filings: list[dict]) -> list[dict]:
     rows = []
     for row in filings[: int(S.cfg("universe.max_other_updates", 6))]:
@@ -244,8 +285,9 @@ def _other_updates(filings: list[dict]) -> list[dict]:
         rows.append({
             "market": row["market"],
             "category": categories,
-            "title": f"{row['issuer_name']} {categories}",
-            "reported": row["snippet"],
+            "title": f"{row['issuer_name']}（{row['issuer_code']}）{categories}",
+            "reported": _update_reported(row),
+            "note": _update_note(row, filings),
             "source_ids": [row["id"]],
         })
     return rows
