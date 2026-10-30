@@ -757,7 +757,7 @@ def main() -> None:
     # A model may repeat a numeral only when it appears in a cited source's
     # visible title or snippet. This is a guard, not a verified price feed.
     source_lookup = {item["id"]: item for item in items}
-    number_pattern = re.compile(r"(?<![A-Za-z])\\d+(?:[.,]\\d+)?")
+    number_pattern = re.compile(r"(?<![A-Za-z])\d+(?:[.,]\d+)?")
     def check_numbers(value, cited_ids, path="report"):
         if isinstance(value, dict):
             active_ids = value.get("source_ids") or value.get("summary_source_ids") or value.get("overview_source_ids") or cited_ids
