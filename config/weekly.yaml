@@ -1,0 +1,197 @@
+schema: wr-weekly/v2
+
+# 期次与节奏：期号锚定 ISO 周，区间固定为「本周一 09:30 → 下周一 09:30」
+issue:
+  cadence: weekly
+  anchor_weekday: 0            # 0 = 周一
+  anchor_time: "09:30"
+  timezone: Asia/Shanghai
+  edition_format: iso_week     # 2026-W44
+
+# 标的池：公告只按池拉取，池外标的（含 ETF/基金例行披露）在源头就不会进入
+stock_pool:
+  a_share:
+    - ["300308", "中际旭创", "光模块"]
+    - ["300502", "新易盛", "光模块"]
+    - ["300394", "天孚通信", "光模块"]
+    - ["002463", "沪电股份", "算力硬件"]
+    - ["300476", "胜宏科技", "算力硬件"]
+    - ["601138", "工业富联", "算力硬件"]
+    - ["000977", "浪潮信息", "算力硬件"]
+    - ["688256", "寒武纪", "算力芯片"]
+    - ["688041", "海光信息", "算力芯片"]
+    - ["688008", "澜起科技", "算力芯片"]
+    - ["688521", "芯原股份", "算力芯片"]
+    - ["300223", "北京君正", "算力芯片"]
+    - ["688981", "中芯国际", "晶圆制造"]
+    - ["688396", "华润微", "晶圆制造"]
+    - ["002371", "北方华创", "半导体设备"]
+    - ["688012", "中微公司", "半导体设备"]
+    - ["603501", "韦尔股份", "半导体设计"]
+    - ["603986", "兆易创新", "半导体设计"]
+    - ["002049", "紫光国微", "半导体设计"]
+    - ["300782", "卓胜微", "半导体设计"]
+    - ["002230", "科大讯飞", "AI 应用"]
+    - ["688111", "金山办公", "AI 应用"]
+    - ["300496", "中科创达", "AI 应用"]
+    - ["300454", "深信服", "AI 应用"]
+    - ["002415", "海康威视", "AI 应用"]
+    - ["002236", "大华股份", "AI 应用"]
+    - ["688036", "传音控股", "智能终端"]
+    - ["000063", "中兴通讯", "通信设备"]
+
+# 每个主题至少 1 家进入周报，避免某一细分赛道独占版面
+theme_floor: 1
+max_per_theme: 3
+
+universe:
+  max_items: 60
+  per_market:
+    A股: 24
+    港股: 16
+  max_filings_per_issuer: 1     # 同一发行人同期多条公告合并为一条
+  max_other_updates: 6
+  max_highlights: 4
+
+# 公告类型：白名单决定抽取，黑名单决定源头不拉
+filings:
+  include_title_terms:
+    - 季度报告
+    - 年度报告
+    - 半年度报告
+    - 业绩预告
+    - 业绩快报
+    - 重大合同
+    - 中标
+    - 订单
+    - 回购
+    - 增持
+    - 减持
+    - 股权激励
+    - 问询回复
+    - 发行股份
+    - 利润分配
+    - 停牌
+    - 复牌
+  exclude_title_terms:
+    - 提示性公告
+    - 前十名股东
+    - 回购股份报告书
+    - 监事会
+    - 独立董事候选人
+    - 会计师事务所
+  categories:
+    - id: periodic
+      label: 定期报告
+      match: ["季度报告", "年度报告", "半年度报告"]
+      gloss: 披露报告期经营与财务数据，具体数值以公告原文为准
+    - id: forecast
+      label: 业绩预告
+      match: ["业绩预告", "业绩快报"]
+      gloss: 披露预计业绩区间，非经审计数据
+    - id: buyback
+      label: 股份回购
+      match: ["回购"]
+      gloss: 涉及回购方案、实施进展或股份用途变更
+    - id: order
+      label: 订单合同
+      match: ["重大合同", "中标", "订单"]
+      gloss: 披露经营性合同或中标情况
+    - id: capital
+      label: 资本运作
+      match: ["发行股份", "资产重组", "股权激励", "利润分配"]
+      gloss: 涉及股权、激励或分配安排
+    - id: shareholder
+      label: 股东行为
+      match: ["增持", "减持", "解禁"]
+      gloss: 披露重要股东持股变动
+    - id: regulatory
+      label: 监管事项
+      match: ["问询回复", "停牌", "复牌"]
+      gloss: 涉及监管问询或交易状态变化
+
+# 行情通道
+quote:
+  market: 港股
+  index_name: 恒生指数
+  source: 香港交易所
+  data_cutoff_note: 行情数据以交易所收市记录为准，当日未收市不计入
+
+# 下周日历：规则推算为主，登记事项为辅
+calendar:
+  recurring:
+    - id: cn_pmi
+      name: 中国制造业 PMI
+      window: [28, 31]
+      note: 国家统计局月末发布当月 PMI
+    - id: cn_trade
+      name: 中国进出口数据
+      window: [7, 14]
+      note: 海关总署月初发布上月进出口
+    - id: cn_price
+      name: 中国 CPI / PPI
+      window: [9, 15]
+      note: 国家统计局月中发布上月物价数据
+    - id: cn_credit
+      name: 社融与新增信贷
+      window: [10, 18]
+      note: 中国人民银行月中发布上月金融数据
+    - id: cn_activity
+      name: 工业增加值与社会消费品零售
+      window: [15, 20]
+      note: 国家统计局月中发布上月经济活动数据
+  deadlines:
+    - id: q3_report
+      name: 三季度报告披露截止
+      month: 10
+      day: 31
+      note: 上市公司须于 10 月 31 日前完成三季报披露
+    - id: annual_report
+      name: 年度报告披露截止
+      month: 4
+      day: 30
+      note: 上市公司须于次年 4 月 30 日前完成年报披露
+    - id: h1_report
+      name: 半年度报告披露截止
+      month: 8
+      day: 31
+      note: 上市公司须于 8 月 31 日前完成半年报披露
+  known_events: []
+  # 需要人工维护的一次性事件，格式：
+  # - {date: "2026-11-05", name: "美联储议息会议", note: "结果于北京时间次日凌晨公布"}
+
+render:
+  chart: true
+  chart_days: 5
+  max_source_rows: 24
+  show_uncited: true
+
+compliance:
+  ai_label: 本页由程序与大模型协作生成，数字均经来源或计算核对，发布前经人工复核。
+  disclaimers:
+    - 本报告为公开信息整理与观点分享，不构成任何投资建议或要约。
+    - 数据来自交易所、监管机构与上市公司披露，可能存在延迟、遗漏或口径差异。
+    - 文中观点基于发布时点信息，可能随新信息变更，恕不另行通知。
+    - 编制人及其关联方不持有文中提及标的，与所涉公司无业务往来。
+    - 未经许可不得转载；引用请注明来源与本页链接。
+  forbidden_phrases:
+    - 建议买入
+    - 建议卖出
+    - 目标价
+    - 必涨
+    - 必跌
+    - 抄底
+    - 稳赚
+    - 翻倍
+    - 重仓
+    - 满仓
+  max_ai_disclaimer_repeat: 1
+
+validation:
+  overview_requires_number: true
+  number_tolerance_abs: 0.06
+  allow_year_range: [1990, 2100]
+  ordinal_max: 20
+  min_highlights: 1
+  max_headline_chars: 46
+  fallback_to_data_edition: true
