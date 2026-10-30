@@ -229,6 +229,8 @@ def fetch_cninfo_announcements(start: dt.datetime, end: dt.datetime) -> list[dic
                 "isHLtitle": "true",
             })
             announcements = result.get("announcements") if isinstance(result, dict) else None
+            if announcements is None and isinstance(result, dict) and result.get("totalAnnouncement") == 0:
+                announcements = []
             if not isinstance(announcements, list):
                 raise ValueError("announcement schema changed")
             kept = 0
@@ -897,16 +899,42 @@ def main() -> None:
     print(f"Collecting market news from {period['start']} through {period['end']} Asia/Shanghai")
     items = collect_news(start, now)
     print(f"Collected {len(items)} unique articles")
-    if all(item.get("channel") == "quote" for item in items):
-        latest = max(items, key=lambda row: row["published"])
+    if all(item.get("channel") in {"quote", "company_fact"} for item in items):
+        quotes = sorted((row for row in items if row.get("channel") == "quote"), key=lambda row: row["published"])
+        filings = sorted((row for row in items if row.get("channel") == "company_fact"), key=lambda row: row["published"], reverse=True)
+        quote_ids = [row["id"] for row in quotes]
+        filing_ids = [row["id"] for row in filings]
+        if quotes and filings:
+            headline = "港股行情与 A 股公司披露"
+            overview = "本期港交所每日行情与 A 股公司公告均有一手资料，具体记录见下文。"
+        elif quotes:
+            headline = "港股市场数据观察"
+            overview = "本期港交所每日行情已有一手记录；A 股资料暂缺。"
+        else:
+            headline = "A 股公司披露观察"
+            overview = "本期 A 股公司公告已有一手记录；港股行情资料暂缺。"
         report = {
-            "headline": "港股市场数据观察",
-            "overview": latest["snippet"],
-            "overview_source_ids": [latest["id"]],
-            "ashare": {"summary": "本期未采到 A 股市场数据。", "summary_source_ids": [], "drivers": []},
-            "hk": {"summary": latest["snippet"], "summary_source_ids": [latest["id"]], "drivers": []},
-            "highlights": [], "other_updates": [], "next_watch": [],
+            "headline": headline, "overview": overview,
+            "overview_source_ids": quote_ids + filing_ids,
+            "ashare": {
+                "summary": "本期 A 股股票池内有公司公告，见其他动态。" if filings else "本期未采到 A 股市场数据。",
+                "summary_source_ids": [filings[0]["id"]] if filings else [],
+                "drivers": [],
+            },
+            "hk": {
+                "summary": "港交所本期每日主板成交额与恒生指数收市记录如下。" if quotes else "本期未采到港股市场数据。",
+                "summary_source_ids": quote_ids,
+                "drivers": [{"text": row["snippet"], "source_ids": [row["id"]]} for row in quotes],
+            },
+            "highlights": [],
+            "other_updates": [
+                {"market": "A股", "category": "公司公告", "title": row["title"],
+                 "reported": row["snippet"], "source_ids": [row["id"]]}
+                for row in filings[:6]
+            ],
+            "next_watch": [],
         }
+        validate_report(report, {row["id"] for row in items})
     else:
         report = call_deepseek(items, period)
     # A model may repeat a numeral only when it appears in a cited source's
@@ -931,7 +959,7 @@ def main() -> None:
             if extra:
                 raise RuntimeError(f"UNVERIFIED_NUMBER: {path} contains {sorted(extra)}")
     check_numbers(report, report.get("overview_source_ids", []))
-    if not report["highlights"] and not any(item.get("channel") == "quote" for item in items):
+    if not report["highlights"] and not any(item.get("channel") in {"quote", "company_fact"} for item in items):
         raise RuntimeError("EMPTY_REPORT: no supported highlights or market data")
     for key in ("ashare", "hk"):
         if not report[key].get("summary_source_ids") and any(item["market"] == ("A股" if key == "ashare" else "港股") for item in items):
