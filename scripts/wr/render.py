@@ -151,6 +151,55 @@ def updates_lead(metrics: dict, others: list[dict]) -> str:
             "报告期财务数值未解析，点条目末尾的来源即可打开原文核对。")
 
 
+def intel_section(report: dict, sources: dict[str, dict]) -> str:
+    """产业舆情：官方与白名单媒体同处一条阅读流，靠轨别徽标与边线区分，不左右分栏。"""
+    rows = [row for row in (report.get("intel") or []) if isinstance(row, dict)]
+    if not rows:
+        return ('<p class="empty">本期未取得同时满足「AI 主体 + 产业事件」双条件的合格舆情条目，'
+                '本栏留空而不是用泛科技新闻填充。采集覆盖见文末「来源与说明」。</p>')
+
+    official = sum(1 for row in rows if row.get("track") == "official")
+    media = len(rows) - official
+    threads: dict[str, list[dict]] = {}
+    for row in rows:
+        threads.setdefault(str(row.get("thread") or "其他"), []).append(row)
+
+    blocks = []
+    for label in ("产业政策", "重大项目", "投融资", "重要产业动态", "其他"):
+        group = threads.get(label)
+        if not group:
+            continue
+        group.sort(key=lambda row: str(row.get("published") or ""), reverse=True)
+        group.sort(key=lambda row: row.get("track") != "official")
+        items_html = []
+        for row in group:
+            track = row.get("track") or "media"
+            caveat = ('<span class="caveat">媒体口径 · 未见官方原文</span>'
+                      if row.get("caveat") else "")
+            items_html.append(
+                f'<article class="intel track-{S.esc(track)}">'
+                f'<div class="intel-head"><span class="track">{S.esc(row.get("track_label") or "白名单媒体")}</span>'
+                f'<span class="chip">{S.esc(row.get("attribute") or "其他")}</span>{caveat}'
+                f'<span class="stamp">{S.esc(str(row.get("published") or "")[:16].replace("T", " "))}</span></div>'
+                f'<h4>{S.esc(row.get("title"))}</h4>'
+                f'<p class="reading">{S.esc(row.get("note"))}</p>'
+                f'{source_line(row.get("source_ids", []), sources)}</article>')
+        official_in_group = sum(1 for row in group if row.get("track") == "official")
+        flag = ("" if official_in_group
+                else '<span class="thread-flag">本组暂无官方原文，均为媒体口径</span>')
+        blocks.append(
+            f'<div class="thread"><h3>{S.esc(label)}<span class="count">{len(group)}</span>{flag}</h3>'
+            f'{"".join(items_html)}</div>')
+
+    lead = (f'本栏 {len(rows)} 条：官方轨 {official} 条，白名单媒体轨 {media} 条。'
+            '官方轨只收政务与部委站点原文；政策与重大项目若无官方原文，不放进官方轨，'
+            '媒体条目一律标注口径，便于区分事实与转述。')
+    return (f'<p class="block-lead">{S.esc(lead)}</p>'
+            f'<div class="intel-legend"><span class="legend legend-official">官方</span>政务公开原文'
+            f'<span class="legend legend-media">白名单媒体</span>标注媒体口径，需回原文核对'
+            f'</div>{"".join(blocks)}')
+
+
 # ---------------------------------------------------------------- 页面
 
 
@@ -244,12 +293,14 @@ def render_report(report: dict, items: list[dict], period: dict, metrics: dict,
           f'<span><b>一手来源</b> {len(items)} 条</span>'
           f'<span><b>生成时间</b> {generated_txt}</span>'
     )
+    intel_html = intel_section(report, sources)
+    intel_rows = report.get("intel") or []
 
     nav = [
-        ('#overview', '本期关注', True),
-        ('#markets', '市场概览', True),
-        ('#highlights', f'本周重点 · {len(stories)} 则', bool(stories)),
-        ('#more', f'其他动态 · {len(others)} 则', bool(others)),
+        ('#focus', f'本周重点 · {len(stories)}', bool(stories)),
+        ('#intel', f'产业舆情 · {len(intel_rows)}', bool(intel_rows)),
+        ('#filings', f'公告动态 · {len(others)}', bool(others)),
+        ('#markets', '市场数据', bool(chart or market_cards)),
         ('#outlook', '下周日历', bool(watch)),
         ('#previous', '上期判断', bool(previous)),
         ('#sources', '来源与说明', True),
@@ -261,31 +312,42 @@ def render_report(report: dict, items: list[dict], period: dict, metrics: dict,
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="{S.esc(report.get('overview'))}">
 <meta name="generator" content="ai-market-weekly {S.esc(period['edition'])}">
-<title>{S.esc(report.get('headline'))}｜A/H AI 市场周报</title>
+<title>{S.esc(report.get('headline'))}｜AI 产业与市场周报</title>
 <style>
 {_asset('site.css')}
 {_asset('site-extra.css')}
-</style></head><body><main class="wrap">
-<header class="hero"><div class="eyebrow">A/H EQUITY · AI &amp; INNOVATION</div>
-<h1>{S.esc(report.get("headline"))}</h1><p>A 股 / 港股 · 人工智能与科技创新市场观察</p></header>
-<div class="facts">{facts}</div>
+</style></head><body><div class="shell">
+<header class="masthead">
+<p class="kicker">AI 产业与市场 · 周报<span class="sep">/</span>{S.esc(period["edition"])}</p>
+<h1>{S.esc(report.get("headline"))}</h1>
+<p class="standfirst">{S.esc(report.get("overview"))}{cite(report.get("overview_source_ids", []))}</p>
+<div class="masthead-facts">{facts}</div>
+</header>
+<nav class="toc">{nav_html}</nav>
 {cutoff_note}
-<div class="layout"><aside class="rail"><strong>CONTENTS / 栏目</strong>{nav_html}</aside><div class="content">
-<section id="overview"><h2>本期关注</h2><p class="lead">{S.esc(report.get("overview"))}</p>
-{source_line(report.get("overview_source_ids", []), sources, report.get("overview_metric_ids"))}</section>
-<section id="markets" class="section"><h2>市场概览</h2><div class="market-grid">{"".join(market_cards)}</div>{chart}</section>
-<section id="highlights" class="section"><div class="section-heading"><h2>本周重点 · {len(story_html)} 则</h2>
-<div class="export-actions"{"" if story_html else " hidden"}><button class="export-button" type="button" data-export-highlights>下载本周重点长图</button><span class="export-status" data-export-status aria-live="polite"></span></div></div>
-{"".join(story_html) if story_html else '<p class="note">本期未能形成通过校验的判断条目。</p>'}</section>
-{f'<section id="more" class="section"><h2>其他动态 · {len(update_html)} 则</h2><p class="note">{updates_lead(metrics, others)}</p>{"".join(update_html)}</section>' if update_html else ''}
-{f'<section id="outlook" class="section"><h2>下周日历</h2><ul class="calendar">{calendar_html}</ul><p class="note">「规则推算」依据历史发布惯例估算，「法定截止日」为监管规定，「已登记」为人工维护事项。</p></section>' if calendar_html else ''}
-{f'<section id="previous" class="section"><h2>上期判断</h2><ul class="prev-check">{previous_html}</ul><p class="note">「待验证」表示本期未取得足以判定的新证据，不代表判断成立。</p></section>' if previous_html else ''}
-<section id="sources" class="section"><h2>来源与说明</h2>
-<p class="note">本页所有事实性陈述均可回溯至下列一手来源；派生指标（涨跌幅、振幅、环比等）由程序按来源数据计算，计算口径见每条依据说明。</p>
-<details class="source-details"><summary>报告引用来源（{len(cited_rows)} 条）</summary><ol class="sources">{"".join(cited_rows) or "<li>暂无引用来源。</li>"}</ol></details>
+<main>
+<section id="focus" class="block">
+<div class="block-head"><h2>本周重点<span class="count">{len(story_html)} 则</span></h2>
+<div class="export-actions"{"" if story_html else " hidden"}><button class="export-button" type="button" data-export-highlights>下载长图</button><span class="export-status" data-export-status aria-live="polite"></span></div></div>
+{"".join(story_html) if story_html else '<p class="empty">本期未能形成通过校验的判断条目。</p>'}
+</section>
+<section id="intel" class="block">
+<div class="block-head"><h2>产业舆情<span class="count">官方 {sum(1 for r in intel_rows if r.get("track") == "official")} · 媒体 {sum(1 for r in intel_rows if r.get("track") != "official")}</span></h2></div>
+{intel_html}
+</section>
+{f'<section id="filings" class="block"><div class="block-head"><h2>公告动态<span class="count">{len(update_html)} 则</span></h2></div><p class="block-lead">{updates_lead(metrics, others)}</p>{"".join(update_html)}</section>' if update_html else ''}
+<section id="markets" class="block"><div class="block-head"><h2>市场数据<span class="count">背景</span></h2></div>
+<p class="block-lead">量价与公告节奏放在产业信息之后，作为判断的背景而非结论来源。</p>
+<div class="market-grid">{"".join(market_cards)}</div>{chart}</section>
+{f'<section id="outlook" class="block"><div class="block-head"><h2>下周日历<span class="count">{len(watch)} 项</span></h2></div><ul class="calendar">{calendar_html}</ul><p class="note">「规则推算」依据历史发布惯例估算，「法定截止日」为监管规定，「已登记」为人工维护事项。</p></section>' if calendar_html else ''}
+{f'<section id="previous" class="block"><div class="block-head"><h2>上期判断<span class="count">{len(previous)} 条</span></h2></div><ul class="prev-check">{previous_html}</ul><p class="note">「待验证」表示本期未取得足以判定的新证据，不代表判断成立。</p></section>' if previous_html else ''}
+<section id="sources" class="block"><div class="block-head"><h2>来源与说明<span class="count">{len(items)} 条</span></h2></div>
+<p class="block-lead">事实性陈述均可回溯至下列来源；派生指标（涨跌幅、振幅、环比等）由程序按来源数据计算，口径见每条依据说明。舆情条目按轨道标注：官方轨为政务与部委站点原文，白名单媒体轨需回原文核对。</p>
+<details class="source-details" open><summary>报告引用来源（{len(cited_rows)} 条）</summary><ol class="sources">{"".join(cited_rows) or "<li>暂无引用来源。</li>"}</ol></details>
 <details class="source-details"><summary>未引用采集线索（{len(other_rows)} 条）</summary><ol class="sources">{"".join(other_rows) or "<li>本期采集到的线索均已引用或未产生合格线索。</li>"}</ol></details></section>
-<div class="disclaimer"><p><span class="badge-ai">AI 参与生成</span>{S.esc(ai_label)}</p><ol>{disclaimers}</ol></div>
-</div></div></main><script>{_asset('export.js')}</script></body></html>'''
+</main>
+<footer class="disclaimer"><p><span class="badge-ai">AI 参与生成</span>{S.esc(ai_label)}</p><ol>{disclaimers}</ol></footer>
+</div><script>{_asset('export.js')}</script></body></html>'''
 
 
 def _cited_ids(report: dict) -> set[str]:
@@ -295,7 +357,7 @@ def _cited_ids(report: dict) -> set[str]:
         ids.update(section.get("summary_source_ids", []) or [])
         for driver in section.get("drivers", []) or []:
             ids.update(driver.get("source_ids", []) or [])
-    for group in ("highlights", "other_updates", "next_watch", "previous_check"):
+    for group in ("highlights", "other_updates", "next_watch", "previous_check", "intel"):
         for item in report.get(group, []) or []:
             ids.update(item.get("source_ids", []) or [])
     return ids

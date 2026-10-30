@@ -20,16 +20,17 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from wr import collect, llm, metrics as M, narrative, render, settings as S, validate as V  # noqa: E402
+from wr import collect, intel as intel_labels, llm, metrics as M, narrative, render, settings as S, validate as V  # noqa: E402
 
 
 def log(event: dict) -> None:
     print(json.dumps(event, ensure_ascii=False), flush=True)
 
 
-def assign_ids(filings: list[dict], quotes: list[dict], clues: list[dict]) -> list[dict]:
+def assign_ids(filings: list[dict], quotes: list[dict], clues: list[dict],
+               intel_items: list[dict] | None = None) -> list[dict]:
     filings.sort(key=lambda row: (row["published"], row["issuer_code"]), reverse=True)
-    ordered = filings + quotes + clues
+    ordered = filings + quotes + clues + (intel_items or [])
     for index, item in enumerate(ordered, 1):
         item["id"] = f"S{index:02d}"
     return ordered
@@ -61,19 +62,22 @@ def load_previous(edition: str) -> dict | None:
 
 
 def build_report(items: list[dict], filings: list[dict], metrics: dict, calendar_events: list[dict],
-                 period: dict, previous: dict | None, allow_model: bool) -> tuple[dict, str, list[dict]]:
+                 period: dict, previous: dict | None, allow_model: bool,
+                 intel_items: list[dict] | None = None) -> tuple[dict, str, list[dict]]:
     report: dict | None = None
     notes: list[dict] = []
     mode = "rule"
+    intel_items = intel_items or []
     if allow_model and items:
         catalog = metric_catalog(metrics)
         block = M.describe(metrics)
         feedback = None
         for attempt in (1, 2):
             try:
-                candidate = llm.draft(items, block, catalog, period, previous, feedback)
+                candidate = llm.draft(items, block, catalog, period, previous, feedback, intel_items)
                 candidate.setdefault("next_watch", _calendar_watch(calendar_events))
                 candidate["previous_check"] = candidate.get("previous_check") or narrative.previous_check(previous)
+                hydrate_intel(candidate, intel_items)
                 _validate_all(candidate, items, metrics, period, calendar_events)
                 report, mode = candidate, "model"
                 notes.append({"attempt": attempt, "result": "accepted"})
@@ -88,13 +92,43 @@ def build_report(items: list[dict], filings: list[dict], metrics: dict, calendar
                 log({"stage": "model", "attempt": attempt, "result": "unavailable", "reason": str(exc)[:400]})
                 break
     if report is None:
-        report = narrative.build(metrics, filings, calendar_events, period, previous)
+        report = narrative.build(metrics, filings, calendar_events, period, previous, intel_items)
         report["next_watch"] = _calendar_watch(calendar_events)
         report["previous_check"] = narrative.previous_check(previous)
         _validate_all(report, items, metrics, period, calendar_events)
         mode = "rule"
         notes.append({"result": "fallback", "mode": "rule"})
     return report, mode, notes
+
+
+def hydrate_intel(report: dict, intel_items: list[dict]) -> None:
+    """把模型给的标签落回采集条目，轨道与时间由代码决定，不由模型自述。"""
+    by_id = {item["id"]: item for item in intel_items}
+    threads = set(intel_labels.thread_labels())
+    rows: list[dict] = []
+    for row in report.get("intel") or []:
+        if str(row.get("relevance") or "related") == "other":
+            continue
+        sid = (row.get("source_ids") or [None])[0]
+        src = by_id.get(sid)
+        if src is None:
+            continue
+        track = str(src.get("track") or "media")
+        thread = str(row.get("thread") or src.get("thread") or "重要产业动态")
+        if thread not in threads:
+            thread = str(src.get("thread") or "重要产业动态")
+        rows.append({
+            "thread": thread,
+            "attribute": str(row.get("attribute") or src.get("attribute") or "其他"),
+            "track": track,
+            "track_label": intel_labels.TRACK_LABELS.get(track, "白名单媒体"),
+            "title": str(row.get("title") or src.get("title") or "").strip(),
+            "note": str(row.get("note") or intel_labels.rule_note({**src, "thread": thread})).strip(),
+            "published": src["published"].isoformat(timespec="minutes"),
+            "caveat": track == "media" and thread in set(S.cfg("intel.official_required_threads", []) or []),
+            "source_ids": [sid],
+        })
+    report["intel"] = rows
 
 
 def _calendar_watch(calendar_events: list[dict]) -> list[dict]:
@@ -108,6 +142,7 @@ def _validate_all(report: dict, items: list[dict], metrics: dict, period: dict,
     V.check_metric_ids(report, {entry["id"] for entry in metric_catalog(metrics)})
     V.enforce_headline(report)
     V.enforce_framing(report)
+    V.enforce_intel(report)
     V.enforce_forbidden(report)
     V.check_overview(report)
     ledger = V.Ledger(M.ledger_values(metrics),
@@ -192,15 +227,16 @@ def main() -> None:
     filings, f_status = collect.collect_filings(period["start"], period["end"])
     quotes, q_status = collect.collect_quotes(period["start"], period["end"])
     clues, c_status = collect.collect_clues(period["start"], period["end"])
+    intel_items, i_status = collect.collect_intel(period["start"], period["end"])
     calendar_events, k_status = collect.collect_calendar(now)
-    coverage = [f_status, q_status, c_status, k_status]
+    coverage = [f_status, q_status, c_status, i_status, k_status]
     for status in coverage:
         log({"stage": "coverage", **status})
 
-    if not quotes and not filings:
-        raise RuntimeError("NO_ELIGIBLE_ITEMS: 公告与行情通道均为空，本期无一手材料可用")
+    if not quotes and not filings and not intel_items:
+        raise RuntimeError("NO_ELIGIBLE_ITEMS: 公告、行情与舆情三条通道均为空，本期无材料可用")
 
-    items = assign_ids(filings, quotes, clues)
+    items = assign_ids(filings, quotes, clues, intel_items)
     metrics = M.build_metrics(quotes, filings)
     M.annotate_daily(metrics, quotes)
     log({"stage": "metrics", "sessions": metrics.get("sessions", 0), "issuers": metrics.get("issuers", 0),
@@ -208,8 +244,9 @@ def main() -> None:
 
     previous = load_previous(period["edition"])
     report, mode, model_notes = build_report(items, filings, metrics, calendar_events, period, previous,
-                                             allow_model=not args.no_model)
+                                             allow_model=not args.no_model, intel_items=intel_items)
     log({"stage": "report", "mode": mode, "highlights": len(report.get("highlights", [])),
+         "intel": len(report.get("intel", [])),
          "other_updates": len(report.get("other_updates", [])), "calendar": len(report.get("next_watch", []))})
 
     base = Path(args.out) if args.out else (ROOT / "preview" if args.dry_run else ROOT)

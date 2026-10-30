@@ -20,6 +20,8 @@ class ReportError(RuntimeError):
 REQUIRED_FIELDS = ("headline", "overview", "overview_source_ids", "ashare", "hk",
                    "highlights", "other_updates", "next_watch")
 PROVENANCE_FIELDS = ("source_ids", "metric_ids", "basis")
+# 时间戳不是论据，分钟数与小时数不参与数字台账
+NON_CLAIM_FIELDS = PROVENANCE_FIELDS + ("published",)
 
 
 def _require_list(report: dict, field: str) -> list:
@@ -150,7 +152,7 @@ def verify_numbers(report: dict, ledger: Ledger) -> list[str]:
     def walk(value, path: str) -> None:
         if isinstance(value, dict):
             for key, child in value.items():
-                if key in PROVENANCE_FIELDS:
+                if key in NON_CLAIM_FIELDS:
                     continue
                 walk(child, f"{path}.{key}")
         elif isinstance(value, list):
@@ -258,6 +260,37 @@ def enforce_headline(report: dict) -> None:
     limit = int(S.cfg("validation.max_headline_chars", 46))
     if len(report.get("headline", "")) > limit:
         raise ReportError(f"HEADLINE_TOO_LONG: 超过 {limit} 字")
+
+
+# ---------------------------------------------------------------- 产业舆情
+# 三个字段必须自洽：相关性、知识脉络、信息属性。枚举外的值一律拒绝，
+# 判为「不相关」的条目不得带脉络，否则等于让泛科技新闻借标签混进版面。
+
+
+def enforce_intel(report: dict) -> None:
+    rows = report.get("intel")
+    if rows is None:
+        return
+    if not isinstance(rows, list):
+        raise ReportError("intel 必须是数组")
+    threads = set(S.cfg("intel.threads", []) and [row["label"] for row in S.cfg("intel.threads", [])])
+    attributes = set(row["label"] for row in (S.cfg("intel.attributes", []) or []))
+    for row in rows:
+        if not isinstance(row, dict):
+            raise ReportError("intel 的每个条目必须是对象")
+        thread = str(row.get("thread") or "")
+        attribute = str(row.get("attribute") or "")
+        if thread not in threads:
+            raise ReportError(f"INTEL_THREAD_INVALID: 「{row.get('title', '')}」的知识脉络「{thread}」不在枚举内")
+        if attribute not in attributes:
+            raise ReportError(f"INTEL_ATTRIBUTE_INVALID: 「{row.get('title', '')}」的信息属性「{attribute}」不在枚举内")
+        if thread == "其他":
+            raise ReportError(f"INTEL_IRRELEVANT_KEPT: 「{row.get('title', '')}」判为「其他」不应进入页面")
+        if not str(row.get("note") or "").strip():
+            raise ReportError(f"INTEL_WITHOUT_NOTE: 「{row.get('title', '')}」缺少研判句")
+        title, note = str(row.get("title") or ""), str(row.get("note") or "")
+        if title and S.title_similarity(title, note) >= 0.85:
+            raise ReportError(f"INTEL_NOTE_RESTATES_TITLE: 「{title}」的研判句只是复述标题")
 
 
 # ---------------------------------------------------------------- 叙述框架

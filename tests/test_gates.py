@@ -282,8 +282,77 @@ def test_rule_narrative_passes_framing() -> None:
         assert "披露2026年" not in row["reported"], row["reported"]
 
 
+def intel_row(**kwargs) -> dict:
+    row = {"thread": "产业政策", "attribute": "政策发布", "track": "official",
+           "title": "某部委印发人工智能产业支持措施", "note": "政策原件已发布，可读的是适用对象与支持方式",
+           "source_ids": ["S01"]}
+    row.update(kwargs)
+    return row
+
+
+def test_intel_thread_enum() -> None:
+    report = base_report()
+    report["intel"] = [intel_row(thread="产业风向")]
+    try:
+        V.enforce_intel(report)
+    except V.ReportError as exc:
+        assert "INTEL_THREAD_INVALID" in str(exc), exc
+        return
+    raise AssertionError("枚举外的知识脉络未被拦截")
+
+
+def test_intel_irrelevant_must_not_render() -> None:
+    report = base_report()
+    report["intel"] = [intel_row(thread="其他", attribute="其他")]
+    try:
+        V.enforce_intel(report)
+    except V.ReportError as exc:
+        assert "INTEL_IRRELEVANT_KEPT" in str(exc), exc
+        return
+    raise AssertionError("判为「其他」的舆情条目进入了页面")
+
+
+def test_intel_note_required() -> None:
+    report = base_report()
+    report["intel"] = [intel_row(note=" ")]
+    try:
+        V.enforce_intel(report)
+    except V.ReportError as exc:
+        assert "INTEL_WITHOUT_NOTE" in str(exc), exc
+        return
+    raise AssertionError("缺少研判句的舆情条目未被拦截")
+
+
+def test_intel_prefilter_and_tracks() -> None:
+    from wr import intel as I
+
+    assert I.track_of_host("miit.gov.cn") == "official"
+    assert I.track_of_host("dzwxf.mofcom.gov.cn") == "official"
+    assert I.track_of_host("m.caixin.com") == "media"
+    assert I.track_of_host("example.com") is None
+    # AI 主体 + 产业事件才收；招聘、观点稿、海外宏观噪音一律不收
+    assert I.prefilter("工信部印发人工智能算力基础设施行动方案", "")
+    assert not I.prefilter("某AI公司校园招聘启动", "")
+    assert not I.prefilter("人工智能板块或将迎来反弹", "")
+    assert not I.prefilter("人工智能相关美债发行升温", "")
+
+
+def test_intel_cap_limits_media_share() -> None:
+    import datetime as dt
+    from wr import intel as I
+
+    rows = []
+    for index in range(12):
+        rows.append({"thread": "重要产业动态", "track": "media" if index % 2 else "official",
+                     "published": dt.datetime(2026, 10, 20, 9, index), "title": f"t{index}"})
+    kept = I.cap(rows)
+    assert len(kept) <= 12, len(kept)
+    media = sum(1 for row in kept if row["track"] == "media")
+    assert media <= max(1, int(12 * 0.6)), media
+
+
 def test_takeaway_has_no_white_panel() -> None:
-    css = (ROOT / "scripts" / "wr" / "assets" / "site-extra.css").read_text(encoding="utf-8")
+    css = (ROOT / "scripts" / "wr" / "assets" / "site.css").read_text(encoding="utf-8")
     block = css.split(".update .takeaway{", 1)[1].split("}", 1)[0]
     assert "background:#fff" not in block, block
     assert "background:none" in block or "background:transparent" in block, block

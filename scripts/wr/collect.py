@@ -23,7 +23,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-from . import settings as S
+from . import intel, settings as S
 
 OFFICIAL_DOMAINS = ("gov.cn", "csrc.gov.cn", "sse.com.cn", "szse.cn", "hkex.com.hk", "hkexnews.hk", "cninfo.com.cn")
 MEDIA_DOMAINS = ("reuters.com", "bloomberg.com", "ft.com", "wsj.com", "caixin.com", "yicai.com", "cls.cn",
@@ -325,7 +325,7 @@ def _fetch_feed(market: str, query: str, start: dt.datetime, end: dt.datetime) -
     return entries
 
 
-def _resolve_google(url: str) -> tuple[str, str]:
+def _resolve_google(url: str, tracks: tuple[str, ...] = ("official",)) -> tuple[str, str]:
     parsed = urllib.parse.urlsplit(url)
     if (parsed.hostname or "").lower() != "news.google.com":
         return url, ""
@@ -367,9 +367,9 @@ def _resolve_google(url: str) -> tuple[str, str]:
         if not frame or not frame[2]:
             return url, "Google resolver returned no publisher URL"
         resolved = json.loads(frame[2])[1]
-        if is_official_url(resolved):
+        if intel.track_of_host(intel.host_of(resolved)) in tracks:
             return resolved, ""
-        return url, "Resolved publisher is not an allowed first-party domain"
+        return url, "Resolved publisher is not in the allowed domain set"
     except (urllib.error.URLError, TimeoutError, ValueError, IndexError, TypeError, json.JSONDecodeError) as exc:
         return url, f"resolve failed: {type(exc).__name__}"
 
@@ -415,6 +415,96 @@ def collect_clues(start: dt.datetime, end: dt.datetime) -> tuple[list[dict], dic
             kept.append(item)
     print(f"clue channel: {len(by_url)} raw, {len(primary)} official, {len(kept)} relevant")
     return kept, {"channel": "clue", "ok": bool(kept) or not failures, "count": len(kept), "failures": failures}
+
+
+# ---------------------------------------------------------------- 舆情通道
+
+
+def collect_intel(start: dt.datetime, end: dt.datetime) -> tuple[list[dict], dict]:
+    """产业舆情：官方与白名单媒体双轨。
+
+    先用规则做相关性前置过滤（标题须同时含 AI 主体词与产业事件词），再解析跳转链接，
+    最后按解析后的真实域名复核轨别——只认 `*.gov.cn` 与白名单媒体，其余一律丢弃。
+    """
+    by_url: dict[str, dict] = {}
+    failures: list[str] = []
+    for feed in intel.feeds():
+        query = str(feed.get("query") or "").strip()
+        if not query:
+            continue
+        source = str(feed.get("source") or "")
+        try:
+            found = _fetch_feed("产业", query, start, end)
+        except (urllib.error.URLError, TimeoutError, ET.ParseError, ValueError) as exc:
+            failures.append(f"{source}:{type(exc).__name__}")
+            print(f"intel feed failed ({source}): {exc}")
+            continue
+        for item in found:
+            item["channel"] = "intel"
+            item["feed_track"] = str(feed.get("track") or "official")
+            item["feed_source"] = source
+            # Google News 的标题会缀上「 - 站点名」，快讯还会带「财联社10月30日电，」电头
+            rss_source = str(item.get("source") or "").strip()
+            title = item["title"].strip()
+            for suffix in (f" - {rss_source}", f"-{rss_source}"):
+                if rss_source and title.endswith(suffix):
+                    title = title[: -len(suffix)].strip()
+                    break
+            title = re.sub(r"^\d{1,2}:\d{2}(:\d{2})?\s*", "", title)
+            title = re.sub(r"^[（(]?财联社[^）)]{0,14}[）)]?\s*\d{1,2}月\d{1,2}日[电讯][，,、]\s*", "", title)
+            title = re.sub(r"^财联社\d{1,2}月\d{1,2}日[电讯][，,、]\s*", "", title)
+            title = re.sub(r"\s*[-—]\s*(36氪|界面新闻|财联社|澎湃新闻|第一财经|财新|证券时报|"
+                           r"上海证券报|21世纪经济报道|21 世纪经济报道)\s*$", "", title)
+            item["title"] = title.strip()
+            if not intel.prefilter(item["title"], item.get("snippet", "")):
+                continue
+            by_url.setdefault(item["url"].split("&ved=")[0], item)
+
+    # 解析配额按轨均分：官方数量本就少，不能让快讯把配额占满
+    limit = int(S.cfg("intel.max_resolve", 40))
+    half = max(1, limit // 2)
+    official = sorted([row for row in by_url.values() if row.get("feed_track") == "official"],
+                      key=lambda row: row["published"], reverse=True)[:half]
+    media = sorted([row for row in by_url.values() if row.get("feed_track") != "official"],
+                   key=lambda row: row["published"], reverse=True)[: max(1, limit - len(official))]
+    candidates = sorted(official + media, key=lambda row: row["published"], reverse=True)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        resolved = list(executor.map(lambda item: _resolve_google(item["url"], ("official", "media")), candidates))
+
+    kept: list[dict] = []
+    for item, (url, _note) in zip(candidates, resolved):
+        track = intel.track_of_host(intel.host_of(url))
+        if track is None:
+            continue
+        item["url"] = url
+        item["track"] = track
+        item["track_label"] = intel.TRACK_LABELS[track]
+        item["source"] = intel.site_name(url)
+        item["source_url"] = f"{urllib.parse.urlsplit(url).scheme}://{intel.host_of(url)}"
+        item["source_tier"] = "official" if track == "official" else "media"
+        item["source_tier_label"] = ("政务公开" if track == "official" else "白名单媒体")
+        thread, attribute = intel.hints(f"{item['title']} {item.get('snippet', '')}")
+        item["thread_hint"] = thread
+        item["attribute_hint"] = attribute
+        # 初判结果直接落到最终字段，模型可在枚举内改写；无模型时即用这一份
+        item["thread"] = thread
+        item["attribute"] = attribute
+        kept.append(item)
+
+    # 同一事件常被多家同轨媒体覆盖：标题相似度过高时只保留最早一条
+    deduped: list[dict] = []
+    for row in sorted(kept, key=lambda item: item["published"]):
+        if any(S.title_similarity(row["title"], other["title"]) >= 0.62 for other in deduped):
+            continue
+        deduped.append(row)
+
+    kept = intel.cap(deduped)
+    counts = intel.counts(kept)
+    print(f"intel channel: {len(by_url)} raw, {len(candidates)} prefiltered, "
+          f"{len(kept)} kept (official {counts['official']} / media {counts['media']})")
+    return kept, {"channel": "intel", "ok": bool(kept) or not failures, "count": len(kept),
+                  "official": counts["official"], "media": counts["media"], "failures": failures}
 
 
 # ---------------------------------------------------------------- 日历通道

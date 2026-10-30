@@ -167,6 +167,79 @@ calendar:
   # 需要人工维护的一次性事件，格式：
   # - {date: "2026-11-05", name: "美联储议息会议", note: "结果于北京时间次日凌晨公布"}
 
+# 产业舆情：官方与白名单媒体双轨。官方必须是 .gov.cn 或部委域名；媒体只认白名单。
+intel:
+  max_items: 12
+  max_per_thread: 4
+  max_media_share: 0.6          # 媒体条目占比上限，避免白名单媒体挤掉官方口径
+  max_resolve: 40               # 单期最多解析多少条 Google 跳转链接
+  # 双轨信源：query 走 Google News 的 site: 限定，解析后仍按域名复核轨别
+  feeds:
+    - {track: official, source: 中国政府网, query: "site:gov.cn 人工智能 政策"}
+    - {track: official, source: 工业和信息化部, query: "site:miit.gov.cn 人工智能"}
+    - {track: official, source: 国家发展改革委, query: "site:ndrc.gov.cn 人工智能"}
+    - {track: official, source: 国家互联网信息办公室, query: "site:cac.gov.cn 人工智能 生成式"}
+    - {track: official, source: 科学技术部, query: "site:most.gov.cn 人工智能"}
+    - {track: media, source: 财新, query: "site:caixin.com 人工智能"}
+    - {track: media, source: 第一财经, query: "site:yicai.com 人工智能"}
+    - {track: media, source: 21 世纪经济报道, query: "site:21jingji.com 人工智能"}
+    - {track: media, source: 证券时报, query: "site:stcn.com 人工智能"}
+    - {track: media, source: 上海证券报, query: "site:cnstock.com 人工智能"}
+    - {track: media, source: 澎湃新闻, query: "site:thepaper.cn 人工智能"}
+    - {track: media, source: 36 氪, query: "site:36kr.com 人工智能 融资"}
+    - {track: media, source: 界面新闻, query: "site:jiemian.com 人工智能"}
+    - {track: media, source: 财联社, query: "site:cls.cn 人工智能"}
+  media_whitelist:
+    - {domain: caixin.com, name: 财新}
+    - {domain: yicai.com, name: 第一财经}
+    - {domain: 21jingji.com, name: 21 世纪经济报道}
+    - {domain: stcn.com, name: 证券时报}
+    - {domain: cnstock.com, name: 上海证券报}
+    - {domain: thepaper.cn, name: 澎湃新闻}
+    - {domain: 36kr.com, name: 36 氪}
+    - {domain: jiemian.com, name: 界面新闻}
+    - {domain: cls.cn, name: 财联社}
+  # 知识脉络：单选，与信息属性一一对应到页面的分组与徽标
+  threads:
+    - id: policy
+      label: 产业政策
+      def: 涉及人工智能领域的法律法规、发展规划、产业政策、监管规则、支持措施、行动方案或地方实施政策
+    - id: project
+      label: 重大项目
+      def: 涉及人工智能重大项目、产业基地、算力设施、创新平台、签约落地、开工建设或投产进展
+    - id: capital
+      label: 投融资
+      def: 涉及人工智能企业融资、投资、并购、上市、基金设立、战略投资或重大资本合作
+    - id: industry
+      label: 重要产业动态
+      def: 涉及影响人工智能产业格局的重要企业动态、技术突破、产品发布、产业合作、生态建设或行业事件
+    - id: other
+      label: 其他
+      def: 与人工智能产业政策、重大项目、投融资或重要产业动态无直接关系的内容
+  attributes:
+    - id: policy_release
+      label: 政策发布
+      def: 文章核心为人工智能相关政策、规划、规则或措施的发布、解读与落实
+    - id: project_progress
+      label: 项目进展
+      def: 文章核心为人工智能相关重大项目的签约、落地、开工、建设、投产或阶段性进展
+    - id: capital_event
+      label: 资本事件
+      def: 文章核心为人工智能领域融资、投资、并购、上市或基金等资本交易
+    - id: cooperation
+      label: 产业合作
+      def: 文章核心为企业、机构或地方围绕人工智能开展的战略合作、生态协同或联合建设
+    - id: tech_product
+      label: 技术产品
+      def: 文章核心为人工智能重要技术突破、模型或产品发布、商业化应用进展
+    - id: other
+      label: 其他
+      def: 无法归入上述属性，但与巡查目标相关的其他信息
+  # 相关性前置过滤：命中排除词直接丢，AI 主体词与产业事件词须同时出现在标题
+  exclude_terms: [招聘, 校园宣讲, 宣讲会, 内推, 促销, 优惠, 折扣, 报名, 招生, 培训班, 训练营, 课程, 抽奖, 活动预告, 直播预告, 访谈, 专访, 演讲实录, 致辞, 会议议程, 视频, 座谈会, 圆桌, 研讨会, 征集, ETF]
+  # 官方轨必须守住脉络的类别：媒体单源时降级并加「媒体口径」标记
+  official_required_threads: [产业政策, 重大项目]
+
 render:
   chart: true
   chart_days: 5

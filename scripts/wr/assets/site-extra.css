@@ -1,40 +1,7 @@
-.chart{margin:10px 0 4px;border:1px solid var(--line);background:var(--panel-soft);padding:14px 16px}
+/* 图表与零散组件；版面骨架与舆情组件在 site.css */
+.chart{margin:16px 0 4px;border:1px solid var(--line);background:var(--panel-soft);padding:14px 16px}
 .chart svg{display:block;width:100%;height:auto}
 .chart-cap{margin:6px 0 0;color:var(--muted);font-size:12px}
-.cite{font-size:11px;line-height:0;margin-left:2px}
-.cite a{color:var(--red);text-decoration:none;font-weight:800}
-.cite a:hover{text-decoration:underline}
-.badge-ai{display:inline-block;background:var(--ink);color:#fff;font:800 11px/1.6 Arial,sans-serif;letter-spacing:.08em;padding:2px 8px;margin-right:8px}
-.datacut{background:#fbf3e6;border:1px solid #e3cfa8;border-left:4px solid #b8860b;padding:10px 14px;margin:14px 0;font-size:13px}
-.calendar{list-style:none;padding:0;margin:0}
-.calendar li{border-bottom:1px solid var(--line);padding:10px 0;display:flex;gap:14px;flex-wrap:wrap;align-items:baseline}
-.calendar .when{font:800 13px Arial,sans-serif;color:var(--red);min-width:128px}
-.calendar .what{flex:1 1 260px}
-.calendar .tag-certainty{font-size:11px;color:var(--muted);border:1px solid var(--line);padding:1px 7px;white-space:nowrap}
-.prev-check{list-style:none;padding:0;margin:0}
-.prev-check li{border-bottom:1px solid var(--line);padding:10px 0}
-.prev-check .status{font:800 12px Arial,sans-serif;margin-right:8px}
-.status-兑现{color:#0f6e56}
-.status-未兑现{color:var(--red)}
-.status-待验证{color:var(--muted)}
-.disclaimer{border-top:2px solid var(--ink);margin-top:34px;padding-top:16px;font-size:12px;color:var(--muted);line-height:1.9}
-.disclaimer ol{margin:8px 0 0;padding-left:18px}
-.announcements{margin:8px 0 0;padding-left:18px;font-size:13px}
+.announcements{margin:8px 0 0;padding-left:18px;font-size:12.5px;color:var(--muted)}
 .announcements li{margin:2px 0}
-.theme-chip{display:inline-block;font-size:11px;color:var(--blue);border:1px solid var(--blue);padding:0 6px;margin-left:6px;vertical-align:1px}
-@media(max-width:760px){.calendar li{gap:4px}.calendar .when{min-width:auto}}
-/* 三问标签统一成小标签，避免被误读成正文的一部分 */
-.reported b{display:inline-block;background:#f2e3e3;color:#862430;font:800 11px/1.7 Arial,sans-serif;letter-spacing:.04em;padding:0 8px;margin-right:9px;vertical-align:1px}
-.update .reported{margin:6px 0 0}
-/* 其他动态：第一段讲「透露了什么」，用小标签与事实段区分，不加底色 */
-.update .reading{margin:6px 0 0}
-.update .reading b{display:inline-block;color:var(--blue);font:800 11px/1.7 Arial,sans-serif;letter-spacing:.08em;margin-right:9px;vertical-align:1px}
-/* 小结：只用左侧细线做层级，不铺底色，避免在白纸上贴一块突兀的白底 */
-.update .takeaway{margin:8px 0 2px;padding:0 0 0 12px;background:none;border-left:2px solid var(--line);font-size:13.5px;line-height:1.7;color:#363b3f}
-.update .takeaway b{display:inline-block;color:var(--muted);font:800 11px/1.7 Arial,sans-serif;letter-spacing:.08em;margin-right:9px}
-.source a .ext{font-size:10px;margin-left:2px;font-weight:700}
-.source{font-size:12px;color:var(--muted);margin:8px 0 0}
-.source a.sid{font-weight:800;color:var(--red);text-decoration:none;border-bottom:1px dashed currentColor}
-.source a.sid:hover{border-bottom-style:solid}
-.source a.sid-more{font-size:11px;font-weight:700;color:var(--muted);text-decoration:none;margin-left:4px}
-.source a.sid-more:hover{color:var(--red)}
+.theme-chip{display:inline-block;font-size:10.5px;color:var(--blue);border:1px solid #a9c1cd;padding:0 6px;margin-left:6px;vertical-align:1px}

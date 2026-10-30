@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import datetime as dt
 
+from . import intel as intel_mod
 from . import settings as S
 
 _CN_DIGITS = "零一二三四五六七八九"
@@ -47,7 +48,7 @@ def filing_phrase(filings: list[dict]) -> str:
 
 
 def build(metrics: dict, filings: list[dict], calendar_events: list[dict], period: dict,
-          previous: dict | None = None) -> dict:
+          previous: dict | None = None, intel_items: list[dict] | None = None) -> dict:
     headline = "，".join(part for part in (market_phrase(metrics), filing_phrase(filings)) if part)
     if not headline:
         headline = "本期无足够一手材料"
@@ -62,12 +63,35 @@ def build(metrics: dict, filings: list[dict], calendar_events: list[dict], perio
         "ashare": _ashare(filings),
         "hk": _hk(metrics),
         "highlights": highlights,
+        "intel": _intel(intel_items or []),
         "other_updates": _other_updates(filings, exclude=used_in_highlights),
         "next_watch": _next_watch(calendar_events),
         "previous_check": _previous_check(previous),
         "origin": "rule",
     }
     return report
+
+
+def _intel(intel_items: list[dict]) -> list[dict]:
+    """无模型时的舆情条目：标签取采集阶段的规则初判，研判句取类型化的判断框架。"""
+    required = set(S.cfg("intel.official_required_threads", []) or [])
+    rows: list[dict] = []
+    for item in intel_items:
+        track = str(item.get("track") or "media")
+        thread = str(item.get("thread") or "重要产业动态")
+        title = str(item.get("title") or "").strip()
+        rows.append({
+            "thread": thread,
+            "attribute": str(item.get("attribute") or "其他"),
+            "track": track,
+            "track_label": "官方" if track == "official" else "白名单媒体",
+            "title": title,
+            "note": intel_mod.rule_note({**item, "thread": thread}),
+            "published": item["published"].isoformat(timespec="minutes"),
+            "caveat": track == "media" and thread in required,
+            "source_ids": [item["id"]],
+        })
+    return rows
 
 
 def _ids(metrics: dict, filings: list[dict]) -> list[str]:
