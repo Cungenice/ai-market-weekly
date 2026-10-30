@@ -182,6 +182,89 @@ def fetch_hkex_daily_quotes(start: dt.datetime, end: dt.datetime) -> list[dict]:
     return rows
 
 
+
+AI_STOCK_POOL = (
+    ("002230", "科大讯飞"),
+    ("300308", "中际旭创"),
+    ("300502", "新易盛"),
+    ("688256", "寒武纪"),
+    ("688041", "海光信息"),
+    ("688981", "中芯国际"),
+)
+
+
+def fetch_cninfo_announcements(start: dt.datetime, end: dt.datetime) -> list[dict]:
+    """Query selected AI-chain company filings directly from CNINFO."""
+    def post_json(path: str, fields: dict) -> object:
+        body = urllib.parse.urlencode(fields).encode("utf-8")
+        request = urllib.request.Request(
+            "https://www.cninfo.com.cn" + path, data=body, method="POST",
+            headers={"User-Agent": USER_AGENT, "Content-Type": "application/x-www-form-urlencoded",
+                     "Referer": "https://www.cninfo.com.cn/new/disclosure"},
+        )
+        with urllib.request.urlopen(request, timeout=20) as response:
+            payload = response.read()
+            print(json.dumps({"stage": "fetch_cninfo", "url": request.full_url,
+                              "fetched_at": dt.datetime.now(SHANGHAI).isoformat(),
+                              "http_status": response.status, "sha256": hashlib.sha256(payload).hexdigest()},
+                             ensure_ascii=False))
+        return json.loads(payload.decode("utf-8"))
+
+    rows = []
+    for code, name in AI_STOCK_POOL:
+        try:
+            matches = post_json("/new/information/topSearch/query", {"keyWord": code, "maxNum": 10})
+            if not isinstance(matches, list):
+                raise ValueError("topSearch schema changed")
+            match = next((row for row in matches if str(row.get("code", "")) == code), None)
+            if match is None:
+                raise ValueError("stock code not found")
+            org_id = match.get("orgId")
+            if not isinstance(org_id, str) or not org_id:
+                raise ValueError("orgId absent")
+            column = "sse" if code.startswith(("6", "9")) else "szse"
+            result = post_json("/new/hisAnnouncement/query", {
+                "stock": f"{code},{org_id}", "tabName": "fulltext", "pageSize": 30,
+                "pageNum": 1, "column": column, "seDate": f"{start:%Y-%m-%d}~{end:%Y-%m-%d}",
+                "isHLtitle": "true",
+            })
+            announcements = result.get("announcements") if isinstance(result, dict) else None
+            if not isinstance(announcements, list):
+                raise ValueError("announcement schema changed")
+            kept = 0
+            for row in announcements:
+                title = re.sub(r"<[^>]+>", "", html.unescape(str(row.get("announcementTitle", "")))).strip()
+                stamp = row.get("announcementTime")
+                adjunct = row.get("adjunctUrl")
+                if not title or not isinstance(stamp, (int, float)) or not isinstance(adjunct, str):
+                    continue
+                published = dt.datetime.fromtimestamp(stamp / 1000, SHANGHAI)
+                if not start <= published <= end:
+                    continue
+                if not any(term in title for term in ("业绩预告", "季度报告", "年度报告", "半年度报告",
+                            "重大合同", "订单", "回购", "增持", "减持", "股权激励",
+                            "问询回复", "资产重组", "发行股份", "利润分配")):
+                    continue
+                pdf_url = urllib.parse.urljoin("https://static.cninfo.com.cn/", adjunct.lstrip("/"))
+                if not registered_source_id(pdf_url):
+                    continue
+                rows.append({
+                    "market": "A股", "title": title, "url": pdf_url,
+                    "published": published.isoformat(timespec="minutes"),
+                    "source": "巨潮资讯网", "source_url": "https://www.cninfo.com.cn",
+                    "source_tier": "official", "source_tier_label": "上市公司一手公告",
+                    "snippet": f"{name}（{code}）于 {published:%Y-%m-%d} 发布《{title}》。内容细节以公告原文为准。",
+                    "query": "cninfo_company_filings", "registered_source_id": "cninfo",
+                    "channel": "company_fact",
+                })
+                kept += 1
+            print(f"CNINFO {code} {name}: {len(announcements)} returned, {kept} eligible")
+        except (urllib.error.URLError, TimeoutError, ValueError, UnicodeError, json.JSONDecodeError) as exc:
+            print(f"CNINFO {code} {name} unavailable: {exc}")
+    print(f"CNINFO company filing channel: {len(rows)} dated records")
+    return rows
+
+
 def is_relevant_source(item: dict) -> bool:
     text = f"{item['title']} {item['snippet']}".lower()
     has_topic = any(term.lower() in text for term in TOPIC_TERMS + CONTEXT_TERMS)
@@ -231,17 +314,18 @@ def collect_news(start: dt.datetime, end: dt.datetime) -> list[dict]:
                 if item["source_tier"] == "official" and existing["source_tier"] != "official":
                     existing.update({key: item[key] for key in ("source", "source_url", "source_tier", "source_tier_label")})
     if failures:
-        raise RuntimeError("COLLECTION_FAILED: " + json.dumps(failures, ensure_ascii=False))
+        print("COLLECTION_DEGRADED: " + json.dumps(failures, ensure_ascii=False))
     all_candidates = list(by_url.values())
     quote_candidates = fetch_hkex_daily_quotes(start, end)
+    filing_candidates = fetch_cninfo_announcements(start, end)
     primary_candidates = [item for item in all_candidates if item["source_tier"] == "official"]
     resolve_primary_source_urls(primary_candidates)
     primary_candidates = [item for item in primary_candidates if is_official_url(item["url"]) and registered_source_id(item["url"])]
     for item in primary_candidates:
         item["registered_source_id"] = registered_source_id(item["url"])
-    candidates = [item for item in primary_candidates if is_relevant_source(item)] + quote_candidates
+    candidates = [item for item in primary_candidates if is_relevant_source(item)] + quote_candidates + filing_candidates
     print(f"Discarded {len(all_candidates) - len(primary_candidates)} non-primary or unresolved RSS items")
-    print(f"Discarded {len(primary_candidates) - (len(candidates) - len(quote_candidates))} off-topic/routine-fund official items")
+    print(f"Discarded {len(primary_candidates) - (len(candidates) - len(quote_candidates) - len(filing_candidates))} off-topic/routine-fund official items")
     for item in candidates:
         item["priority"] = news_priority(item)
     candidates.sort(key=lambda row: (row["priority"], row["published"]), reverse=True)
@@ -269,7 +353,7 @@ def collect_news(start: dt.datetime, end: dt.datetime) -> list[dict]:
     for index, item in enumerate(selected, 1):
         item["id"] = f"S{index:02d}"
     if not selected:
-        raise RuntimeError("NO_ELIGIBLE_ITEMS: feeds responded but no eligible first-party material survived filtering")
+        raise RuntimeError("NO_ELIGIBLE_ITEMS: no validated first-party material from any channel")
     missing_markets = {"A股", "港股"} - {item["market"] for item in selected}
     if missing_markets:
         print(f"COVERAGE_GAP: {sorted(missing_markets)}; corresponding section must be brief")
