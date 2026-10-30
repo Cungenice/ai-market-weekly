@@ -91,7 +91,14 @@ def payload(items: list[dict], metrics_block: str, metric_catalog: list[dict], p
     if previous:
         prior = [{"title": story.get("title"), "watch": story.get("watch")}
                  for story in (previous.get("report", {}).get("highlights") or [])[:3]]
-    return {"period": period, "metrics": metrics_block, "metric_catalog": metric_catalog,
+    period_view = {
+        "edition": period.get("edition", ""),
+        "start": period["start"].isoformat(timespec="minutes"),
+        "end": period["end"].isoformat(timespec="minutes"),
+        "label": period.get("label", ""),
+        "partial": bool(period.get("partial")),
+    }
+    return {"period": period_view, "metrics": metrics_block, "metric_catalog": metric_catalog,
             "news": compact, "previous_highlights": prior}
 
 

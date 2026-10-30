@@ -176,6 +176,22 @@ def test_metrics_direction() -> None:
     assert m["turnover_change_pct"] < -20
 
 
+def test_model_payload_serializable() -> None:
+    """模型请求体必须能直接 json 序列化，避免上线后才发现 datetime 泄漏。"""
+    import json
+
+    from wr import llm
+
+    now = dt.datetime(2026, 10, 30, 11, 54, tzinfo=S.SHANGHAI)
+    window = S.issue_window(now)
+    items = [{"id": "S01", "market": "港股", "channel": "quote", "title": "行情",
+              "published": now, "date_only": True, "source": "香港交易所",
+              "source_tier_label": "港交所官方行情", "url": "https://example.com/a", "snippet": "摘要"}]
+    body = llm.payload(items, "指标块", [{"id": "m:hk.close", "label": "收市"}], window, None)
+    text = json.dumps(body, ensure_ascii=False)
+    assert "2026-10-26" in text and "Asia/Shanghai" not in text
+
+
 def main() -> None:
     for name, fn in list(globals().items()):
         if name.startswith("test_"):
