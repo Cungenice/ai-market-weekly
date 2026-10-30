@@ -61,8 +61,9 @@ def load_previous(edition: str) -> dict | None:
 
 
 def build_report(items: list[dict], filings: list[dict], metrics: dict, calendar_events: list[dict],
-                 period: dict, previous: dict | None, allow_model: bool) -> tuple[dict, str]:
+                 period: dict, previous: dict | None, allow_model: bool) -> tuple[dict, str, list[dict]]:
     report: dict | None = None
+    notes: list[dict] = []
     mode = "rule"
     if allow_model and items:
         catalog = metric_catalog(metrics)
@@ -75,12 +76,15 @@ def build_report(items: list[dict], filings: list[dict], metrics: dict, calendar
                 candidate["previous_check"] = candidate.get("previous_check") or narrative.previous_check(previous)
                 _validate_all(candidate, items, metrics, period, calendar_events)
                 report, mode = candidate, "model"
+                notes.append({"attempt": attempt, "result": "accepted"})
                 log({"stage": "model", "attempt": attempt, "result": "accepted"})
                 break
             except V.ReportError as exc:
                 feedback = str(exc)[:1200]
+                notes.append({"attempt": attempt, "result": "rejected", "reason": feedback})
                 log({"stage": "model", "attempt": attempt, "result": "rejected", "reason": feedback})
             except RuntimeError as exc:
+                notes.append({"attempt": attempt, "result": "unavailable", "reason": str(exc)[:400]})
                 log({"stage": "model", "attempt": attempt, "result": "unavailable", "reason": str(exc)[:400]})
                 break
     if report is None:
@@ -89,7 +93,8 @@ def build_report(items: list[dict], filings: list[dict], metrics: dict, calendar
         report["previous_check"] = narrative.previous_check(previous)
         _validate_all(report, items, metrics, period, calendar_events)
         mode = "rule"
-    return report, mode
+        notes.append({"result": "fallback", "mode": "rule"})
+    return report, mode, notes
 
 
 def _calendar_watch(calendar_events: list[dict]) -> list[dict]:
@@ -116,7 +121,8 @@ def _validate_all(report: dict, items: list[dict], metrics: dict, period: dict,
 
 
 def write_outputs(base: Path, report: dict, items: list[dict], period: dict, metrics: dict,
-                  generated: dt.datetime, mode: str, coverage: list[dict]) -> Path:
+                  generated: dt.datetime, mode: str, coverage: list[dict],
+                  model_notes: list[dict] | None = None) -> Path:
     edition = period["edition"]
     (base / "weekly").mkdir(parents=True, exist_ok=True)
     (base / "data").mkdir(parents=True, exist_ok=True)
@@ -139,6 +145,7 @@ def write_outputs(base: Path, report: dict, items: list[dict], period: dict, met
         "metrics": {key: value for key, value in metrics.items() if key not in {"ledger", "daily"}},
         "ledger": [{"id": key, "label": label, "value": value} for key, value, label in metrics.get("ledger", [])],
         "coverage": coverage,
+        "model_attempts": model_notes or [],
         "sources": [{**item, "published": item["published"].isoformat(timespec="minutes")} for item in items],
     }
     (base / "weekly" / f"{edition}.json").write_text(
@@ -199,15 +206,15 @@ def main() -> None:
          "ledger_entries": len(metrics.get("ledger", []))})
 
     previous = load_previous(period["edition"])
-    report, mode = build_report(items, filings, metrics, calendar_events, period, previous,
-                                allow_model=not args.no_model)
+    report, mode, model_notes = build_report(items, filings, metrics, calendar_events, period, previous,
+                                             allow_model=not args.no_model)
     log({"stage": "report", "mode": mode, "highlights": len(report.get("highlights", [])),
          "other_updates": len(report.get("other_updates", [])), "calendar": len(report.get("next_watch", []))})
 
     base = Path(args.out) if args.out else (ROOT / "preview" if args.dry_run else ROOT)
     if base.exists() and base.name == "preview":
         shutil.rmtree(base)
-    written = write_outputs(base, report, items, period, metrics, now, mode, coverage)
+    written = write_outputs(base, report, items, period, metrics, now, mode, coverage, model_notes)
     log({"stage": "done", "written": str(written.relative_to(ROOT)) if written.is_relative_to(ROOT) else str(written)})
 
 

@@ -193,5 +193,5 @@ validation:
   allow_year_range: [1990, 2100]
   ordinal_max: 20
   min_highlights: 1
-  max_headline_chars: 46
+  max_headline_chars: 56
   fallback_to_data_edition: true

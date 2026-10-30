@@ -55,6 +55,10 @@ def build_metrics(quotes: list[dict], filings: list[dict]) -> dict:
             "turnover_max": max(turnovers),
             "turnover_min": min(turnovers),
             "turnover_max_min_ratio": max(turnovers) / min(turnovers) if min(turnovers) else 0.0,
+            "turnover_sum": sum(turnovers),
+            "change_avg_pct": sum(changes) / len(changes),
+            "best_day_pct": max(changes),
+            "worst_day_pct": min(changes),
             "first_session": first["session_date"],
             "last_session": last["session_date"],
             "data_through": last["session_date"],
@@ -83,6 +87,10 @@ def build_metrics(quotes: list[dict], filings: list[dict]) -> dict:
             ("hk.down_days_after_high", float(metrics["down_days_after_high"]), "高点之后下跌天数"),
             ("hk.up_days", float(metrics["up_days"]), "区间上涨天数"),
             ("hk.down_days", float(metrics["down_days"]), "区间下跌天数"),
+            ("hk.turnover_sum", metrics["turnover_sum"], "区间累计主板成交额"),
+            ("hk.change_avg_pct", metrics["change_avg_pct"], "日均涨跌幅"),
+            ("hk.best_day_pct", metrics["best_day_pct"], "单日最大涨幅"),
+            ("hk.worst_day_pct", metrics["worst_day_pct"], "单日最大跌幅"),
         ]
         for row, change in zip(sessions, changes):
             ledger.append((f"hk.day.{row['session_date']}.change_pct", change, f"{row['session_date']} 单日涨跌"))
