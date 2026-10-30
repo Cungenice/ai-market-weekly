@@ -15,7 +15,6 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
-from html.parser import HTMLParser
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
@@ -96,97 +95,6 @@ def fetch_feed(market: str, query: str, start: dt.datetime, end: dt.datetime) ->
     return entries
 
 
-def fetch_sse_weekly_item(start: dt.datetime, end: dt.datetime) -> dict:
-    """Fetch the exchange's published weekly stock-trading statistics."""
-    url = "https://www.sse.com.cn/market/stockdata/overview/weekly/"
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-
-    class TableParser(HTMLParser):
-        def __init__(self) -> None:
-            super().__init__(convert_charrefs=True)
-            self.tables: list[list[list[str]]] = []
-            self.current_table: list[list[str]] | None = None
-            self.current_row: list[str] | None = None
-            self.current_cell: list[str] | None = None
-
-        def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-            if tag == "table":
-                self.current_table = []
-            elif tag == "tr" and self.current_table is not None:
-                self.current_row = []
-            elif tag in ("td", "th") and self.current_row is not None:
-                self.current_cell = []
-
-        def handle_data(self, data: str) -> None:
-            if self.current_cell is not None:
-                self.current_cell.append(data)
-
-        def handle_endtag(self, tag: str) -> None:
-            if tag in ("td", "th") and self.current_cell is not None and self.current_row is not None:
-                self.current_row.append(re.sub(r"\s+", " ", "".join(self.current_cell)).strip())
-                self.current_cell = None
-            elif tag == "tr" and self.current_row is not None and self.current_table is not None:
-                self.current_table.append(self.current_row)
-                self.current_row = None
-            elif tag == "table" and self.current_table is not None:
-                self.tables.append(self.current_table)
-                self.current_table = None
-
-    with urllib.request.urlopen(request, timeout=25) as response:
-        page = response.read().decode("utf-8", errors="replace")
-    text = html.unescape(re.sub(r"<[^>]+>", " ", page))
-    text = re.sub(r"\s+", " ", text)
-    date_match = re.search(
-        r"数据日期\s*[：:]\s*(20\d{2}-\d{2}-\d{2})\s*至\s*(20\d{2}-\d{2}-\d{2})",
-        text,
-    )
-    if not date_match:
-        raise RuntimeError("SSE weekly page did not expose a dated statistics period")
-    period_start, period_end = date_match.groups()
-
-    parser = TableParser()
-    parser.feed(page)
-    weekly_table = next(
-        (table for table in parser.tables if table and "本周情况" in table[0] and "科创板" in table[0]),
-        None,
-    )
-    if not weekly_table:
-        raise RuntimeError("SSE weekly page did not expose its statistics table")
-    header = weekly_table[0]
-    kcb_column = header.index("科创板")
-    total_column = header.index("股票")
-
-    def metric(name: str, column: int) -> str:
-        row = next((row for row in weekly_table[1:] if row and name in row[0]), None)
-        if row is None or len(row) <= column:
-            return ""
-        return row[column]
-
-    total_turnover = metric("成交金额(亿元)", total_column)
-    kcb_turnover = metric("成交金额(亿元)", kcb_column)
-    kcb_turnover_rate = metric("换手率(%)", kcb_column)
-    if not total_turnover or not kcb_turnover:
-        raise RuntimeError("SSE weekly statistics table is missing turnover values")
-
-    return {
-        "market": "A股",
-        "title": f"上交所周度股票成交统计：科创板成交额与换手率（{period_start}至{period_end}）",
-        "url": url,
-        "published": end.isoformat(timespec="minutes"),
-        "source": "上海证券交易所",
-        "source_url": "https://www.sse.com.cn",
-        "source_tier": "official",
-        "source_tier_label": "交易所官方周度市场数据",
-        "snippet": (
-            f"上交所每周股票情况，官方数据日期为{period_start}至{period_end}。"
-            f"股票市场成交金额{total_turnover}亿元；科创板成交金额{kcb_turnover}亿元，"
-            f"科创板换手率{kcb_turnover_rate or '页面未提供'}%。"
-            "该统计反映成交活跃度，不代表指数涨跌或AI子行业表现。"
-        ),
-        "query": "上海证券交易所每周股票情况（官方市场统计）",
-    }
-
-
 def is_relevant_source(item: dict) -> bool:
     text = f"{item['title']} {item['snippet']}".lower()
     has_topic = any(term.lower() in text for term in TOPIC_TERMS + CONTEXT_TERMS)
@@ -233,12 +141,6 @@ def collect_news(start: dt.datetime, end: dt.datetime) -> list[dict]:
                     existing["market"] = item["market"]
                 if item["source_tier"] == "official" and existing["source_tier"] != "official":
                     existing.update({key: item[key] for key in ("source", "source_url", "source_tier", "source_tier_label")})
-    try:
-        market_item = fetch_sse_weekly_item(start, end)
-        by_url[market_item["url"]] = market_item
-        print(f"Added official SSE weekly market data for {market_item['title'].rsplit('（', 1)[-1].rstrip('）')}")
-    except (urllib.error.URLError, TimeoutError, ValueError, RuntimeError) as exc:
-        print(f"SSE weekly market data unavailable: {exc}", file=sys.stderr)
     all_candidates = list(by_url.values())
     primary_candidates = [item for item in all_candidates if item["source_tier"] == "official"]
     resolve_primary_source_urls(primary_candidates)
@@ -759,7 +661,7 @@ def render_report(report: dict, items: list[dict], period: dict, generated: dt.d
 <header class="hero"><div class="eyebrow">A/H EQUITY · AI & INNOVATION</div><h1>{headline}</h1><p>A 股 / 港股 · 人工智能与科技创新市场观察</p></header>
 <div class="facts"><span><b>统计区间</b> {esc(period['start'])}—{esc(period['end'])}</span><span><b>时区</b> 北京时间</span><span><b>采集来源</b> {len(items)} 条官方一手线索</span><span><b>生成时间</b> {esc(generated.strftime('%Y-%m-%d %H:%M'))}</span></div>
 <div class="layout"><aside class="rail"><strong>CONTENTS / 栏目</strong><a href="#overview">本期关注</a><a href="#markets">市场概览</a><a href="#highlights">本周重点</a>{other_nav}<a href="#outlook">下周观察</a><a href="#sources">来源与说明</a><a href="{esc(archive_url)}">历史周报 ↗</a></aside><div class="content">
-<section id="overview"><h2>本期关注</h2><p class="lead">{esc(report.get('overview'))}</p><p class="claim-sources">依据：{render_source_links(report['overview_source_ids'], sources)}</p><p class="note">依据官方页面可见的标题与摘要整理；未读取原文全文，引用链接直达发布方。</p></section>
+<section id="overview"><h2>本期关注</h2><p class="lead">{esc(report.get('overview'))}</p>{('<p class="claim-sources">依据：' + render_source_links(report['overview_source_ids'], sources) + '</p><p class="note">依据官方页面可见的标题与摘要整理；未读取原文全文，引用链接直达发布方。</p>') if report.get('overview_source_ids') else '<p class="note">本期未检索到达到筛选标准的可引用一手来源。</p>'}</section>
 <div class="notice"><strong>阅读说明</strong><br>报道摘要呈现新闻信息，市场观察与下周观察提供编辑分析线索。内容仅供信息参考，不构成投资建议。</div>
 <section id="markets" class="section"><h2>市场概览</h2><div class="market-grid">{"".join(market_cards)}</div></section>
 <section id="highlights" class="section"><div class="section-heading"><h2>本周重点 · {len(stories)} 则</h2><div class="export-actions"><button class="export-button" type="button" data-export-highlights>下载本周重点长图</button><span class="export-status" data-export-status aria-live="polite"></span></div></div>{"".join(stories) if stories else '<p class="note">本期没有足够的可引用新闻线索形成重点条目。</p>'}</section>
@@ -786,9 +688,19 @@ def main() -> None:
     print(f"Collecting market news from {period['start']} through {period['end']} Asia/Shanghai")
     items = collect_news(start, now)
     print(f"Collected {len(items)} unique articles")
-    if not items:
-        raise RuntimeError("No in-window RSS articles were collected; refusing to generate an unsourced report.")
-    report = call_deepseek(items, period)
+    if items:
+        report = call_deepseek(items, period)
+    else:
+        report = {
+            "headline": "本期可核验市场信号不足",
+            "overview": "本期自动采集未找到同时满足一手来源、市场相关性和事件明确度的材料。因此不对 A 股、港股或 AI 与科技创新方向的行情、成交和资金流作结论。",
+            "overview_source_ids": [],
+            "ashare": {"summary": "本期没有达到筛选标准的 A 股官方市场数据或公司披露。", "summary_source_ids": [], "drivers": []},
+            "hk": {"summary": "本期没有达到筛选标准的港股官方市场数据或公司披露。", "summary_source_ids": [], "drivers": []},
+            "highlights": [],
+            "other_updates": [],
+            "next_watch": [],
+        }
     archive_path = ROOT / "weekly" / f"{edition}.html"
     archive_path.parent.mkdir(parents=True, exist_ok=True)
     # Keep links portable: the root report links into weekly/, while an archived
