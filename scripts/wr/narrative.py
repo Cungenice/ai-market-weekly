@@ -271,6 +271,15 @@ def _next_watch(calendar_events: list[dict]) -> list[dict]:
 def _previous_check(previous: dict | None) -> list[dict]:
     if not previous:
         return []
+    prior = previous.get("report", {}).get("highlights") or []
+    if not prior:
+        label = previous.get("edition") or previous.get("date") or "上期"
+        return [{
+            "title": f"上期（{label}）未形成判断条目",
+            "status": "待验证",
+            "note": "该期只有数据与公告记录，没有可供复核的判断，本期不构成延续或推翻。",
+            "source_ids": [],
+        }]
     rows = []
     for story in (previous.get("report", {}).get("highlights") or [])[:3]:
         rows.append({
