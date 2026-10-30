@@ -141,6 +141,17 @@ sources:
     license: public
     verified: null
 
+  - id: hkex
+    name: 香港交易所
+    tier: L1
+    kind: html
+    endpoint: https://www.hkex.com.hk
+    content_types: [quote]
+    refresh_minutes: 1440
+    license: public
+    redistribution: attribution_required
+    verified: null
+
   - id: hkexnews
     name: 港交所披露易
     tier: L1
@@ -508,7 +519,7 @@ content_routing:
 
   quote:
     label: 行情、成交与估值
-    primary: [csindex, sse, szse, wind]
+    primary: [csindex, sse, szse, hkex, wind]
     secondary: [choice, ifind, chinabond]
     forbidden: [cls, xueqiu, guba, weibo]
     rules:
