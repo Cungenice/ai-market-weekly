@@ -1,29 +1,301 @@
 {
   "date": "2026-10-30",
   "period": {
-    "start": "2026-10-23 10:34",
-    "end": "2026-10-30 10:34"
+    "start": "2026-10-23 11:32",
+    "end": "2026-10-30 11:32"
   },
-  "headline": "A股与港股 · AI科技市场周报",
-  "overview": "本期暂无入选条目。可通过历史周报查看往期内容。",
+  "headline": "港股行情与 A 股公司披露",
+  "overview": "本期港交所每日行情与 A 股公司公告均有一手资料，具体记录见下文。",
   "report": {
-    "headline": "A股与港股 · AI科技市场周报",
-    "overview": "本期暂无入选条目。可通过历史周报查看往期内容。",
-    "overview_source_ids": [],
+    "headline": "港股行情与 A 股公司披露",
+    "overview": "本期港交所每日行情与 A 股公司公告均有一手资料，具体记录见下文。",
+    "overview_source_ids": [
+      "S05",
+      "S04",
+      "S03",
+      "S02",
+      "S01",
+      "S06",
+      "S09",
+      "S10",
+      "S11",
+      "S07",
+      "S08"
+    ],
     "ashare": {
-      "summary": "本期没有达到筛选标准的 A 股官方市场数据或公司披露。",
-      "summary_source_ids": [],
+      "summary": "本期 A 股股票池内有公司公告，见其他动态。",
+      "summary_source_ids": [
+        "S06"
+      ],
       "drivers": []
     },
     "hk": {
-      "summary": "本期没有达到筛选标准的港股官方市场数据或公司披露。",
-      "summary_source_ids": [],
-      "drivers": []
+      "summary": "港交所本期每日主板成交额与恒生指数收市记录如下。",
+      "summary_source_ids": [
+        "S05",
+        "S04",
+        "S03",
+        "S02",
+        "S01"
+      ],
+      "drivers": [
+        {
+          "text": "日期 2026-10-23。主板成交额 249,783,590,343 港元。恒生指数收市 23093.37，前收市 22934.68。",
+          "source_ids": [
+            "S05"
+          ]
+        },
+        {
+          "text": "日期 2026-10-26。主板成交额 175,758,489,826 港元。恒生指数收市 23211.81，前收市 23093.37。",
+          "source_ids": [
+            "S04"
+          ]
+        },
+        {
+          "text": "日期 2026-10-27。主板成交额 178,347,926,416 港元。恒生指数收市 23041.32，前收市 23211.81。",
+          "source_ids": [
+            "S03"
+          ]
+        },
+        {
+          "text": "日期 2026-10-28。主板成交额 181,427,944,454 港元。恒生指数收市 23094.83，前收市 23041.32。",
+          "source_ids": [
+            "S02"
+          ]
+        },
+        {
+          "text": "日期 2026-10-29。主板成交额 189,453,187,477 港元。恒生指数收市 22958.65，前收市 23094.83。",
+          "source_ids": [
+            "S01"
+          ]
+        }
+      ]
     },
     "highlights": [],
-    "other_updates": [],
+    "other_updates": [
+      {
+        "market": "A股",
+        "category": "公司公告",
+        "title": "关于回购股份事项前十名股东和前十名无限售条件股东持股情况的公告",
+        "reported": "新易盛（300502）于 2026-10-30 发布《关于回购股份事项前十名股东和前十名无限售条件股东持股情况的公告》。内容细节以公告原文为准。",
+        "source_ids": [
+          "S06"
+        ]
+      },
+      {
+        "market": "A股",
+        "category": "公司公告",
+        "title": "关于2026年第三季度报告披露的提示性公告",
+        "reported": "新易盛（300502）于 2026-10-30 发布《关于2026年第三季度报告披露的提示性公告》。内容细节以公告原文为准。",
+        "source_ids": [
+          "S09"
+        ]
+      },
+      {
+        "market": "A股",
+        "category": "公司公告",
+        "title": "2026年三季度报告",
+        "reported": "新易盛（300502）于 2026-10-30 发布《2026年三季度报告》。内容细节以公告原文为准。",
+        "source_ids": [
+          "S10"
+        ]
+      },
+      {
+        "market": "A股",
+        "category": "公司公告",
+        "title": "2026年第三季度报告",
+        "reported": "寒武纪（688256）于 2026-10-24 发布《2026年第三季度报告》。内容细节以公告原文为准。",
+        "source_ids": [
+          "S11"
+        ]
+      },
+      {
+        "market": "A股",
+        "category": "公司公告",
+        "title": "关于回购公司股份方案的公告",
+        "reported": "新易盛（300502）于 2026-10-23 发布《关于回购公司股份方案的公告》。内容细节以公告原文为准。",
+        "source_ids": [
+          "S07"
+        ]
+      },
+      {
+        "market": "A股",
+        "category": "公司公告",
+        "title": "回购股份报告书",
+        "reported": "新易盛（300502）于 2026-10-23 发布《回购股份报告书》。内容细节以公告原文为准。",
+        "source_ids": [
+          "S08"
+        ]
+      }
+    ],
     "next_watch": []
   },
-  "sources": [],
-  "generated_at": "2026-10-30T10:34:00+08:00"
+  "sources": [
+    {
+      "market": "港股",
+      "title": "港交所 2026-10-29 每日成交及恒生指数",
+      "url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261029e.htm",
+      "published": "2026-10-29T23:59+08:00",
+      "source": "香港交易所",
+      "source_url": "https://www.hkex.com.hk",
+      "source_tier": "official",
+      "source_tier_label": "港交所官方行情",
+      "snippet": "日期 2026-10-29。主板成交额 189,453,187,477 港元。恒生指数收市 22958.65，前收市 23094.83。",
+      "query": "hkex_daily_quote",
+      "registered_source_id": "hkex",
+      "channel": "quote",
+      "id": "S01"
+    },
+    {
+      "market": "港股",
+      "title": "港交所 2026-10-28 每日成交及恒生指数",
+      "url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261028e.htm",
+      "published": "2026-10-28T23:59+08:00",
+      "source": "香港交易所",
+      "source_url": "https://www.hkex.com.hk",
+      "source_tier": "official",
+      "source_tier_label": "港交所官方行情",
+      "snippet": "日期 2026-10-28。主板成交额 181,427,944,454 港元。恒生指数收市 23094.83，前收市 23041.32。",
+      "query": "hkex_daily_quote",
+      "registered_source_id": "hkex",
+      "channel": "quote",
+      "id": "S02"
+    },
+    {
+      "market": "港股",
+      "title": "港交所 2026-10-27 每日成交及恒生指数",
+      "url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261027e.htm",
+      "published": "2026-10-27T23:59+08:00",
+      "source": "香港交易所",
+      "source_url": "https://www.hkex.com.hk",
+      "source_tier": "official",
+      "source_tier_label": "港交所官方行情",
+      "snippet": "日期 2026-10-27。主板成交额 178,347,926,416 港元。恒生指数收市 23041.32，前收市 23211.81。",
+      "query": "hkex_daily_quote",
+      "registered_source_id": "hkex",
+      "channel": "quote",
+      "id": "S03"
+    },
+    {
+      "market": "港股",
+      "title": "港交所 2026-10-26 每日成交及恒生指数",
+      "url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261026e.htm",
+      "published": "2026-10-26T23:59+08:00",
+      "source": "香港交易所",
+      "source_url": "https://www.hkex.com.hk",
+      "source_tier": "official",
+      "source_tier_label": "港交所官方行情",
+      "snippet": "日期 2026-10-26。主板成交额 175,758,489,826 港元。恒生指数收市 23211.81，前收市 23093.37。",
+      "query": "hkex_daily_quote",
+      "registered_source_id": "hkex",
+      "channel": "quote",
+      "id": "S04"
+    },
+    {
+      "market": "港股",
+      "title": "港交所 2026-10-23 每日成交及恒生指数",
+      "url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261023e.htm",
+      "published": "2026-10-23T23:59+08:00",
+      "source": "香港交易所",
+      "source_url": "https://www.hkex.com.hk",
+      "source_tier": "official",
+      "source_tier_label": "港交所官方行情",
+      "snippet": "日期 2026-10-23。主板成交额 249,783,590,343 港元。恒生指数收市 23093.37，前收市 22934.68。",
+      "query": "hkex_daily_quote",
+      "registered_source_id": "hkex",
+      "channel": "quote",
+      "id": "S05"
+    },
+    {
+      "market": "A股",
+      "title": "关于回购股份事项前十名股东和前十名无限售条件股东持股情况的公告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225643324.PDF",
+      "published": "2026-10-30T00:00+08:00",
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "snippet": "新易盛（300502）于 2026-10-30 发布《关于回购股份事项前十名股东和前十名无限售条件股东持股情况的公告》。内容细节以公告原文为准。",
+      "query": "cninfo_company_filings",
+      "registered_source_id": "cninfo",
+      "channel": "company_fact",
+      "id": "S06"
+    },
+    {
+      "market": "A股",
+      "title": "关于回购公司股份方案的公告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-23/1225617675.pdf",
+      "published": "2026-10-23T12:09+08:00",
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "snippet": "新易盛（300502）于 2026-10-23 发布《关于回购公司股份方案的公告》。内容细节以公告原文为准。",
+      "query": "cninfo_company_filings",
+      "registered_source_id": "cninfo",
+      "channel": "company_fact",
+      "id": "S07"
+    },
+    {
+      "market": "A股",
+      "title": "回购股份报告书",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-23/1225617674.pdf",
+      "published": "2026-10-23T12:09+08:00",
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "snippet": "新易盛（300502）于 2026-10-23 发布《回购股份报告书》。内容细节以公告原文为准。",
+      "query": "cninfo_company_filings",
+      "registered_source_id": "cninfo",
+      "channel": "company_fact",
+      "id": "S08"
+    },
+    {
+      "market": "A股",
+      "title": "关于2026年第三季度报告披露的提示性公告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225642950.PDF",
+      "published": "2026-10-30T00:00+08:00",
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "snippet": "新易盛（300502）于 2026-10-30 发布《关于2026年第三季度报告披露的提示性公告》。内容细节以公告原文为准。",
+      "query": "cninfo_company_filings",
+      "registered_source_id": "cninfo",
+      "channel": "company_fact",
+      "id": "S09"
+    },
+    {
+      "market": "A股",
+      "title": "2026年三季度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225642947.PDF",
+      "published": "2026-10-30T00:00+08:00",
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "snippet": "新易盛（300502）于 2026-10-30 发布《2026年三季度报告》。内容细节以公告原文为准。",
+      "query": "cninfo_company_filings",
+      "registered_source_id": "cninfo",
+      "channel": "company_fact",
+      "id": "S10"
+    },
+    {
+      "market": "A股",
+      "title": "2026年第三季度报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-24/1225620944.PDF",
+      "published": "2026-10-24T00:00+08:00",
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "snippet": "寒武纪（688256）于 2026-10-24 发布《2026年第三季度报告》。内容细节以公告原文为准。",
+      "query": "cninfo_company_filings",
+      "registered_source_id": "cninfo",
+      "channel": "company_fact",
+      "id": "S11"
+    }
+  ],
+  "generated_at": "2026-10-30T11:32:00+08:00"
 }
