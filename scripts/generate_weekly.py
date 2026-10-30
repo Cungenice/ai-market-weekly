@@ -374,33 +374,91 @@ def is_official_url(url: str) -> bool:
     return parsed.scheme == "https" and any(host == domain or host.endswith("." + domain) for domain in OFFICIAL_DOMAINS)
 
 
-def resolve_google_news_url(url: str) -> str:
-    host = (urllib.parse.urlsplit(url).hostname or "").lower()
-    if host != "news.google.com":
-        return url
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+def resolve_google_news_url(url: str) -> tuple[str, str]:
+    """Resolve Google's current opaque RSS article IDs to publisher URLs.
+
+    Google changed current article IDs from an offline-decodable protobuf to an
+    opaque ID. Resolve those with Google's article page + batchexecute endpoint,
+    while keeping strict first-party-host validation before returning a link.
+    """
+    parsed = urllib.parse.urlsplit(url)
+    if (parsed.hostname or "").lower() != "news.google.com":
+        return url, ""
+    article_id = parsed.path.rstrip("/").split("/")[-1]
+    headers = {
+        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+        "Accept-Language": "en-US,en;q=0.9,zh-CN;q=0.8",
+        "Cookie": "CONSENT=PENDING+987",
+    }
+    cookie_jar = urllib.request.HTTPCookieProcessor()
+    opener = urllib.request.build_opener(cookie_jar)
     try:
-        with urllib.request.urlopen(request, timeout=15) as response:
-            resolved = response.geturl()
+        page_request = urllib.request.Request(
+            f"https://news.google.com/rss/articles/{article_id}", headers=headers
+        )
+        with opener.open(page_request, timeout=20) as response:
+            page = response.read().decode("utf-8", errors="replace")
+        signature_match = re.search(r'data-n-a-sg="([^"]+)"', page)
+        timestamp_match = re.search(r'data-n-a-ts="(\\d+)"', page)
+        if not signature_match or not timestamp_match:
+            return url, "Google article page lacks resolver signature (consent page, rate limit, or markup change)"
+        locale_config = ["X", "X", ["X", "X"], None, None, 1, 1, "US:en", None, 1, None, None, None, None, None, 0, 1]
+        request_data = [
+            "garturlreq",
+            [locale_config, "X", "X", 1, [1, 1, 1], 1, 1, None, 0, 0, None, 0],
+            article_id,
+            int(timestamp_match.group(1)),
+            signature_match.group(1),
+        ]
+        inner = json.dumps(request_data, ensure_ascii=False, separators=(",", ":"))
+        outer = json.dumps([[["Fbv4je", inner]]], ensure_ascii=False, separators=(",", ":"))
+        body = urllib.parse.urlencode({"f.req": outer}).encode("utf-8")
+        post_headers = {
+            **headers,
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+            "Origin": "https://news.google.com",
+            "Referer": f"https://news.google.com/rss/articles/{article_id}",
+            "X-Same-Domain": "1",
+        }
+        post_request = urllib.request.Request(
+            "https://news.google.com/_/DotsSplashUi/data/batchexecute",
+            data=body, headers=post_headers, method="POST",
+        )
+        with opener.open(post_request, timeout=20) as response:
+            payload = response.read().decode("utf-8", errors="replace")
+        json_start = payload.find("\\n\\n")
+        if json_start < 0:
+            return url, "Google resolver response has an unexpected format"
+        frames = json.loads(payload[json_start + 2:])
+        frame = next((row for row in frames if isinstance(row, list) and len(row) > 2 and row[0] == "wrb.fr"), None)
+        if not frame or not frame[2]:
+            return url, "Google resolver returned no publisher URL"
+        result = json.loads(frame[2])
+        resolved = result[1] if isinstance(result, list) and len(result) > 1 else ""
         if is_official_url(resolved):
-            return resolved
-    except (urllib.error.URLError, TimeoutError, ValueError):
-        pass
-    return url
+            return resolved, ""
+        return url, f"Resolved publisher is not an allowed first-party domain: {urllib.parse.urlsplit(resolved).hostname or 'unknown'}"
+    except (urllib.error.URLError, TimeoutError, ValueError, IndexError, TypeError, json.JSONDecodeError) as exc:
+        return url, f"Google News URL resolution failed: {type(exc).__name__}: {exc}"
 
 
 def resolve_primary_source_urls(items: list[dict]) -> None:
     primary_items = [item for item in items if item["source_tier"] == "official" and "news.google.com" in item["url"]]
-    with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
-        resolved_urls = list(executor.map(lambda item: resolve_google_news_url(item["url"]), primary_items))
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+        resolutions = list(executor.map(lambda item: resolve_google_news_url(item["url"]), primary_items))
     unresolved = 0
-    for item, resolved in zip(primary_items, resolved_urls):
+    errors = []
+    for item, (resolved, error) in zip(primary_items, resolutions):
         item["url"] = resolved
         if is_official_url(resolved):
             item["source_tier_label"] = "交易所/监管/公司官网直达"
         else:
             unresolved += 1
+            if error and len(errors) < 3:
+                errors.append(error)
     print(f"Resolved {len(primary_items) - unresolved}/{len(primary_items)} official-source links to first-party URLs")
+    for error in errors:
+        print(f"Official-link resolution detail: {error}", file=sys.stderr)
 
 
 def report_source_ids(report: dict) -> set[str]:
