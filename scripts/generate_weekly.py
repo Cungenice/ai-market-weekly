@@ -123,7 +123,7 @@ def fetch_sse_weekly_item(start: dt.datetime, end: dt.datetime) -> dict:
 
         def handle_endtag(self, tag: str) -> None:
             if tag in ("td", "th") and self.current_cell is not None and self.current_row is not None:
-                self.current_row.append(re.sub(r"\\s+", " ", "".join(self.current_cell)).strip())
+                self.current_row.append(re.sub(r"\s+", " ", "".join(self.current_cell)).strip())
                 self.current_cell = None
             elif tag == "tr" and self.current_row is not None and self.current_table is not None:
                 self.current_table.append(self.current_row)
@@ -135,9 +135,9 @@ def fetch_sse_weekly_item(start: dt.datetime, end: dt.datetime) -> dict:
     with urllib.request.urlopen(request, timeout=25) as response:
         page = response.read().decode("utf-8", errors="replace")
     text = html.unescape(re.sub(r"<[^>]+>", " ", page))
-    text = re.sub(r"\\s+", " ", text)
+    text = re.sub(r"\s+", " ", text)
     date_match = re.search(
-        r"数据日期\\s*[：:]\\s*(20\\d{2}-\\d{2}-\\d{2})\\s*至\\s*(20\\d{2}-\\d{2}-\\d{2})",
+        r"数据日期\s*[：:]\s*(20\d{2}-\d{2}-\d{2})\s*至\s*(20\d{2}-\d{2}-\d{2})",
         text,
     )
     if not date_match:
@@ -192,7 +192,7 @@ def is_relevant_source(item: dict) -> bool:
     has_topic = any(term.lower() in text for term in TOPIC_TERMS + CONTEXT_TERMS)
     has_market_link = any(term.lower() in text for term in MARKET_TERMS)
     fund_product = any(term in text for term in ("ETF", "基金", "QDII", "交易型开放式指数证券投资基金"))
-    periodic_report = bool(re.search(r"(第\\s*[123四三二一]\\s*季度报告|[三二一]季报|季度报告)", text))
+    periodic_report = bool(re.search(r"(第\s*[123四三二一]\s*季度报告|[三二一]季报|季度报告)", text))
     routine_fund_report = fund_product and periodic_report
     # A routine fund filing is retained only when its visible title/snippet
     # actually states a flow, position, or scale change with market meaning.
