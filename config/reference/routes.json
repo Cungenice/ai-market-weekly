@@ -46,6 +46,17 @@
         "clue_only": false,
         "allow_ai_paraphrase": true,
         "endpoint": "local://wind"
+      },
+      {
+        "id": "hkex",
+        "name": "香港交易所",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.hkex.com.hk"
       }
     ],
     "secondary": [
