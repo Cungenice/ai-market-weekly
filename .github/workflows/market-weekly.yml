@@ -7,13 +7,14 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "publish writes the report and deploys Pages; preview only uploads a build artifact"
+        description: "publish 生成并部署；preview 只生成并上传构建产物；deploy_only 只用仓库现有文件重新部署"
         required: true
         default: publish
         type: choice
         options:
           - publish
           - preview
+          - deploy_only
 
 permissions:
   contents: write
@@ -35,13 +36,44 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Gate self-test
+        run: python tests/test_gates.py
 
       - name: Generate weekly report
+        if: github.event_name == 'schedule' || inputs.mode != 'deploy_only'
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           DEEPSEEK_MODEL: deepseek-flash
           SITE_BASE_URL: https://cungenice.github.io/ai-market-weekly
         run: python scripts/generate_weekly.py
+
+      - name: Verify publication files
+        if: github.event_name == 'schedule' || inputs.mode == 'publish'
+        run: |
+          python - <<'PY'
+          import json, pathlib, sys
+          index = pathlib.Path("index.html")
+          if not index.exists() or index.stat().st_size < 8000:
+              sys.exit("index.html missing or suspiciously small")
+          html = index.read_text(encoding="utf-8")
+          required = ["data-export-highlights", "AI 参与生成", "不构成任何投资建议", "统计区间"]
+          missing = [token for token in required if token not in html]
+          if missing:
+              sys.exit(f"index.html missing required blocks: {missing}")
+          if "暂无入选条目" in html and "本周重点 · 0 则" in html:
+              sys.exit("refusing to publish a report without any judgement")
+          archives = json.loads(pathlib.Path("data/archives.json").read_text(encoding="utf-8"))
+          latest = archives[0]
+          edition = latest.get("edition") or latest.get("date")
+          if not pathlib.Path(f"weekly/{edition}.html").exists():
+              sys.exit(f"archive entry {edition} has no page")
+          print(f"verified {edition}: {latest['headline']}")
+          PY
 
       - name: Commit report and archive
         if: github.event_name == 'schedule' || inputs.mode == 'publish'
@@ -56,15 +88,24 @@ jobs:
             git push
           fi
 
+      - name: Stage site files
+        if: github.event_name == 'schedule' || inputs.mode == 'publish' || inputs.mode == 'deploy_only'
+        run: |
+          rm -rf _site
+          mkdir -p _site
+          cp index.html _site/
+          cp -r weekly _site/weekly
+          cp -r data _site/data
+
       - name: Configure GitHub Pages
-        if: github.event_name == 'schedule' || inputs.mode == 'publish'
+        if: github.event_name == 'schedule' || inputs.mode == 'publish' || inputs.mode == 'deploy_only'
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
-        if: github.event_name == 'schedule' || inputs.mode == 'publish'
+        if: github.event_name == 'schedule' || inputs.mode == 'publish' || inputs.mode == 'deploy_only'
         uses: actions/upload-pages-artifact@v4
         with:
-          path: .
+          path: _site
 
       - name: Upload preview artifact
         if: github.event_name == 'workflow_dispatch' && inputs.mode == 'preview'
@@ -78,7 +119,7 @@ jobs:
           retention-days: 7
 
   deploy:
-    if: github.event_name == 'schedule' || inputs.mode == 'publish'
+    if: github.event_name == 'schedule' || inputs.mode == 'publish' || inputs.mode == 'deploy_only'
     needs: build
     runs-on: ubuntu-latest
     environment:
@@ -88,4 +129,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
