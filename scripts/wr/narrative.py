@@ -50,14 +50,17 @@ def build(metrics: dict, filings: list[dict], calendar_events: list[dict], perio
     if not headline:
         headline = "本期无足够一手材料"
 
+    highlights = _highlights(metrics, filings, calendar_events)
+    used_in_highlights = {sid for story in highlights for sid in story.get("source_ids", [])}
+
     report: dict = {
         "headline": headline,
         "overview": _overview(metrics, filings, calendar_events),
         "overview_source_ids": _ids(metrics, filings),
         "ashare": _ashare(filings),
         "hk": _hk(metrics),
-        "highlights": _highlights(metrics, filings, calendar_events),
-        "other_updates": _other_updates(filings),
+        "highlights": highlights,
+        "other_updates": _other_updates(filings, exclude=used_in_highlights),
         "next_watch": _next_watch(calendar_events),
         "previous_check": _previous_check(previous),
         "origin": "rule",
@@ -278,16 +281,19 @@ def _update_note(row: dict, filings: list[dict]) -> str:
     return "；".join(parts) + "。" if parts else ""
 
 
-def _other_updates(filings: list[dict]) -> list[dict]:
+def _other_updates(filings: list[dict], exclude: set[str] | None = None) -> list[dict]:
+    """「其他动态」只放重点没讲过的标的，避免同一条公告出现两次。"""
+    exclude = exclude or set()
+    pool = [row for row in filings if row["id"] not in exclude]
     rows = []
-    for row in filings[: int(S.cfg("universe.max_other_updates", 6))]:
+    for row in pool[: int(S.cfg("universe.max_other_updates", 6))]:
         categories = "、".join(row.get("categories", [])) or "公司公告"
         rows.append({
             "market": row["market"],
             "category": categories,
             "title": f"{row['issuer_name']}（{row['issuer_code']}）{categories}",
             "reported": _update_reported(row),
-            "note": _update_note(row, filings),
+            "note": _update_note(row, pool),
             "source_ids": [row["id"]],
         })
     return rows

@@ -141,9 +141,7 @@ def updates_lead(metrics: dict, others: list[dict]) -> str:
     top_cat = max(cats.items(), key=lambda kv: kv[1])[0] if cats else ""
     top_themes = [name for name, _ in sorted(themes.items(), key=lambda kv: kv[1], reverse=True)[:3]]
 
-    bits = [f"本期共 {total} 家标的披露公告"]
-    if total > len(others):
-        bits.append(f"本栏按信息量列示其中 {len(others)} 家")
+    bits = [f"本期共 {total} 家标的披露公告，本栏归并为 {len(others)} 则"]
     if top_cat:
         bits.append(f"以{top_cat}为主")
     if top_themes:
