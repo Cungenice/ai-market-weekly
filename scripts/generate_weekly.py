@@ -150,14 +150,14 @@ def fetch_hkex_daily_quotes(start: dt.datetime, end: dt.datetime) -> list[dict]:
                 with urllib.request.urlopen(request, timeout=20) as response:
                     payload = response.read()
                 page = html.unescape(re.sub(r"<[^>]+>", " ", payload.decode("utf-8", errors="replace")))
-                page = re.sub(r"\\s+", " ", page)
+                page = re.sub(r"\s+", " ", page)
                 date_label = day.strftime("%d %b %Y").lstrip("0").upper()
                 if date_label not in page.upper() or "MARKET HIGHLIGHTS" not in page:
                     print(f"HKEX quote rejected {url}: date or section mismatch")
                     day += dt.timedelta(days=1)
                     continue
-                turnover = re.search(r"Today's Turnover:\\s*\\(HK\\$\\):\\s*([0-9,]+)", page, re.I)
-                index = re.search(r"HANG SENG INDEX\\s+([0-9,.]+)\\s+([0-9,.]+)\\s+([0-9,.]+)", page, re.I)
+                turnover = re.search(r"Today's Turnover:\s*\(HK\$\):\s*([0-9,]+)", page, re.I)
+                index = re.search(r"HANG SENG INDEX\s+([0-9,.]+)\s+([0-9,.]+)\s+([0-9,.]+)", page, re.I)
                 if not turnover or not index:
                     print(f"HKEX quote rejected {url}: required figures absent")
                     day += dt.timedelta(days=1)
