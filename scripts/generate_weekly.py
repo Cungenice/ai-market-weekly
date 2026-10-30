@@ -785,13 +785,13 @@ def render_report(report: dict, items: list[dict], period: dict, generated: dt.d
 </style></head><body><main class="wrap">
 <header class="hero"><div class="eyebrow">A/H EQUITY · AI & INNOVATION</div><h1>{headline}</h1><p>A 股 / 港股 · 人工智能与科技创新市场观察</p></header>
 <div class="facts"><span><b>统计区间</b> {esc(period['start'])}—{esc(period['end'])}</span><span><b>时区</b> 北京时间</span><span><b>采集来源</b> {len(items)} 条官方一手线索</span><span><b>生成时间</b> {esc(generated.strftime('%Y-%m-%d %H:%M'))}</span></div>
-<div class="layout"><aside class="rail"><strong>CONTENTS / 栏目</strong><a href="#overview">本期关注</a><a href="#markets" {'hidden' if not has_content else ''}>市场概览</a><a href="#highlights" {'hidden' if not has_content else ''}>本周重点</a>{other_nav}<a href="#outlook" {'hidden' if not has_content else ''}>下周观察</a><a href="#sources">来源与说明</a><a href="{esc(archive_url)}">历史周报 ↗</a></aside><div class="content">
+<div class="layout"><aside class="rail"><strong>CONTENTS / 栏目</strong><a href="#overview">本期关注</a><a href="#markets" {'hidden' if not has_content else ''}>市场概览</a><a href="#highlights" {'hidden' if not stories else ''}>本周重点</a>{other_nav}<a href="#outlook" {'hidden' if not watch else ''}>下周观察</a><a href="#sources">来源与说明</a><a href="{esc(archive_url)}">历史周报 ↗</a></aside><div class="content">
 <section id="overview"><h2>本期关注</h2><p class="lead">{esc(report.get('overview'))}</p>{('<p class="claim-sources">依据：' + render_source_links(report['overview_source_ids'], sources) + '</p><p class="note">根据官方页面标题与摘要整理。</p>') if report.get('overview_source_ids') else ''}</section>
 
 <section id="markets" class="section" {'hidden' if not has_content else ''}><h2>市场概览</h2><div class="market-grid">{"".join(market_cards)}</div></section>
-<section id="highlights" class="section" {'hidden' if not has_content else ''}><div class="section-heading"><h2>本周重点 · {len(stories)} 则</h2><div class="export-actions" {'hidden' if not stories else ''}><button class="export-button" type="button" data-export-highlights>下载本周重点长图</button><span class="export-status" data-export-status aria-live="polite"></span></div></div>{"".join(stories) if stories else '<p class="note">本期没有足够的可引用新闻线索形成重点条目。</p>'}</section>
+<section id="highlights" class="section" {'hidden' if not stories else ''}><div class="section-heading"><h2>本周重点 · {len(stories)} 则</h2><div class="export-actions" {'hidden' if not stories else ''}><button class="export-button" type="button" data-export-highlights>下载本周重点长图</button><span class="export-status" data-export-status aria-live="polite"></span></div></div>{"".join(stories) if stories else '<p class="note">本期没有足够的可引用新闻线索形成重点条目。</p>'}</section>
 {other_section}
-<section id="outlook" class="section" {'hidden' if not has_content else ''}><h2>下周观察</h2><ul>{watch}</ul></section>
+<section id="outlook" class="section" {'hidden' if not watch else ''}><h2>下周观察</h2><ul>{watch}</ul></section>
 <section id="sources" class="section"><h2>来源与说明</h2><p class="note">关注 A 股与港股的交易表现、资金动向及科技公司披露。来源链接直达发布机构；本期内容按采集范围整理。</p><details class="source-details" {'hidden' if not items else ''}><summary>查看报告引用来源（{len(source_rows)} 条）</summary><ol class="sources">{"".join(source_rows) if source_rows else '<li>暂无引用来源。</li>'}</ol></details><details class="source-details" {'hidden' if not items else ''}><summary>查看未引用采集线索（{len(other_source_rows)} 条）</summary><ol class="sources">{"".join(other_source_rows) if other_source_rows else '<li>没有额外采集线索。</li>'}</ol></details></section>
 <footer>公开市场资讯自动整理 · A 股 / 港股 · AI 与科技创新 · 不构成投资建议</footer></div></div></main><script>{export_script}</script></body></html>'''
 
@@ -813,7 +813,18 @@ def main() -> None:
     print(f"Collecting market news from {period['start']} through {period['end']} Asia/Shanghai")
     items = collect_news(start, now)
     print(f"Collected {len(items)} unique articles")
-    report = call_deepseek(items, period)
+    if all(item.get("channel") == "quote" for item in items):
+        latest = max(items, key=lambda row: row["published"])
+        report = {
+            "headline": "港股市场数据观察",
+            "overview": latest["snippet"],
+            "overview_source_ids": [latest["id"]],
+            "ashare": {"summary": "本期未采到 A 股市场数据。", "summary_source_ids": [], "drivers": []},
+            "hk": {"summary": latest["snippet"], "summary_source_ids": [latest["id"]], "drivers": []},
+            "highlights": [], "other_updates": [], "next_watch": [],
+        }
+    else:
+        report = call_deepseek(items, period)
     # A model may repeat a numeral only when it appears in a cited source's
     # visible title or snippet. This is a guard, not a verified price feed.
     source_lookup = {item["id"]: item for item in items}
