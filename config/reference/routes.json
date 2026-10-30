@@ -1,0 +1,805 @@
+{
+  "quote": {
+    "content_type": "quote",
+    "label": "行情、成交与估值",
+    "primary": [
+      {
+        "id": "csindex",
+        "name": "中证指数有限公司",
+        "tier": "L2",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.csindex.com.cn"
+      },
+      {
+        "id": "sse",
+        "name": "上海证券交易所",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.sse.com.cn"
+      },
+      {
+        "id": "szse",
+        "name": "深圳证券交易所",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.szse.cn"
+      },
+      {
+        "id": "wind",
+        "name": "Wind 金融终端",
+        "tier": "L2",
+        "license": "paid_internal",
+        "redistribution": "forbidden",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "local://wind"
+      }
+    ],
+    "secondary": [
+      {
+        "id": "choice",
+        "name": "东方财富 Choice",
+        "tier": "L2",
+        "license": "paid_internal",
+        "redistribution": "forbidden",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "local://choice"
+      },
+      {
+        "id": "ifind",
+        "name": "同花顺 iFinD",
+        "tier": "L2",
+        "license": "paid_internal",
+        "redistribution": "forbidden",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "local://ifind"
+      },
+      {
+        "id": "chinabond",
+        "name": "中国债券信息网",
+        "tier": "L2",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.chinabond.com.cn"
+      }
+    ],
+    "forbidden": [
+      "cls",
+      "xueqiu",
+      "guba",
+      "weibo"
+    ],
+    "rules": {
+      "min_independent_sources": 1,
+      "max_age_hours": 24,
+      "citation_format": "数据来源：{source}，截至 {as_of}",
+      "must_carry": [
+        "as_of",
+        "unit"
+      ]
+    },
+    "note": "收盘数据须标注交易日；非交易日一律不写“最新”"
+  },
+  "company_fact": {
+    "content_type": "company_fact",
+    "label": "公司事实（业绩、股东、订单、诉讼）",
+    "primary": [
+      {
+        "id": "cninfo",
+        "name": "巨潮资讯网（指定信息披露）",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.cninfo.com.cn"
+      },
+      {
+        "id": "sse",
+        "name": "上海证券交易所",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.sse.com.cn"
+      },
+      {
+        "id": "szse",
+        "name": "深圳证券交易所",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.szse.cn"
+      },
+      {
+        "id": "hkexnews",
+        "name": "港交所披露易",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.hkexnews.hk"
+      },
+      {
+        "id": "sec_edgar",
+        "name": "SEC EDGAR",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.sec.gov/edgar"
+      }
+    ],
+    "secondary": [
+      {
+        "id": "csrc",
+        "name": "中国证监会",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.csrc.gov.cn"
+      },
+      {
+        "id": "gsxt",
+        "name": "国家企业信用信息公示系统",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.gsxt.gov.cn"
+      },
+      {
+        "id": "cnstock",
+        "name": "上海证券报",
+        "tier": "L3",
+        "license": "free_with_terms",
+        "redistribution": "attribution_required",
+        "cite_as_fact": false,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.cnstock.com"
+      }
+    ],
+    "forbidden": [
+      "xueqiu",
+      "guba",
+      "weibo",
+      "wechat_mp"
+    ],
+    "rules": {
+      "min_independent_sources": 1,
+      "max_age_hours": 168,
+      "citation_format": "据公司 {date} 公告（{doc_id}）",
+      "must_carry": [
+        "doc_id",
+        "url",
+        "published_at"
+      ]
+    },
+    "note": "预告/快报/正式年报是三个口径，必须标注数据版本"
+  },
+  "macro": {
+    "content_type": "macro",
+    "label": "宏观数据",
+    "primary": [
+      {
+        "id": "stats",
+        "name": "国家统计局",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://data.stats.gov.cn"
+      },
+      {
+        "id": "pbc",
+        "name": "中国人民银行",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.pbc.gov.cn"
+      },
+      {
+        "id": "customs",
+        "name": "海关总署",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "http://www.customs.gov.cn"
+      },
+      {
+        "id": "mof",
+        "name": "财政部",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.mof.gov.cn"
+      }
+    ],
+    "secondary": [
+      {
+        "id": "wind",
+        "name": "Wind 金融终端",
+        "tier": "L2",
+        "license": "paid_internal",
+        "redistribution": "forbidden",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "local://wind"
+      },
+      {
+        "id": "fred",
+        "name": "FRED（圣路易斯联储）",
+        "tier": "L2",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://api.stlouisfed.org"
+      },
+      {
+        "id": "chinabond",
+        "name": "中国债券信息网",
+        "tier": "L2",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.chinabond.com.cn"
+      }
+    ],
+    "forbidden": [
+      "xueqiu",
+      "guba",
+      "weibo",
+      "cls"
+    ],
+    "rules": {
+      "min_independent_sources": 1,
+      "max_age_hours": 720,
+      "citation_format": "数据来源：{source}，{period}",
+      "must_carry": [
+        "period",
+        "unit"
+      ]
+    },
+    "note": "跨期比较前先确认是否发生修订（GDP、社融均有修订）"
+  },
+  "policy": {
+    "content_type": "policy",
+    "label": "政策与监管",
+    "primary": [
+      {
+        "id": "csrc",
+        "name": "中国证监会",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.csrc.gov.cn"
+      },
+      {
+        "id": "pbc",
+        "name": "中国人民银行",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.pbc.gov.cn"
+      },
+      {
+        "id": "mof",
+        "name": "财政部",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.mof.gov.cn"
+      },
+      {
+        "id": "sse",
+        "name": "上海证券交易所",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.sse.com.cn"
+      },
+      {
+        "id": "szse",
+        "name": "深圳证券交易所",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.szse.cn"
+      }
+    ],
+    "secondary": [
+      {
+        "id": "stcn",
+        "name": "证券时报",
+        "tier": "L3",
+        "license": "free_with_terms",
+        "redistribution": "attribution_required",
+        "cite_as_fact": false,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.stcn.com"
+      },
+      {
+        "id": "caixin",
+        "name": "财新",
+        "tier": "L3",
+        "license": "paid_public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": false,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.caixin.com"
+      },
+      {
+        "id": "yicai",
+        "name": "第一财经",
+        "tier": "L3",
+        "license": "free_with_terms",
+        "redistribution": "attribution_required",
+        "cite_as_fact": false,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.yicai.com"
+      }
+    ],
+    "forbidden": [
+      "wechat_mp",
+      "weibo",
+      "guba"
+    ],
+    "rules": {
+      "min_independent_sources": 1,
+      "max_age_hours": 720,
+      "citation_format": "据{source} {date} 发布的《{title}》",
+      "must_carry": [
+        "title",
+        "url",
+        "published_at"
+      ]
+    },
+    "note": "只认官网原文；截图版红头文件一律视为未证实"
+  },
+  "industry_data": {
+    "content_type": "industry_data",
+    "label": "行业数据（销量、出货量、产能）",
+    "primary": [
+      {
+        "id": "caam",
+        "name": "中国汽车工业协会",
+        "tier": "L3",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": false,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "http://www.caam.org.cn"
+      },
+      {
+        "id": "cpca",
+        "name": "乘用车市场信息联席会",
+        "tier": "L3",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": false,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.cpcaauto.com"
+      },
+      {
+        "id": "semi",
+        "name": "SEMI",
+        "tier": "L3",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": false,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.semi.org"
+      },
+      {
+        "id": "customs",
+        "name": "海关总署",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "http://www.customs.gov.cn"
+      }
+    ],
+    "secondary": [
+      {
+        "id": "trendforce",
+        "name": "TrendForce",
+        "tier": "L3",
+        "license": "free_with_terms",
+        "redistribution": "attribution_required",
+        "cite_as_fact": false,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.trendforce.com"
+      },
+      {
+        "id": "counterpoint",
+        "name": "Counterpoint Research",
+        "tier": "L3",
+        "license": "free_with_terms",
+        "redistribution": "attribution_required",
+        "cite_as_fact": false,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.counterpointresearch.com"
+      },
+      {
+        "id": "gasgoo",
+        "name": "盖世汽车",
+        "tier": "L3",
+        "license": "free_with_terms",
+        "redistribution": "attribution_required",
+        "cite_as_fact": false,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://auto.gasgoo.com"
+      },
+      {
+        "id": "jiwei",
+        "name": "集微网",
+        "tier": "L3",
+        "license": "free_with_terms",
+        "redistribution": "attribution_required",
+        "cite_as_fact": false,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.laoyaoba.com"
+      },
+      {
+        "id": "wind",
+        "name": "Wind 金融终端",
+        "tier": "L2",
+        "license": "paid_internal",
+        "redistribution": "forbidden",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "local://wind"
+      }
+    ],
+    "forbidden": [
+      "xueqiu",
+      "guba"
+    ],
+    "rules": {
+      "min_independent_sources": 1,
+      "max_age_hours": 2160,
+      "citation_format": "数据来源：{source}（{period}）",
+      "must_carry": [
+        "period",
+        "unit",
+        "scope"
+      ]
+    },
+    "note": "口径差异最大的一类：批发/零售、含不含出口、按颗/按套，必须写清 scope"
+  },
+  "ipo_governance": {
+    "content_type": "ipo_governance",
+    "label": "IPO 与公司治理",
+    "primary": [
+      {
+        "id": "cninfo",
+        "name": "巨潮资讯网（指定信息披露）",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.cninfo.com.cn"
+      },
+      {
+        "id": "hkexnews",
+        "name": "港交所披露易",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.hkexnews.hk"
+      },
+      {
+        "id": "csrc",
+        "name": "中国证监会",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.csrc.gov.cn"
+      },
+      {
+        "id": "sec_edgar",
+        "name": "SEC EDGAR",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.sec.gov/edgar"
+      }
+    ],
+    "secondary": [
+      {
+        "id": "sse",
+        "name": "上海证券交易所",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.sse.com.cn"
+      },
+      {
+        "id": "szse",
+        "name": "深圳证券交易所",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.szse.cn"
+      },
+      {
+        "id": "bse",
+        "name": "北京证券交易所",
+        "tier": "L1",
+        "license": "public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": true,
+        "clue_only": false,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://www.bse.cn"
+      }
+    ],
+    "forbidden": [
+      "wechat_mp",
+      "xueqiu",
+      "guba",
+      "weibo"
+    ],
+    "rules": {
+      "min_independent_sources": 1,
+      "max_age_hours": 8760,
+      "citation_format": "据《{title}》（{doc_id}，{date}）",
+      "must_carry": [
+        "doc_id",
+        "url",
+        "published_at",
+        "doc_type"
+      ]
+    },
+    "note": "招股书/问询回复/股东会决议均需引原文条款，禁止概括为“公司表示”"
+  },
+  "broker_view": {
+    "content_type": "broker_view",
+    "label": "卖方观点与市场预期",
+    "primary": [
+      {
+        "id": "stcn",
+        "name": "证券时报",
+        "tier": "L3",
+        "license": "free_with_terms",
+        "redistribution": "attribution_required",
+        "cite_as_fact": false,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.stcn.com"
+      },
+      {
+        "id": "cnstock",
+        "name": "上海证券报",
+        "tier": "L3",
+        "license": "free_with_terms",
+        "redistribution": "attribution_required",
+        "cite_as_fact": false,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.cnstock.com"
+      },
+      {
+        "id": "yicai",
+        "name": "第一财经",
+        "tier": "L3",
+        "license": "free_with_terms",
+        "redistribution": "attribution_required",
+        "cite_as_fact": false,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.yicai.com"
+      }
+    ],
+    "secondary": [
+      {
+        "id": "caixin",
+        "name": "财新",
+        "tier": "L3",
+        "license": "paid_public",
+        "redistribution": "attribution_required",
+        "cite_as_fact": false,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.caixin.com"
+      },
+      {
+        "id": "cls",
+        "name": "财联社",
+        "tier": "L3",
+        "license": "free_with_terms",
+        "redistribution": "attribution_required",
+        "cite_as_fact": false,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.cls.cn"
+      }
+    ],
+    "forbidden": [
+      "guba",
+      "weibo"
+    ],
+    "rules": {
+      "min_independent_sources": 2,
+      "max_age_hours": 168,
+      "citation_format": "（{broker}，{date}）",
+      "must_carry": [
+        "broker",
+        "date"
+      ]
+    },
+    "note": "观点必须署名机构与日期；不得写成“市场普遍认为”"
+  },
+  "sentiment": {
+    "content_type": "sentiment",
+    "label": "情绪与传闻",
+    "primary": [
+      {
+        "id": "irm",
+        "name": "深交所互动易",
+        "tier": "L4",
+        "license": "public",
+        "redistribution": "forbidden",
+        "cite_as_fact": false,
+        "clue_only": true,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://irm.cninfo.com.cn"
+      },
+      {
+        "id": "sse_info",
+        "name": "上证 e 互动",
+        "tier": "L4",
+        "license": "public",
+        "redistribution": "forbidden",
+        "cite_as_fact": false,
+        "clue_only": true,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://sns.sseinfo.com"
+      }
+    ],
+    "secondary": [
+      {
+        "id": "xueqiu",
+        "name": "雪球",
+        "tier": "L4",
+        "license": "free_with_terms",
+        "redistribution": "forbidden",
+        "cite_as_fact": false,
+        "clue_only": true,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://xueqiu.com"
+      },
+      {
+        "id": "weibo",
+        "name": "微博",
+        "tier": "L4",
+        "license": "free_with_terms",
+        "redistribution": "forbidden",
+        "cite_as_fact": false,
+        "clue_only": true,
+        "allow_ai_paraphrase": false,
+        "endpoint": "https://weibo.com"
+      },
+      {
+        "id": "cls",
+        "name": "财联社",
+        "tier": "L3",
+        "license": "free_with_terms",
+        "redistribution": "attribution_required",
+        "cite_as_fact": false,
+        "clue_only": false,
+        "allow_ai_paraphrase": true,
+        "endpoint": "https://www.cls.cn"
+      }
+    ],
+    "forbidden": [],
+    "rules": {
+      "min_independent_sources": 2,
+      "max_age_hours": 48,
+      "citation_format": "（未经证实，来源：{source}）",
+      "must_carry": [
+        "url",
+        "captured_at"
+      ]
+    },
+    "note": "默认不进正文；确需提及必须标注“未经证实”且不得据此推导结论"
+  }
+}
