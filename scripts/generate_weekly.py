@@ -740,7 +740,7 @@ def main() -> None:
         elif isinstance(value, list):
             for index, child in enumerate(value):
                 reject_generated_numbers(child, f"{key}[{index}]")
-        elif isinstance(value, str) and re.search(r"(?<![A-Za-z])\\d+(?:[.,]\\d+)?\\s*(?:%|％|亿|万|元|股|点|倍)?", value):
+        elif isinstance(value, str) and re.search(r"(?<![A-Za-z])\d+(?:[.,]\d+)?\s*(?:%|％|亿|万|元|股|点|倍)?", value):
             raise RuntimeError(f"UNVERIFIED_NUMBER: {key} contains a model-written number")
     reject_generated_numbers(report)
     if not report["highlights"]:
