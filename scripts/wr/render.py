@@ -92,7 +92,9 @@ def source_line(ids: list[str], sources: dict[str, dict], metric_ids: list[str] 
             labels.append(f'{sid} {item.get("source", "来源")}')
         parts.append("来源：" + "、".join(labels))
     if metric_ids:
-        parts.append("计算：" + "、".join(mid.removeprefix("m:") for mid in metric_ids))
+        keys = [mid.removeprefix("m:") for mid in metric_ids]
+        shown = "、".join(keys[:6])
+        parts.append("计算：" + (shown + f" 等 {len(keys)} 项" if len(keys) > 6 else shown))
     if basis:
         parts.append(basis)
     return f'<p class="source">{"；".join(parts)}</p>' if parts else ""
