@@ -1,0 +1,1325 @@
+{
+  "edition": "2026-W44",
+  "date": "2026-10-26",
+  "week": 44,
+  "period": {
+    "start": "2026-10-26 09:30",
+    "end": "2026-10-30 12:01"
+  },
+  "headline": "港股窄幅震荡，半导体设计 4 家标的同日披露定期报告与股份回购",
+  "overview": "恒生指数本周收于 22,958.65，较上周收盘下跌 0.58%（-134.72 点）；2026-10-26 触及周内高点 23,211.81，之后 3 个交易日有 2 日收跌，最新收市较该高点回落 1.09%。主板成交额由 2026-10-26 的 1758 亿港元升至 1895 亿港元（2026-10-29），较区间首日上涨 7.79%，量能变化不大。A 股方向，本期标的池内 20 家发行人披露公告（半导体设计 4 家、算力硬件 4 家、算力芯片 3 家），其中 2026-10-30 最为集中。下周需留意 2026-10-31 的三季度报告披露截止。",
+  "mode": "rule",
+  "generated_at": "2026-10-30T12:01:00+08:00",
+  "data_through": "2026-10-29",
+  "report": {
+    "headline": "港股窄幅震荡，半导体设计 4 家标的同日披露定期报告与股份回购",
+    "overview": "恒生指数本周收于 22,958.65，较上周收盘下跌 0.58%（-134.72 点）；2026-10-26 触及周内高点 23,211.81，之后 3 个交易日有 2 日收跌，最新收市较该高点回落 1.09%。主板成交额由 2026-10-26 的 1758 亿港元升至 1895 亿港元（2026-10-29），较区间首日上涨 7.79%，量能变化不大。A 股方向，本期标的池内 20 家发行人披露公告（半导体设计 4 家、算力硬件 4 家、算力芯片 3 家），其中 2026-10-30 最为集中。下周需留意 2026-10-31 的三季度报告披露截止。",
+    "overview_source_ids": [
+      "S24",
+      "S01"
+    ],
+    "ashare": {
+      "summary": "本期 20 家发行人合计披露 25 份公告，集中在定期报告、股份回购。",
+      "summary_source_ids": [
+        "S01",
+        "S02",
+        "S03"
+      ],
+      "drivers": [
+        {
+          "text": "半导体设计方向 紫光国微、韦尔股份、兆易创新 等 4 家披露公告。",
+          "source_ids": [
+            "S19",
+            "S11",
+            "S04"
+          ],
+          "metric_ids": [
+            "m:filings.issuers"
+          ]
+        },
+        {
+          "text": "算力硬件方向 沪电股份、浪潮信息、工业富联 等 4 家披露公告。",
+          "source_ids": [
+            "S18",
+            "S14",
+            "S05"
+          ],
+          "metric_ids": [
+            "m:filings.issuers"
+          ]
+        },
+        {
+          "text": "算力芯片方向 北京君正、芯原股份、澜起科技 等 3 家披露公告。",
+          "source_ids": [
+            "S17",
+            "S01",
+            "S03"
+          ],
+          "metric_ids": [
+            "m:filings.issuers"
+          ]
+        }
+      ]
+    },
+    "hk": {
+      "summary": "恒生指数本周下跌 0.58%，振幅 1.10%，日均成交额 1812 亿港元。",
+      "summary_source_ids": [
+        "S23",
+        "S24"
+      ],
+      "drivers": [
+        {
+          "text": "2026-10-26 主板成交额 1758 亿港元，恒生指数收市 23,211.81。",
+          "source_ids": [
+            "S21"
+          ],
+          "metric_ids": [
+            "m:hk.day.2026-10-26.turnover",
+            "m:hk.day.2026-10-26.close"
+          ]
+        },
+        {
+          "text": "2026-10-27 主板成交额 1783 亿港元，恒生指数收市 23,041.32。",
+          "source_ids": [
+            "S22"
+          ],
+          "metric_ids": [
+            "m:hk.day.2026-10-27.turnover",
+            "m:hk.day.2026-10-27.close"
+          ]
+        },
+        {
+          "text": "2026-10-28 主板成交额 1814 亿港元，恒生指数收市 23,094.83。",
+          "source_ids": [
+            "S23"
+          ],
+          "metric_ids": [
+            "m:hk.day.2026-10-28.turnover",
+            "m:hk.day.2026-10-28.close"
+          ]
+        },
+        {
+          "text": "2026-10-29 主板成交额 1895 亿港元，恒生指数收市 22,958.65。",
+          "source_ids": [
+            "S24"
+          ],
+          "metric_ids": [
+            "m:hk.day.2026-10-29.turnover",
+            "m:hk.day.2026-10-29.close"
+          ]
+        }
+      ]
+    },
+    "highlights": [
+      {
+        "market": "港股",
+        "category": "市场结构",
+        "title": "恒指触及 23,211.81 后回落，周线下跌 0.58%",
+        "reported": "2026-10-26 至 2026-10-29 共 4 个交易日；2026-10-26 收于周内高点 23,211.81；其后 3 个交易日有 2 日收跌；最新收市 22,958.65 较该高点回落 1.09%。",
+        "analysis": "指数层面仍是区间震荡，日内高点未能转化为周线涨幅；在成交额同步收缩的情况下，上行动能不足。",
+        "watch": "关注下周成交额能否回到日均 1812 亿港元 的水平。",
+        "source_ids": [
+          "S23",
+          "S24"
+        ],
+        "metric_ids": [
+          "m:hk.week_change_pct",
+          "m:hk.high",
+          "m:hk.drawdown_from_high_pct",
+          "m:hk.turnover_change_pct"
+        ]
+      },
+      {
+        "market": "A股",
+        "category": "板块动向",
+        "title": "半导体设计 4 家标的同日披露定期报告与股份回购",
+        "reported": "2026-10-30，紫光国微（002049）、韦尔股份（603501）、兆易创新（603986） 集中披露定期报告、股份回购，合计 6 份公告。",
+        "analysis": "披露报告期经营与财务数据，具体数值以公告原文为准；涉及回购方案、实施进展或股份用途变更。同一细分赛道集中披露，通常意味着该环节进入业绩验证期。",
+        "watch": "关注披露后首个交易日的量价反应，以及同赛道未披露公司的后续公告。",
+        "source_ids": [
+          "S19",
+          "S11",
+          "S04"
+        ],
+        "metric_ids": [
+          "m:filings.busiest_count"
+        ]
+      }
+    ],
+    "other_updates": [
+      {
+        "market": "A股",
+        "category": "股份回购",
+        "title": "芯原股份 股份回购",
+        "reported": "芯原股份（688521）本期披露：关于以集中竞价方式回购股份的回购报告书。",
+        "source_ids": [
+          "S01"
+        ]
+      },
+      {
+        "market": "A股",
+        "category": "定期报告",
+        "title": "华润微 定期报告",
+        "reported": "华润微（688396）本期披露：2026年第三季度报告。",
+        "source_ids": [
+          "S02"
+        ]
+      },
+      {
+        "market": "A股",
+        "category": "定期报告、股份回购",
+        "title": "澜起科技 定期报告、股份回购",
+        "reported": "澜起科技（688008）本期披露：澜起科技2026年第三季度报告、澜起科技关于变更部分回购A股股份用途并注销、澜起科技关于2026年第二次以集中竞价交易方式回购A股股份的回购报告书。",
+        "source_ids": [
+          "S03"
+        ]
+      },
+      {
+        "market": "A股",
+        "category": "定期报告、股份回购",
+        "title": "兆易创新 定期报告、股份回购",
+        "reported": "兆易创新（603986）本期披露：兆易创新2026年第三季度报告、兆易创新关于以集中竞价交易方式回购A股股份的进展公告。",
+        "source_ids": [
+          "S04"
+        ]
+      },
+      {
+        "market": "A股",
+        "category": "定期报告",
+        "title": "工业富联 定期报告",
+        "reported": "工业富联（601138）本期披露：富士康工业互联网股份有限公司2026年第三季度报告。",
+        "source_ids": [
+          "S05"
+        ]
+      },
+      {
+        "market": "A股",
+        "category": "定期报告、股份回购",
+        "title": "卓胜微 定期报告、股份回购",
+        "reported": "卓胜微（300782）本期披露：2026年三季度报告、关于回购公司股份方案。",
+        "source_ids": [
+          "S06"
+        ]
+      }
+    ],
+    "next_watch": [
+      {
+        "text": "2026-10-31 三季度报告披露截止",
+        "date": "2026-10-31",
+        "date_end": "2026-10-31",
+        "when": "2026-10-31",
+        "name": "三季度报告披露截止",
+        "certainty": "法定截止日",
+        "source_ids": [],
+        "basis": "日历规则：q3_report"
+      },
+      {
+        "text": "2026-11-07—2026-11-14 中国进出口数据",
+        "date": "2026-11-07",
+        "date_end": "2026-11-14",
+        "when": "2026-11-07—2026-11-14",
+        "name": "中国进出口数据",
+        "certainty": "规则推算",
+        "source_ids": [],
+        "basis": "日历规则：cn_trade"
+      },
+      {
+        "text": "2026-11-09—2026-11-15 中国 CPI / PPI",
+        "date": "2026-11-09",
+        "date_end": "2026-11-15",
+        "when": "2026-11-09—2026-11-15",
+        "name": "中国 CPI / PPI",
+        "certainty": "规则推算",
+        "source_ids": [],
+        "basis": "日历规则：cn_price"
+      },
+      {
+        "text": "2026-11-10—2026-11-18 社融与新增信贷",
+        "date": "2026-11-10",
+        "date_end": "2026-11-18",
+        "when": "2026-11-10—2026-11-18",
+        "name": "社融与新增信贷",
+        "certainty": "规则推算",
+        "source_ids": [],
+        "basis": "日历规则：cn_credit"
+      }
+    ],
+    "previous_check": [],
+    "origin": "rule"
+  },
+  "metrics": {
+    "has_quote": true,
+    "series": {
+      "dates": [
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29"
+      ],
+      "index": [
+        23211.81,
+        23041.32,
+        23094.83,
+        22958.65
+      ],
+      "turnover": [
+        175758489826.0,
+        178347926416.0,
+        181427944454.0,
+        189453187477.0
+      ],
+      "change_pct": [
+        0.5128744743621239,
+        -0.7344967927964352,
+        0.23223495876105726,
+        -0.589655780103171
+      ]
+    },
+    "notes": [],
+    "sessions": 4,
+    "base_prev": 23093.37,
+    "close": 22958.65,
+    "prev_close": 23094.83,
+    "week_change_pct": -0.5833708982274866,
+    "week_change_points": -134.71999999999753,
+    "high": 23211.81,
+    "high_date": "2026-10-26",
+    "low": 22958.65,
+    "low_date": "2026-10-29",
+    "amplitude_pct": 1.0962453725896215,
+    "drawdown_from_high_pct": -1.0906516984242054,
+    "down_days_after_high": 2,
+    "sessions_after_high": 3,
+    "up_days": 2,
+    "down_days": 2,
+    "turnover_first": 175758489826.0,
+    "turnover_last": 189453187477.0,
+    "turnover_avg": 181246887043.25,
+    "turnover_change_pct": 7.791770209540183,
+    "turnover_last_vs_avg_pct": 4.527691795220612,
+    "turnover_max": 189453187477.0,
+    "turnover_min": 175758489826.0,
+    "turnover_max_min_ratio": 1.0779177020954018,
+    "first_session": "2026-10-26",
+    "last_session": "2026-10-29",
+    "data_through": "2026-10-29",
+    "issuers": 20,
+    "themes": {
+      "算力芯片": 3,
+      "晶圆制造": 1,
+      "半导体设计": 4,
+      "算力硬件": 4,
+      "光模块": 3,
+      "半导体设备": 1,
+      "AI 应用": 3,
+      "通信设备": 1
+    },
+    "busiest_date": "2026-10-30",
+    "busiest_count": 10,
+    "category_counts": {
+      "股份回购": 5,
+      "定期报告": 19
+    },
+    "total_filings": 25,
+    "quote_ids": [
+      "S21",
+      "S22",
+      "S23",
+      "S24"
+    ]
+  },
+  "ledger": [
+    {
+      "id": "hk.week_change_pct",
+      "label": "恒指周涨跌幅",
+      "value": -0.5833708982274866
+    },
+    {
+      "id": "hk.week_change_points",
+      "label": "恒指周涨跌点数",
+      "value": -134.71999999999753
+    },
+    {
+      "id": "hk.close",
+      "label": "恒指最新收市",
+      "value": 22958.65
+    },
+    {
+      "id": "hk.high",
+      "label": "恒指周内最高收市",
+      "value": 23211.81
+    },
+    {
+      "id": "hk.low",
+      "label": "恒指周内最低收市",
+      "value": 22958.65
+    },
+    {
+      "id": "hk.amplitude_pct",
+      "label": "恒指周内振幅",
+      "value": 1.0962453725896215
+    },
+    {
+      "id": "hk.drawdown_from_high_pct",
+      "label": "自周内高点的回落幅度",
+      "value": -1.0906516984242054
+    },
+    {
+      "id": "hk.turnover_first",
+      "label": "区间首个交易日主板成交额",
+      "value": 175758489826.0
+    },
+    {
+      "id": "hk.turnover_last",
+      "label": "区间最后一个交易日主板成交额",
+      "value": 189453187477.0
+    },
+    {
+      "id": "hk.turnover_avg",
+      "label": "区间日均主板成交额",
+      "value": 181246887043.25
+    },
+    {
+      "id": "hk.turnover_change_pct",
+      "label": "成交额较区间首日变化",
+      "value": 7.791770209540183
+    },
+    {
+      "id": "hk.turnover_last_vs_avg_pct",
+      "label": "最后一日成交额较日均变化",
+      "value": 4.527691795220612
+    },
+    {
+      "id": "hk.turnover_max",
+      "label": "区间最高单日成交额",
+      "value": 189453187477.0
+    },
+    {
+      "id": "hk.turnover_min",
+      "label": "区间最低单日成交额",
+      "value": 175758489826.0
+    },
+    {
+      "id": "hk.down_days_after_high",
+      "label": "高点之后下跌天数",
+      "value": 2.0
+    },
+    {
+      "id": "hk.up_days",
+      "label": "区间上涨天数",
+      "value": 2.0
+    },
+    {
+      "id": "hk.down_days",
+      "label": "区间下跌天数",
+      "value": 2.0
+    },
+    {
+      "id": "hk.day.2026-10-26.change_pct",
+      "label": "2026-10-26 单日涨跌",
+      "value": 0.5128744743621239
+    },
+    {
+      "id": "hk.day.2026-10-26.turnover",
+      "label": "2026-10-26 成交额",
+      "value": 175758489826.0
+    },
+    {
+      "id": "hk.day.2026-10-26.close",
+      "label": "2026-10-26 收市",
+      "value": 23211.81
+    },
+    {
+      "id": "hk.day.2026-10-27.change_pct",
+      "label": "2026-10-27 单日涨跌",
+      "value": -0.7344967927964352
+    },
+    {
+      "id": "hk.day.2026-10-27.turnover",
+      "label": "2026-10-27 成交额",
+      "value": 178347926416.0
+    },
+    {
+      "id": "hk.day.2026-10-27.close",
+      "label": "2026-10-27 收市",
+      "value": 23041.32
+    },
+    {
+      "id": "hk.day.2026-10-28.change_pct",
+      "label": "2026-10-28 单日涨跌",
+      "value": 0.23223495876105726
+    },
+    {
+      "id": "hk.day.2026-10-28.turnover",
+      "label": "2026-10-28 成交额",
+      "value": 181427944454.0
+    },
+    {
+      "id": "hk.day.2026-10-28.close",
+      "label": "2026-10-28 收市",
+      "value": 23094.83
+    },
+    {
+      "id": "hk.day.2026-10-29.change_pct",
+      "label": "2026-10-29 单日涨跌",
+      "value": -0.589655780103171
+    },
+    {
+      "id": "hk.day.2026-10-29.turnover",
+      "label": "2026-10-29 成交额",
+      "value": 189453187477.0
+    },
+    {
+      "id": "hk.day.2026-10-29.close",
+      "label": "2026-10-29 收市",
+      "value": 22958.65
+    },
+    {
+      "id": "filings.issuers",
+      "label": "本期公告覆盖的发行人数",
+      "value": 20.0
+    },
+    {
+      "id": "filings.total_filings",
+      "label": "本期公告份数合计",
+      "value": 25.0
+    },
+    {
+      "id": "filings.themes",
+      "label": "本期覆盖的细分主题数",
+      "value": 8.0
+    },
+    {
+      "id": "filings.busiest_count",
+      "label": "单日公告最集中的发行人数",
+      "value": 10.0
+    }
+  ],
+  "coverage": [
+    {
+      "channel": "company_fact",
+      "ok": true,
+      "count": 20,
+      "failures": [],
+      "pool": 28
+    },
+    {
+      "channel": "quote",
+      "ok": true,
+      "count": 4,
+      "sessions_looked": 5
+    },
+    {
+      "channel": "clue",
+      "ok": true,
+      "count": 0,
+      "failures": []
+    },
+    {
+      "channel": "calendar",
+      "ok": true,
+      "count": 4
+    }
+  ],
+  "sources": [
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "芯原股份（688521）股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225645175.PDF",
+      "published": "2026-10-30T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "芯原股份（688521）本期披露：关于以集中竞价方式回购股份的回购报告书。",
+      "issuer_code": "688521",
+      "issuer_name": "芯原股份",
+      "theme": "算力芯片",
+      "categories": [
+        "股份回购"
+      ],
+      "glosses": [
+        "涉及回购方案、实施进展或股份用途变更"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "关于以集中竞价方式回购股份的回购报告书",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225645175.PDF",
+          "date": "2026-10-30",
+          "category": "股份回购",
+          "date_only": true
+        }
+      ],
+      "id": "S01"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "华润微（688396）定期报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225640392.PDF",
+      "published": "2026-10-30T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "华润微（688396）本期披露：2026年第三季度报告。",
+      "issuer_code": "688396",
+      "issuer_name": "华润微",
+      "theme": "晶圆制造",
+      "categories": [
+        "定期报告"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "2026年第三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225640392.PDF",
+          "date": "2026-10-30",
+          "category": "定期报告",
+          "date_only": true
+        }
+      ],
+      "id": "S02"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "澜起科技（688008）定期报告/股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225643270.PDF",
+      "published": "2026-10-30T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "澜起科技（688008）本期披露：澜起科技2026年第三季度报告、澜起科技关于变更部分回购A股股份用途并注销、澜起科技关于2026年第二次以集中竞价交易方式回购A股股份的回购报告书。",
+      "issuer_code": "688008",
+      "issuer_name": "澜起科技",
+      "theme": "算力芯片",
+      "categories": [
+        "定期报告",
+        "股份回购"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准",
+        "涉及回购方案、实施进展或股份用途变更"
+      ],
+      "filing_count": 3,
+      "announcements": [
+        {
+          "title": "澜起科技2026年第三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225643270.PDF",
+          "date": "2026-10-30",
+          "category": "定期报告",
+          "date_only": true
+        },
+        {
+          "title": "澜起科技关于变更部分回购A股股份用途并注销的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225643371.PDF",
+          "date": "2026-10-30",
+          "category": "股份回购",
+          "date_only": true
+        },
+        {
+          "title": "澜起科技关于2026年第二次以集中竞价交易方式回购A股股份的回购报告书",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225643303.PDF",
+          "date": "2026-10-30",
+          "category": "股份回购",
+          "date_only": true
+        }
+      ],
+      "id": "S03"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "兆易创新（603986）定期报告/股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225641959.PDF",
+      "published": "2026-10-30T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "兆易创新（603986）本期披露：兆易创新2026年第三季度报告、兆易创新关于以集中竞价交易方式回购A股股份的进展公告。",
+      "issuer_code": "603986",
+      "issuer_name": "兆易创新",
+      "theme": "半导体设计",
+      "categories": [
+        "定期报告",
+        "股份回购"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准",
+        "涉及回购方案、实施进展或股份用途变更"
+      ],
+      "filing_count": 2,
+      "announcements": [
+        {
+          "title": "兆易创新2026年第三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225641959.PDF",
+          "date": "2026-10-30",
+          "category": "定期报告",
+          "date_only": true
+        },
+        {
+          "title": "兆易创新关于以集中竞价交易方式回购A股股份的进展公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-28/1225630578.PDF",
+          "date": "2026-10-28",
+          "category": "股份回购",
+          "date_only": true
+        }
+      ],
+      "id": "S04"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "工业富联（601138）定期报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225639532.PDF",
+      "published": "2026-10-30T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "工业富联（601138）本期披露：富士康工业互联网股份有限公司2026年第三季度报告。",
+      "issuer_code": "601138",
+      "issuer_name": "工业富联",
+      "theme": "算力硬件",
+      "categories": [
+        "定期报告"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "富士康工业互联网股份有限公司2026年第三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225639532.PDF",
+          "date": "2026-10-30",
+          "category": "定期报告",
+          "date_only": true
+        }
+      ],
+      "id": "S05"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "卓胜微（300782）定期报告/股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225644202.PDF",
+      "published": "2026-10-30T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "卓胜微（300782）本期披露：2026年三季度报告、关于回购公司股份方案。",
+      "issuer_code": "300782",
+      "issuer_name": "卓胜微",
+      "theme": "半导体设计",
+      "categories": [
+        "定期报告",
+        "股份回购"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准",
+        "涉及回购方案、实施进展或股份用途变更"
+      ],
+      "filing_count": 2,
+      "announcements": [
+        {
+          "title": "2026年三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225644202.PDF",
+          "date": "2026-10-30",
+          "category": "定期报告",
+          "date_only": true
+        },
+        {
+          "title": "关于回购公司股份方案的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225644201.PDF",
+          "date": "2026-10-30",
+          "category": "股份回购",
+          "date_only": true
+        }
+      ],
+      "id": "S06"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "新易盛（300502）定期报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225642947.PDF",
+      "published": "2026-10-30T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "新易盛（300502）本期披露：2026年三季度报告。",
+      "issuer_code": "300502",
+      "issuer_name": "新易盛",
+      "theme": "光模块",
+      "categories": [
+        "定期报告"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "2026年三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225642947.PDF",
+          "date": "2026-10-30",
+          "category": "定期报告",
+          "date_only": true
+        }
+      ],
+      "id": "S07"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "胜宏科技（300476）定期报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225644765.PDF",
+      "published": "2026-10-30T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "胜宏科技（300476）本期披露：2026年三季度报告。",
+      "issuer_code": "300476",
+      "issuer_name": "胜宏科技",
+      "theme": "算力硬件",
+      "categories": [
+        "定期报告"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "2026年三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225644765.PDF",
+          "date": "2026-10-30",
+          "category": "定期报告",
+          "date_only": true
+        }
+      ],
+      "id": "S08"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "中际旭创（300308）定期报告/股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225643953.PDF",
+      "published": "2026-10-30T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "中际旭创（300308）本期披露：2026年三季度报告、关于变更回购A股股份用途并注销。",
+      "issuer_code": "300308",
+      "issuer_name": "中际旭创",
+      "theme": "光模块",
+      "categories": [
+        "定期报告",
+        "股份回购"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准",
+        "涉及回购方案、实施进展或股份用途变更"
+      ],
+      "filing_count": 2,
+      "announcements": [
+        {
+          "title": "2026年三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225643953.PDF",
+          "date": "2026-10-30",
+          "category": "定期报告",
+          "date_only": true
+        },
+        {
+          "title": "关于变更回购A股股份用途并注销的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225643958.PDF",
+          "date": "2026-10-30",
+          "category": "股份回购",
+          "date_only": true
+        }
+      ],
+      "id": "S09"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "北方华创（002371）定期报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225641389.PDF",
+      "published": "2026-10-30T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "北方华创（002371）本期披露：2026年三季度报告。",
+      "issuer_code": "002371",
+      "issuer_name": "北方华创",
+      "theme": "半导体设备",
+      "categories": [
+        "定期报告"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "2026年三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-30/1225641389.PDF",
+          "date": "2026-10-30",
+          "category": "定期报告",
+          "date_only": true
+        }
+      ],
+      "id": "S10"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "韦尔股份（603501）定期报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-29/1225637015.PDF",
+      "published": "2026-10-29T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "韦尔股份（603501）本期披露：2026年第三季度报告。",
+      "issuer_code": "603501",
+      "issuer_name": "韦尔股份",
+      "theme": "半导体设计",
+      "categories": [
+        "定期报告"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "2026年第三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-29/1225637015.PDF",
+          "date": "2026-10-29",
+          "category": "定期报告",
+          "date_only": true
+        }
+      ],
+      "id": "S11"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "深信服（300454）定期报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-29/1225633052.PDF",
+      "published": "2026-10-29T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "深信服（300454）本期披露：2026年三季度报告。",
+      "issuer_code": "300454",
+      "issuer_name": "深信服",
+      "theme": "AI 应用",
+      "categories": [
+        "定期报告"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "2026年三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-29/1225633052.PDF",
+          "date": "2026-10-29",
+          "category": "定期报告",
+          "date_only": true
+        }
+      ],
+      "id": "S12"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "天孚通信（300394）定期报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-29/1225634414.PDF",
+      "published": "2026-10-29T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "天孚通信（300394）本期披露：2026年三季度报告。",
+      "issuer_code": "300394",
+      "issuer_name": "天孚通信",
+      "theme": "光模块",
+      "categories": [
+        "定期报告"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "2026年三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-29/1225634414.PDF",
+          "date": "2026-10-29",
+          "category": "定期报告",
+          "date_only": true
+        }
+      ],
+      "id": "S13"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "浪潮信息（000977）定期报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-29/1225637120.PDF",
+      "published": "2026-10-29T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "浪潮信息（000977）本期披露：2026年三季度报告。",
+      "issuer_code": "000977",
+      "issuer_name": "浪潮信息",
+      "theme": "算力硬件",
+      "categories": [
+        "定期报告"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "2026年三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-29/1225637120.PDF",
+          "date": "2026-10-29",
+          "category": "定期报告",
+          "date_only": true
+        }
+      ],
+      "id": "S14"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "金山办公（688111）定期报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-28/1225630176.PDF",
+      "published": "2026-10-28T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "金山办公（688111）本期披露：金山办公2026年第三季度报告。",
+      "issuer_code": "688111",
+      "issuer_name": "金山办公",
+      "theme": "AI 应用",
+      "categories": [
+        "定期报告"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "金山办公2026年第三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-28/1225630176.PDF",
+          "date": "2026-10-28",
+          "category": "定期报告",
+          "date_only": true
+        }
+      ],
+      "id": "S15"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "中科创达（300496）定期报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-28/1225631385.PDF",
+      "published": "2026-10-28T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "中科创达（300496）本期披露：2026年三季度报告。",
+      "issuer_code": "300496",
+      "issuer_name": "中科创达",
+      "theme": "AI 应用",
+      "categories": [
+        "定期报告"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "2026年三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-28/1225631385.PDF",
+          "date": "2026-10-28",
+          "category": "定期报告",
+          "date_only": true
+        }
+      ],
+      "id": "S16"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "北京君正（300223）定期报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-28/1225631045.PDF",
+      "published": "2026-10-28T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "北京君正（300223）本期披露：2026年三季度报告。",
+      "issuer_code": "300223",
+      "issuer_name": "北京君正",
+      "theme": "算力芯片",
+      "categories": [
+        "定期报告"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "2026年三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-28/1225631045.PDF",
+          "date": "2026-10-28",
+          "category": "定期报告",
+          "date_only": true
+        }
+      ],
+      "id": "S17"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "沪电股份（002463）定期报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-28/1225627804.PDF",
+      "published": "2026-10-28T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "沪电股份（002463）本期披露：2026年三季度报告。",
+      "issuer_code": "002463",
+      "issuer_name": "沪电股份",
+      "theme": "算力硬件",
+      "categories": [
+        "定期报告"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "2026年三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-28/1225627804.PDF",
+          "date": "2026-10-28",
+          "category": "定期报告",
+          "date_only": true
+        }
+      ],
+      "id": "S18"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "紫光国微（002049）定期报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-27/1225625885.PDF",
+      "published": "2026-10-27T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "紫光国微（002049）本期披露：2026年三季度报告。",
+      "issuer_code": "002049",
+      "issuer_name": "紫光国微",
+      "theme": "半导体设计",
+      "categories": [
+        "定期报告"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "2026年三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-27/1225625885.PDF",
+          "date": "2026-10-27",
+          "category": "定期报告",
+          "date_only": true
+        }
+      ],
+      "id": "S19"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "中兴通讯（000063）定期报告",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-10-27/1225623166.PDF",
+      "published": "2026-10-27T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "中兴通讯（000063）本期披露：2026年三季度报告。",
+      "issuer_code": "000063",
+      "issuer_name": "中兴通讯",
+      "theme": "通信设备",
+      "categories": [
+        "定期报告"
+      ],
+      "glosses": [
+        "披露报告期经营与财务数据，具体数值以公告原文为准"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "2026年三季度报告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-10-27/1225623166.PDF",
+          "date": "2026-10-27",
+          "category": "定期报告",
+          "date_only": true
+        }
+      ],
+      "id": "S20"
+    },
+    {
+      "channel": "quote",
+      "market": "港股",
+      "title": "港交所 2026-10-26 每日成交及恒生指数",
+      "url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261026e.htm",
+      "published": "2026-10-26T16:00+08:00",
+      "date_only": true,
+      "session_date": "2026-10-26",
+      "source": "香港交易所",
+      "source_url": "https://www.hkex.com.hk",
+      "source_tier": "official",
+      "source_tier_label": "港交所官方行情",
+      "registered_source_id": "hkex",
+      "snippet": "日期 2026-10-26。主板成交额 175,758,489,826 港元。恒生指数收市 23211.81，前收市 23093.37。",
+      "turnover_hkd": 175758489826.0,
+      "index_close": 23211.81,
+      "index_prev": 23093.37,
+      "id": "S21"
+    },
+    {
+      "channel": "quote",
+      "market": "港股",
+      "title": "港交所 2026-10-27 每日成交及恒生指数",
+      "url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261027e.htm",
+      "published": "2026-10-27T16:00+08:00",
+      "date_only": true,
+      "session_date": "2026-10-27",
+      "source": "香港交易所",
+      "source_url": "https://www.hkex.com.hk",
+      "source_tier": "official",
+      "source_tier_label": "港交所官方行情",
+      "registered_source_id": "hkex",
+      "snippet": "日期 2026-10-27。主板成交额 178,347,926,416 港元。恒生指数收市 23041.32，前收市 23211.81。",
+      "turnover_hkd": 178347926416.0,
+      "index_close": 23041.32,
+      "index_prev": 23211.81,
+      "id": "S22"
+    },
+    {
+      "channel": "quote",
+      "market": "港股",
+      "title": "港交所 2026-10-28 每日成交及恒生指数",
+      "url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261028e.htm",
+      "published": "2026-10-28T16:00+08:00",
+      "date_only": true,
+      "session_date": "2026-10-28",
+      "source": "香港交易所",
+      "source_url": "https://www.hkex.com.hk",
+      "source_tier": "official",
+      "source_tier_label": "港交所官方行情",
+      "registered_source_id": "hkex",
+      "snippet": "日期 2026-10-28。主板成交额 181,427,944,454 港元。恒生指数收市 23094.83，前收市 23041.32。",
+      "turnover_hkd": 181427944454.0,
+      "index_close": 23094.83,
+      "index_prev": 23041.32,
+      "id": "S23"
+    },
+    {
+      "channel": "quote",
+      "market": "港股",
+      "title": "港交所 2026-10-29 每日成交及恒生指数",
+      "url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261029e.htm",
+      "published": "2026-10-29T16:00+08:00",
+      "date_only": true,
+      "session_date": "2026-10-29",
+      "source": "香港交易所",
+      "source_url": "https://www.hkex.com.hk",
+      "source_tier": "official",
+      "source_tier_label": "港交所官方行情",
+      "registered_source_id": "hkex",
+      "snippet": "日期 2026-10-29。主板成交额 189,453,187,477 港元。恒生指数收市 22958.65，前收市 23094.83。",
+      "turnover_hkd": 189453187477.0,
+      "index_close": 22958.65,
+      "index_prev": 23094.83,
+      "id": "S24"
+    }
+  ]
+}
