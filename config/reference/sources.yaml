@@ -1,0 +1,683 @@
+# =============================================================================
+# 财经周报 · 信源登记表与内容路由配置
+# schema: wr-sources/v1
+#
+# 用法:
+#   python source_registry.py lint                  # 校验配置自洽性
+#   python source_registry.py route company_fact    # 查看某内容类型走哪些源
+#   python source_registry.py policy cninfo         # 查看某源的生效策略
+#   python source_registry.py selftest              # 断言集自测
+#   python source_registry.py export-json out.json  # 导出解析后的路由给其他语言用
+#
+# 三条硬规则（改配置前先读）:
+#   1. L4 只做线索，cite_as_fact 恒为 false，clue_only 恒为 true
+#   2. L2 默认 redistribution: forbidden —— 付费终端数据未经授权不得公开传播
+#   3. tier_policy 是默认值，source 级只能“更严”，不能更松（lint 会拦）
+# =============================================================================
+
+schema: wr-sources/v1
+updated: "2026-10-30"
+
+meta:
+  report_name: 二级市场财经周报
+  timezone: Asia/Shanghai
+  cutoff_rule: "周五 15:00 收盘 + 周五 20:00 前公布的数据"
+  publish_at: "周日 20:00"
+  fail_policy: closed            # closed=闸门未过即阻断；open=降级发送（不建议）
+  endpoint_verify_required: true # 所有 endpoint 上线前必须实测，verified 字段留痕
+
+# -----------------------------------------------------------------------------
+# 分层默认策略：按可信度分层，而不是按“我喜欢哪个网站”
+# -----------------------------------------------------------------------------
+tier_policy:
+  L1:
+    label: 法定披露与官方原始数据
+    cite_as_fact: true
+    requires_second_source: false
+    redistribution: attribution_required
+    allow_ai_paraphrase: false   # 监管/公告原文不得由模型改写
+    max_age_hours: 168
+  L2:
+    label: 专业数据商与行情
+    cite_as_fact: true
+    requires_second_source: false
+    redistribution: forbidden    # 默认不可公开传播，逐源授权后才放开
+    allow_ai_paraphrase: true
+    max_age_hours: 24
+  L3:
+    label: 行业与专业媒体
+    cite_as_fact: false          # 只能作为背景与预期，不能作为事实来源
+    requires_second_source: true
+    redistribution: attribution_required
+    allow_ai_paraphrase: true
+    max_age_hours: 72
+  L4:
+    label: 社交与开放网络
+    cite_as_fact: false
+    clue_only: true              # 只触发检索，不许进正文
+    requires_second_source: true
+    redistribution: forbidden
+    allow_ai_paraphrase: false
+    max_age_hours: 24
+
+# -----------------------------------------------------------------------------
+# 断言集：字段级校验，供抓取层解析后立即调用
+# -----------------------------------------------------------------------------
+assertion_sets:
+  quote_row:
+    not_null: [code, close, as_of, unit]
+    regex:
+      code: '^[0-9]{6}(\.(SH|SZ|BJ|HK))?$'
+      as_of: '^\d{4}-\d{2}-\d{2}$'
+    range:
+      close: [0, 10000000]
+  pct_change:
+    not_null: [value, unit, as_of]
+    range:
+      value: [-100, 1000]
+  announcement:
+    not_null: [doc_id, title, url, published_at]
+    regex:
+      url: '^https?://'
+      published_at: '^\d{4}-\d{2}-\d{2}'
+  macro_series:
+    not_null: [period, value, unit]
+    regex:
+      period: '^\d{4}(-\d{2})?$'
+  trade_calendar:
+    not_null: [trade_date, is_open]
+    regex:
+      trade_date: '^\d{4}-\d{2}-\d{2}$'
+
+# -----------------------------------------------------------------------------
+# 信源登记表
+#   tier / kind / content_types / endpoint 为必备字段
+#   verified = 最近一次实测可达的日期；未实测填 null，抓取层拒绝启用
+# -----------------------------------------------------------------------------
+sources:
+
+  # ---------------- L1 法定披露与官方原始数据 ----------------
+  - id: cninfo
+    name: 巨潮资讯网（指定信息披露）
+    tier: L1
+    kind: html
+    endpoint: https://www.cninfo.com.cn
+    content_types: [company_fact, ipo_governance]
+    refresh_minutes: 30
+    license: public
+    assert: [announcement]
+    verified: null
+    notes: 沪深京公告主入口；分页容易只取首页，需显式翻页并核对总条数
+
+  - id: sse
+    name: 上海证券交易所
+    tier: L1
+    kind: html
+    endpoint: https://www.sse.com.cn
+    content_types: [company_fact, policy, quote]
+    refresh_minutes: 30
+    license: public
+    assert: [announcement]
+    verified: null
+    notes: 盘后公告集中在 16:00-22:00，抓取窗口需覆盖夜间
+
+  - id: szse
+    name: 深圳证券交易所
+    tier: L1
+    kind: html
+    endpoint: https://www.szse.cn
+    content_types: [company_fact, policy, quote]
+    refresh_minutes: 30
+    license: public
+    verified: null
+
+  - id: bse
+    name: 北京证券交易所
+    tier: L1
+    kind: html
+    endpoint: https://www.bse.cn
+    content_types: [company_fact, policy]
+    refresh_minutes: 60
+    license: public
+    verified: null
+
+  - id: hkexnews
+    name: 港交所披露易
+    tier: L1
+    kind: html
+    endpoint: https://www.hkexnews.hk
+    content_types: [company_fact, ipo_governance]
+    refresh_minutes: 30
+    license: public
+    assert: [announcement]
+    verified: null
+    notes: 中英文双版本，需固定取中文版以免同一公告重复计数
+
+  - id: csrc
+    name: 中国证监会
+    tier: L1
+    kind: html
+    endpoint: https://www.csrc.gov.cn
+    content_types: [policy, ipo_governance]
+    refresh_minutes: 120
+    license: public
+    verified: null
+    notes: 处罚决定与问询函是治理类选题的权威出处，需按栏目分开抓
+
+  - id: pbc
+    name: 中国人民银行
+    tier: L1
+    kind: html
+    endpoint: https://www.pbc.gov.cn
+    content_types: [macro, policy]
+    refresh_minutes: 120
+    license: public
+    verified: null
+    notes: 货币政策报告为 PDF，需保留原文页码以便引用
+
+  - id: stats
+    name: 国家统计局
+    tier: L1
+    kind: api
+    endpoint: https://data.stats.gov.cn
+    content_types: [macro]
+    refresh_minutes: 360
+    license: public
+    assert: [macro_series]
+    verified: null
+    notes: 数据发布与新闻稿口径可能不一致，优先取数据库序列并记录修订
+
+  - id: customs
+    name: 海关总署
+    tier: L1
+    kind: html
+    endpoint: http://www.customs.gov.cn
+    content_types: [macro, industry_data]
+    refresh_minutes: 720
+    license: public
+    verified: null
+
+  - id: mof
+    name: 财政部
+    tier: L1
+    kind: html
+    endpoint: https://www.mof.gov.cn
+    content_types: [policy, macro]
+    refresh_minutes: 720
+    license: public
+    verified: null
+
+  - id: gsxt
+    name: 国家企业信用信息公示系统
+    tier: L1
+    kind: html
+    endpoint: https://www.gsxt.gov.cn
+    content_types: [company_fact]
+    refresh_minutes: 1440
+    license: public
+    verified: null
+    notes: 股权与工商变更的权威出处，抓取频控严格，仅按需查询
+
+  - id: sec_edgar
+    name: SEC EDGAR
+    tier: L1
+    kind: api
+    endpoint: https://www.sec.gov/edgar
+    content_types: [company_fact, ipo_governance]
+    refresh_minutes: 60
+    license: public
+    assert: [announcement]
+    verified: null
+    notes: 必须设置合规 User-Agent，否则会被封
+
+  # ---------------- L2 专业数据商与行情 ----------------
+  - id: wind
+    name: Wind 金融终端
+    tier: L2
+    kind: terminal
+    endpoint: local://wind
+    content_types: [quote, macro, industry_data, company_fact]
+    refresh_minutes: 1440
+    license: paid_internal          # 授权标记：仅内部使用
+    redistribution: forbidden       # 明确禁止对外发布原始数据
+    verified: null
+    notes: 对外只能引用结论并注明“据Wind”，不得直接发布终端导出表
+
+  - id: choice
+    name: 东方财富 Choice
+    tier: L2
+    kind: terminal
+    endpoint: local://choice
+    content_types: [quote, macro]
+    refresh_minutes: 1440
+    license: paid_internal
+    redistribution: forbidden
+    verified: null
+
+  - id: ifind
+    name: 同花顺 iFinD
+    tier: L2
+    kind: terminal
+    endpoint: local://ifind
+    content_types: [quote, macro]
+    refresh_minutes: 1440
+    license: paid_internal
+    redistribution: forbidden
+    verified: null
+
+  - id: csindex
+    name: 中证指数有限公司
+    tier: L2
+    kind: html
+    endpoint: https://www.csindex.com.cn
+    content_types: [quote]
+    refresh_minutes: 1440
+    license: public
+    redistribution: attribution_required   # 指数公司公开数据，注明来源即可
+    assert: [quote_row]
+    verified: null
+
+  - id: chinabond
+    name: 中国债券信息网
+    tier: L2
+    kind: html
+    endpoint: https://www.chinabond.com.cn
+    content_types: [quote, macro]
+    refresh_minutes: 1440
+    license: public
+    redistribution: attribution_required
+    verified: null
+
+  - id: fred
+    name: FRED（圣路易斯联储）
+    tier: L2
+    kind: api
+    endpoint: https://api.stlouisfed.org
+    content_types: [macro]
+    refresh_minutes: 1440
+    license: public
+    redistribution: attribution_required
+    assert: [macro_series]
+    verified: null
+    notes: 序列有修订（vintage），跨期比较需锁定同一 vintage
+
+  - id: bloomberg
+    name: Bloomberg 终端
+    tier: L2
+    kind: terminal
+    endpoint: local://bloomberg
+    content_types: [quote, macro]
+    refresh_minutes: 1440
+    license: paid_internal
+    redistribution: forbidden
+    verified: null
+
+  # ---------------- L3 行业与专业媒体 ----------------
+  - id: cls
+    name: 财联社
+    tier: L3
+    kind: api
+    endpoint: https://www.cls.cn
+    content_types: [sentiment, broker_view]
+    refresh_minutes: 15
+    license: free_with_terms
+    verified: null
+    notes: 快讯密度极高，仅作线索源；同题材 24 小时内合并为一条
+
+  - id: stcn
+    name: 证券时报
+    tier: L3
+    kind: rss
+    endpoint: https://www.stcn.com
+    content_types: [broker_view, policy]
+    refresh_minutes: 120
+    license: free_with_terms
+    verified: null
+
+  - id: cnstock
+    name: 上海证券报
+    tier: L3
+    kind: rss
+    endpoint: https://www.cnstock.com
+    content_types: [broker_view, company_fact]
+    refresh_minutes: 120
+    license: free_with_terms
+    verified: null
+
+  - id: yicai
+    name: 第一财经
+    tier: L3
+    kind: rss
+    endpoint: https://www.yicai.com
+    content_types: [broker_view, industry_data]
+    refresh_minutes: 120
+    license: free_with_terms
+    verified: null
+
+  - id: caixin
+    name: 财新
+    tier: L3
+    kind: html
+    endpoint: https://www.caixin.com
+    content_types: [policy, broker_view]
+    refresh_minutes: 240
+    license: paid_public        # 付费墙：不得整段转载，仅可引用要点并回链
+    verified: null
+    notes: 付费内容转载风险高，正文引用不超过实质必要长度
+
+  - id: caam
+    name: 中国汽车工业协会
+    tier: L3
+    kind: html
+    endpoint: http://www.caam.org.cn
+    content_types: [industry_data]
+    refresh_minutes: 1440
+    license: public
+    verified: null
+
+  - id: cpca
+    name: 乘用车市场信息联席会
+    tier: L3
+    kind: html
+    endpoint: https://www.cpcaauto.com
+    content_types: [industry_data]
+    refresh_minutes: 1440
+    license: public
+    verified: null
+    notes: 与中汽协口径不同（批发/零售、含不含出口），需在指标档案中标注
+
+  - id: semi
+    name: SEMI
+    tier: L3
+    kind: html
+    endpoint: https://www.semi.org
+    content_types: [industry_data]
+    refresh_minutes: 4320
+    license: public
+    verified: null
+
+  - id: trendforce
+    name: TrendForce
+    tier: L3
+    kind: html
+    endpoint: https://www.trendforce.com
+    content_types: [industry_data]
+    refresh_minutes: 4320
+    license: free_with_terms
+    verified: null
+
+  - id: counterpoint
+    name: Counterpoint Research
+    tier: L3
+    kind: html
+    endpoint: https://www.counterpointresearch.com
+    content_types: [industry_data]
+    refresh_minutes: 4320
+    license: free_with_terms
+    verified: null
+
+  - id: gasgoo
+    name: 盖世汽车
+    tier: L3
+    kind: rss
+    endpoint: https://auto.gasgoo.com
+    content_types: [industry_data, company_fact]
+    refresh_minutes: 240
+    license: free_with_terms
+    verified: null
+
+  - id: jiwei
+    name: 集微网
+    tier: L3
+    kind: rss
+    endpoint: https://www.laoyaoba.com
+    content_types: [industry_data]
+    refresh_minutes: 240
+    license: free_with_terms
+    verified: null
+
+  # ---------------- L4 社交与开放网络（只做线索） ----------------
+  - id: irm
+    name: 深交所互动易
+    tier: L4
+    kind: html
+    endpoint: https://irm.cninfo.com.cn
+    content_types: [sentiment]
+    refresh_minutes: 1440
+    license: public
+    verified: null
+    notes: 公司答复具官方属性，但可作为“投资者关系口径”引用，不等于事实确认
+
+  - id: sse_info
+    name: 上证 e 互动
+    tier: L4
+    kind: html
+    endpoint: https://sns.sseinfo.com
+    content_types: [sentiment]
+    refresh_minutes: 1440
+    license: public
+    verified: null
+
+  - id: xueqiu
+    name: 雪球
+    tier: L4
+    kind: api
+    endpoint: https://xueqiu.com
+    content_types: [sentiment]
+    refresh_minutes: 60
+    license: free_with_terms
+    verified: null
+
+  - id: weibo
+    name: 微博
+    tier: L4
+    kind: api
+    endpoint: https://weibo.com
+    content_types: [sentiment]
+    refresh_minutes: 60
+    license: free_with_terms
+    verified: null
+
+  - id: wechat_mp
+    name: 微信公众号
+    tier: L4
+    kind: manual
+    endpoint: https://mp.weixin.qq.com
+    content_types: [sentiment]
+    refresh_minutes: 1440
+    license: manual_only
+    verified: null
+    notes: 无稳定接口，仅人工转载线索；转载需单独取得授权
+
+  - id: guba
+    name: 股吧
+    tier: L4
+    kind: html
+    endpoint: https://guba.eastmoney.com
+    content_types: [sentiment]
+    refresh_minutes: 60
+    license: free_with_terms
+    verified: null
+
+# -----------------------------------------------------------------------------
+# 内容类型 → 源 的路由
+#   顺序即优先级；primary 第一位是“事实基准源”
+#   forbidden 中的源一旦出现在引用链里，整条事实作废
+# -----------------------------------------------------------------------------
+content_routing:
+
+  quote:
+    label: 行情、成交与估值
+    primary: [csindex, sse, szse, wind]
+    secondary: [choice, ifind, chinabond]
+    forbidden: [cls, xueqiu, guba, weibo]
+    rules:
+      min_independent_sources: 1
+      max_age_hours: 24
+      citation_format: "数据来源：{source}，截至 {as_of}"
+      must_carry: [as_of, unit]
+    note: 收盘数据须标注交易日；非交易日一律不写“最新”
+
+  company_fact:
+    label: 公司事实（业绩、股东、订单、诉讼）
+    primary: [cninfo, sse, szse, hkexnews, sec_edgar]
+    secondary: [csrc, gsxt, cnstock]
+    forbidden: [xueqiu, guba, weibo, wechat_mp]
+    rules:
+      min_independent_sources: 1
+      max_age_hours: 168
+      citation_format: "据公司 {date} 公告（{doc_id}）"
+      must_carry: [doc_id, url, published_at]
+    note: 预告/快报/正式年报是三个口径，必须标注数据版本
+
+  macro:
+    label: 宏观数据
+    primary: [stats, pbc, customs, mof]
+    secondary: [wind, fred, chinabond]
+    forbidden: [xueqiu, guba, weibo, cls]
+    rules:
+      min_independent_sources: 1
+      max_age_hours: 720
+      citation_format: "数据来源：{source}，{period}"
+      must_carry: [period, unit]
+    note: 跨期比较前先确认是否发生修订（GDP、社融均有修订）
+
+  policy:
+    label: 政策与监管
+    primary: [csrc, pbc, mof, sse, szse]
+    secondary: [stcn, caixin, yicai]
+    forbidden: [wechat_mp, weibo, guba]
+    rules:
+      min_independent_sources: 1
+      max_age_hours: 720
+      citation_format: "据{source} {date} 发布的《{title}》"
+      must_carry: [title, url, published_at]
+    note: 只认官网原文；截图版红头文件一律视为未证实
+
+  industry_data:
+    label: 行业数据（销量、出货量、产能）
+    primary: [caam, cpca, semi, customs]
+    secondary: [trendforce, counterpoint, gasgoo, jiwei, wind]
+    forbidden: [xueqiu, guba]
+    rules:
+      min_independent_sources: 1
+      max_age_hours: 2160
+      citation_format: "数据来源：{source}（{period}）"
+      must_carry: [period, unit, scope]
+    note: 口径差异最大的一类：批发/零售、含不含出口、按颗/按套，必须写清 scope
+
+  ipo_governance:
+    label: IPO 与公司治理
+    primary: [cninfo, hkexnews, csrc, sec_edgar]
+    secondary: [sse, szse, bse]
+    forbidden: [wechat_mp, xueqiu, guba, weibo]
+    rules:
+      min_independent_sources: 1
+      max_age_hours: 8760
+      citation_format: "据《{title}》（{doc_id}，{date}）"
+      must_carry: [doc_id, url, published_at, doc_type]
+    note: 招股书/问询回复/股东会决议均需引原文条款，禁止概括为“公司表示”
+
+  broker_view:
+    label: 卖方观点与市场预期
+    primary: [stcn, cnstock, yicai]
+    secondary: [caixin, cls]
+    forbidden: [guba, weibo]
+    rules:
+      min_independent_sources: 2
+      max_age_hours: 168
+      citation_format: "（{broker}，{date}）"
+      must_carry: [broker, date]
+    note: 观点必须署名机构与日期；不得写成“市场普遍认为”
+
+  sentiment:
+    label: 情绪与传闻
+    primary: [irm, sse_info]
+    secondary: [xueqiu, weibo, cls]
+    forbidden: []
+    rules:
+      min_independent_sources: 2
+      max_age_hours: 48
+      citation_format: "（未经证实，来源：{source}）"
+      must_carry: [url, captured_at]
+    allow_clue_primary: true   # 本类内容本身就是线索，允许 L4 出现在首位
+    note: 默认不进正文；确需提及必须标注“未经证实”且不得据此推导结论
+
+# -----------------------------------------------------------------------------
+# 发布前硬断言（fail-closed：任一项失败即阻断发布）
+# -----------------------------------------------------------------------------
+pre_publish_assertions:
+  enabled: true
+  placeholder_patterns:
+    - '\{[a-zA-Z_]+\}'       # 模板占位符未替换
+    - 'NaN|None|null|undefined'
+    - '暂无|待补充|TODO|XXX'
+  forbidden_phrases:         # 禁语库，命中即阻断
+    - 建议买入
+    - 建议卖出
+    - 目标价
+    - 必涨
+    - 必跌
+    - 稳赚
+    - 抄底
+    - 最后机会
+    - 翻倍
+  required_blocks:
+    - name: disclaimer
+      marker: 本报告不构成投资建议
+    - name: cutoff
+      marker: 数据截止
+    - name: risk
+      marker: 风险提示
+  number_fingerprint:
+    enabled: true            # 正文每个数字必须能在源数据表中找到
+    tolerance_pct: 0.001
+    allow_rounding: true
+  link_check:
+    enabled: true
+    timeout_seconds: 10
+    require_200: true
+  length:
+    min_chars: 3000
+    max_chars: 20000
+  citation_required:
+    enabled: true            # 每个事实句必须挂 source_id
+    min_citations: 5
+
+# -----------------------------------------------------------------------------
+# 发布控制
+# -----------------------------------------------------------------------------
+publish:
+  schedule: "周日 20:00"
+  timezone: Asia/Shanghai
+  idempotency_key: "{issue_no}:{channel}:{recipient_id}"
+  retract_window_minutes: 10
+  channels:
+    - id: wechat_mp
+      daily_limit: 1
+      batch_size: 1
+      note: 一天一条，发布前需预演
+    - id: email
+      daily_limit: 1
+      batch_size: 500
+      note: SPF/DKIM/DMARC 必须配置，否则进垃圾箱
+    - id: wecom_group
+      daily_limit: 3
+      batch_size: 20
+      note: 群发有频控，分批带节流
+
+quotas:
+  weekly_main: 1
+  weekly_flash: 2            # 突发行情快评配额，超出即压缩为一段话并入下期
+
+alerts:
+  levels:
+    P0: 已发出错误内容 —— 立即撤回 + 全渠道通知 + 当日复盘
+    P1: 未按时发出 —— 15 分钟内人工介入，超时升级电话
+    P2: 数据部分缺失或降级 —— 本期可用，需在文末标注
+    P3: 质量趋势下降 —— 计入周报周会
+  heartbeat:
+    enabled: true
+    interval_minutes: 60
+    note: 无任务时也需心跳，静默停摆是最难发现的事故
+
