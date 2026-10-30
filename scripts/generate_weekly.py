@@ -346,6 +346,21 @@ def call_deepseek(items: list[dict], period: dict) -> dict:
     except json.JSONDecodeError as exc:
         raise RuntimeError(f"Model output was not valid JSON: {output[:500]}") from exc
     valid_ids = {item["id"] for item in items}
+    # Optional narrative without a cited source is discarded before validation.
+    for key in ("highlights", "other_updates", "next_watch"):
+        report[key] = [
+            row for row in report.get(key, [])
+            if isinstance(row, dict) and row.get("source_ids")
+        ]
+    for key in ("ashare", "hk"):
+        section = report.get(key, {})
+        if isinstance(section, dict):
+            section["drivers"] = [
+                row for row in section.get("drivers", [])
+                if isinstance(row, dict) and row.get("source_ids")
+            ]
+            if not section.get("summary_source_ids"):
+                section["summary"] = "本期未采到对应市场的一手数据。"
     validate_report(report, valid_ids)
     apply_quality_filters(report, items)
     validate_report(report, valid_ids)
