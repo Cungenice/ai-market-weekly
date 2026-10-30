@@ -34,6 +34,27 @@ FEEDS = [
 ]
 USER_AGENT = "ai-market-weekly/1.0 (+https://github.com/Cungenice/ai-market-weekly)"
 MAX_ARTICLES = 45
+def registered_public_sources() -> dict[str, str]:
+    """Only explicitly routed, publishable first-party domains may enter the report."""
+    routes = json.loads((ROOT / "config" / "reference" / "routes.json").read_text(encoding="utf-8"))
+    allowed = {}
+    for category in ("quote", "company_fact", "policy", "ipo_governance"):
+        for source in routes[category]["primary"]:
+            if source.get("cite_as_fact") and source.get("redistribution") == "attribution_required":
+                endpoint = urllib.parse.urlsplit(source["endpoint"])
+                if endpoint.scheme == "https" and endpoint.hostname:
+                    allowed[source["id"]] = endpoint.hostname.lower().removeprefix("www.")
+    return allowed
+
+
+def registered_source_id(url: str) -> str | None:
+    host = (urllib.parse.urlsplit(url).hostname or "").lower().removeprefix("www.")
+    for source_id, domain in registered_public_sources().items():
+        if host == domain or host.endswith("." + domain):
+            return source_id
+    return None
+
+
 OFFICIAL_DOMAINS = ("gov.cn", "csrc.gov.cn", "sse.com.cn", "szse.cn", "hkex.com.hk", "hkexnews.hk", "cninfo.com.cn")
 MEDIA_DOMAINS = ("reuters.com", "bloomberg.com", "ft.com", "wsj.com", "caixin.com", "yicai.com", "cls.cn", "21jingji.com", "cnstock.com", "stcn.com", "thepaper.cn", "eastmoney.com", "sina.com.cn")
 TOPIC_TERMS = ("人工智能", "AI", "半导体", "芯片", "算力", "机器人", "科技创新", "大模型", "云计算", "软件")
@@ -170,7 +191,9 @@ def collect_news(start: dt.datetime, end: dt.datetime) -> list[dict]:
     all_candidates = list(by_url.values())
     primary_candidates = [item for item in all_candidates if item["source_tier"] == "official"]
     resolve_primary_source_urls(primary_candidates)
-    primary_candidates = [item for item in primary_candidates if is_official_url(item["url"])]
+    primary_candidates = [item for item in primary_candidates if is_official_url(item["url"]) and registered_source_id(item["url"])]
+    for item in primary_candidates:
+        item["registered_source_id"] = registered_source_id(item["url"])
     candidates = [item for item in primary_candidates if is_relevant_source(item)]
     print(f"Discarded {len(all_candidates) - len(primary_candidates)} non-primary or unresolved RSS items")
     print(f"Discarded {len(primary_candidates) - len(candidates)} off-topic/routine-fund official items")
@@ -731,18 +754,28 @@ def main() -> None:
     items = collect_news(start, now)
     print(f"Collected {len(items)} unique articles")
     report = call_deepseek(items, period)
-    # Model-written quantities are not publishable until structured market data is available.
-    def reject_generated_numbers(value, key="report"):
+    # A model may repeat a numeral only when it appears in a cited source's
+    # visible title or snippet. This is a guard, not a verified price feed.
+    source_lookup = {item["id"]: item for item in items}
+    number_pattern = re.compile(r"(?<![A-Za-z])\\d+(?:[.,]\\d+)?")
+    def check_numbers(value, cited_ids, path="report"):
         if isinstance(value, dict):
-            for child_key, child in value.items():
-                if child_key != "source_ids" and child_key != "overview_source_ids" and child_key != "summary_source_ids":
-                    reject_generated_numbers(child, f"{key}.{child_key}")
+            active_ids = value.get("source_ids") or value.get("summary_source_ids") or value.get("overview_source_ids") or cited_ids
+            for key, child in value.items():
+                if key not in {"source_ids", "summary_source_ids", "overview_source_ids"}:
+                    check_numbers(child, active_ids, f"{path}.{key}")
         elif isinstance(value, list):
             for index, child in enumerate(value):
-                reject_generated_numbers(child, f"{key}[{index}]")
-        elif isinstance(value, str) and re.search(r"(?<![A-Za-z])\d+(?:[.,]\d+)?\s*(?:%|％|亿|万|元|股|点|倍)?", value):
-            raise RuntimeError(f"UNVERIFIED_NUMBER: {key} contains a model-written number")
-    reject_generated_numbers(report)
+                check_numbers(child, cited_ids, f"{path}[{index}]")
+        elif isinstance(value, str):
+            allowed = set()
+            for source_id in cited_ids:
+                source = source_lookup.get(source_id, {})
+                allowed.update(number_pattern.findall(source.get("title", "") + " " + source.get("snippet", "")))
+            extra = set(number_pattern.findall(value)) - allowed
+            if extra:
+                raise RuntimeError(f"UNVERIFIED_NUMBER: {path} contains {sorted(extra)}")
+    check_numbers(report, report.get("overview_source_ids", []))
     if not report["highlights"]:
         raise RuntimeError("EMPTY_REPORT: no supported highlights; retaining previous publication")
     for key in ("ashare", "hk"):
