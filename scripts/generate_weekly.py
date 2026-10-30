@@ -107,6 +107,7 @@ def _validate_all(report: dict, items: list[dict], metrics: dict, period: dict,
     V.validate_schema(report, valid_ids)
     V.check_metric_ids(report, {entry["id"] for entry in metric_catalog(metrics)})
     V.enforce_headline(report)
+    V.enforce_framing(report)
     V.enforce_forbidden(report)
     V.check_overview(report)
     ledger = V.Ledger(M.ledger_values(metrics),

@@ -258,3 +258,38 @@ def enforce_headline(report: dict) -> None:
     limit = int(S.cfg("validation.max_headline_chars", 46))
     if len(report.get("headline", "")) > limit:
         raise ReportError(f"HEADLINE_TOO_LONG: 超过 {limit} 字")
+
+
+# ---------------------------------------------------------------- 叙述框架
+# 「XX 于某日披露某报告」是公告转述，不是信息。读者要的是这批披露透露了什么，
+# 因此把「公告转述且没有任何解读词」当作可拦的失败，而不是靠提示词自觉。
+
+RESTATEMENT_RE = re.compile(r"于\s*\d{4}\s*年[^，。；]{0,10}披露")
+DEFAULT_INSIGHT_TERMS = ("意味", "说明", "透露", "反映", "口径", "横向", "对照", "可比",
+                         "结构", "节奏", "窗口", "同批", "分化", "定价", "能见度", "显性")
+
+
+def enforce_framing(report: dict) -> None:
+    """正文不能停在「谁在哪天发布了什么」。
+
+    判据从宽到窄：只要提到「披露」却没有任何解读词，就视为公告转述——
+    读者要的是这批披露透露了什么，而不是公告清单。
+    """
+    if not S.cfg("validation.require_disclosure_insight", True):
+        return
+    terms = tuple(S.cfg("validation.insight_terms", DEFAULT_INSIGHT_TERMS))
+    problems: list[str] = []
+    for group in ("highlights", "other_updates"):
+        for story in report.get(group) or []:
+            if not isinstance(story, dict):
+                continue
+            text = str(story.get("reported") or "")
+            restating = "披露" in text or bool(RESTATEMENT_RE.search(text))
+            if restating and not any(term in text for term in terms):
+                problems.append(f"{group}「{story.get('title', '')}」")
+    if problems:
+        raise ReportError(
+            "RESTATEMENT_WITHOUT_INSIGHT: 以下条目在转述公告（写了披露事实却没有任何解读）："
+            + "；".join(problems[:4])
+            + "。请改写为——这批披露透露了什么：落在什么窗口、覆盖哪几类环节、口径是否可比、"
+              "哪些信息因此变得可读、哪些差异因此显性化；名单最多点名两家，其余按环节概括或写「等 N 家」。")

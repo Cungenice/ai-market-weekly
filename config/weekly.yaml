@@ -84,37 +84,37 @@ filings:
     - id: periodic
       label: 定期报告
       match: ["季度报告", "年度报告", "半年度报告"]
-      gloss: 披露报告期经营与财务数据
+      gloss: 把报告期的经营与财务数据推到公开口径，是估值假设唯一可核对的基线
       focus: 看报告期收入与利润的环比方向、毛利率与费用率是否延续上季趋势
     - id: forecast
       label: 业绩预告
       match: ["业绩预告", "业绩快报"]
-      gloss: 披露预计业绩区间，属非经审计数据
+      gloss: 给出未经审计的业绩区间，等于提前暴露报告期的方向与量级
       focus: 看预告区间相对上一报告期的方向，以及公告给出的变动归因是否具体
     - id: buyback
       label: 股份回购
       match: ["回购"]
-      gloss: 涉及回购方案、实施进展或股份用途变更
+      gloss: 反映管理层对当前股价与资本配置的态度
       focus: 区分新设方案与既有方案的实施进展，看金额、价格上限与用途（注销还是激励）
     - id: order
       label: 订单合同
       match: ["重大合同", "中标", "订单"]
-      gloss: 披露经营性合同或中标情况
+      gloss: 把一部分未来收入提前锁定，改变订单能见度
       focus: 看合同金额相对上一完整年度营收的量级，以及交付节奏与客户集中度
     - id: capital
       label: 资本运作
       match: ["发行股份", "资产重组", "股权激励", "利润分配"]
-      gloss: 涉及股权、激励或分配安排
+      gloss: 触动股本与利益分配结构，直接改变每股口径
       focus: 看对股本、每股指标与控制权的直接影响，以及是否附带业绩条件
     - id: shareholder
       label: 股东行为
       match: ["增持", "减持", "解禁"]
-      gloss: 披露重要股东持股变动
+      gloss: 反映重要股东对当前价位的判断
       focus: 看变动比例、后续增减持计划，以及是否触及举牌或承诺边界
     - id: regulatory
       label: 监管事项
       match: ["问询回复", "停牌", "复牌"]
-      gloss: 涉及监管问询或交易状态变化
+      gloss: 暴露监管关注点与披露完整性的边界
       focus: 看问询关注点是否得到实质回应，以及是否影响交易状态与信息披露完整性
 
 # 行情通道
@@ -202,3 +202,6 @@ validation:
   min_highlights: 1
   max_headline_chars: 56
   fallback_to_data_edition: true
+  # 正文不得停在「谁在哪天发布了什么」：出现公告转述且没有解读词即判定失败
+  require_disclosure_insight: true
+  insight_terms: [意味, 说明, 透露, 反映, 口径, 横向, 对照, 可比, 结构, 节奏, 窗口, 同批, 分化, 定价, 能见度, 显性]

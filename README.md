@@ -7,6 +7,7 @@
 1. **数字只有两种来源**：从一手来源原文抽取，或由代码计算。模型只负责语言，不生成数字。
 2. **每条陈述都要有溯源**：一手来源编号（`source_ids`）、计算台账键（`metric_ids`）或日历规则（`basis`），三者至少有一个，否则校验不通过。
 3. **事实闸门阻断、结构闸门降级**：数字对不上、禁语命中、免责缺失 → 不发布；素材不足 → 出精简版，而不是整期停更。
+4. **落点是「透露了什么」而不是「发布了什么」**：正文不复述公告标题、不罗列名单；重点条目的第二问是「关注原因」，写这批信息为什么会走到台前，而不是再强调一次它重要。只写披露事实、没有任何解读的条目会被 `enforce_framing` 拦下重写。
 
 ## 工作流程
 
@@ -71,7 +72,8 @@ python scripts/generate_weekly.py          # 正式生成
 - 新增标的：编辑 `config/weekly.yaml` 的 `stock_pool.a_share`（代码、名称、主题），主题用于成稿时的板块归并。
 - 新增公告类型：在 `filings.categories` 增加一条（`match` 关键字 + `gloss` 口径说明），并在 `include_title_terms` 里放行。
 - 新增日历事项：`calendar.known_events` 填具体日期；常规发布窗口改 `calendar.recurring`。
-- 调整校验强度：`validation` 段的 `number_tolerance_abs` 控制数字比对容差。
+- 调整校验强度：`validation` 段的 `number_tolerance_abs` 控制数字比对容差；`require_disclosure_insight` 与 `insight_terms` 控制「只写披露事实」的条目是否放行。
+- 调整写作口径：`filings.categories` 里每个类型的 `gloss` 是「这类公告透露什么」，`focus` 是「该看什么」，两者同时供模型参考与规则兜底使用。
 
 ## 数据与边界
 

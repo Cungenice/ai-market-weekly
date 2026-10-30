@@ -26,9 +26,12 @@
 /* 三问标签统一成小标签，避免被误读成正文的一部分 */
 .reported b{display:inline-block;background:#f2e3e3;color:#862430;font:800 11px/1.7 Arial,sans-serif;letter-spacing:.04em;padding:0 8px;margin-right:9px;vertical-align:1px}
 .update .reported{margin:6px 0 0}
-/* 其他动态里的小结：视觉上独立于事实段，但比重点条目的分析弱一档 */
-.update .takeaway{margin:9px 0 2px;padding:9px 13px;background:#fff;border-left:3px solid var(--blue);font-size:13.5px;line-height:1.65;color:#2f3438}
-.update .takeaway b{display:block;color:var(--blue);font:800 11px/1.6 Arial,sans-serif;letter-spacing:.08em;margin-bottom:2px}
+/* 其他动态：第一段讲「透露了什么」，用小标签与事实段区分，不加底色 */
+.update .reading{margin:6px 0 0}
+.update .reading b{display:inline-block;color:var(--blue);font:800 11px/1.7 Arial,sans-serif;letter-spacing:.08em;margin-right:9px;vertical-align:1px}
+/* 小结：只用左侧细线做层级，不铺底色，避免在白纸上贴一块突兀的白底 */
+.update .takeaway{margin:8px 0 2px;padding:0 0 0 12px;background:none;border-left:2px solid var(--line);font-size:13.5px;line-height:1.7;color:#363b3f}
+.update .takeaway b{display:inline-block;color:var(--muted);font:800 11px/1.7 Arial,sans-serif;letter-spacing:.08em;margin-right:9px}
 .source a .ext{font-size:10px;margin-left:2px;font-weight:700}
 .source{font-size:12px;color:var(--muted);margin:8px 0 0}
 .source a.sid{font-weight:800;color:var(--red);text-decoration:none;border-bottom:1px dashed currentColor}

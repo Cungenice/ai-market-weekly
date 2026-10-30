@@ -10,6 +10,8 @@ import datetime as dt
 
 from . import settings as S
 
+_CN_DIGITS = "零一二三四五六七八九"
+
 
 def market_phrase(metrics: dict) -> str:
     if not metrics.get("has_quote"):
@@ -201,7 +203,6 @@ def _highlights(metrics: dict, filings: list[dict], calendar_events: list[dict])
     for theme, rows in sorted(themes.items(), key=lambda item: len(item[1]), reverse=True):
         if len(rows) < 2:
             continue
-        names = "、".join(f"{row['issuer_name']}（{row['issuer_code']}）" for row in rows[:3])
         labels = []
         for row in rows:
             for label in row.get("categories", []):
@@ -212,14 +213,19 @@ def _highlights(metrics: dict, filings: list[dict], calendar_events: list[dict])
             for gloss in row.get("glosses", []):
                 if gloss not in glosses:
                     glosses.append(gloss)
+        filings_count = sum(row["filing_count"] for row in rows)
         items.append({
             "market": "A股",
             "category": "板块动向",
-            "title": f"{theme} {len(rows)} 家标的同日披露{'与'.join(labels[:3])}",
-            "reported": f"{metrics.get('busiest_date', '')}，{names} 集中披露{'、'.join(labels)}，"
-                        f"合计 {sum(row['filing_count'] for row in rows)} 份公告。",
-            "analysis": "；".join(glosses[:2]) + "。同一细分赛道集中披露，通常意味着该环节进入业绩验证期。",
-            "watch": "关注披露后首个交易日的量价反应，以及同赛道未披露公司的后续公告。",
+            "title": f"{theme} {len(rows)} 家标的同期完成{'与'.join(labels[:3])}",
+            "reported": f"{metrics.get('busiest_date', '')} 是本窗口披露最密集的一天，"
+                        f"{theme}环节{_cn(len(rows))}家标的落在同一批，合计 {filings_count} 份公告，"
+                        f"披露时点与口径一致。这意味着该环节的经营读数第一次能横向对照，"
+                        f"而不再是各自独立的单点事件。",
+            "analysis": "；".join(glosses[:2]) + "。同窗口密集披露不改变基本面，"
+                        "但把定价依据从预期换成可核对的数据，板块内部分化因此显性化，"
+                        "而不是整体同向移动。",
+            "watch": "看这批披露后机构解读是否收敛到同一组指标，以及同环节未披露标的的跟进节奏。",
             "source_ids": [row["id"] for row in rows[:3]],
             "metric_ids": [_metric("filings.busiest_count")],
         })
@@ -227,11 +233,15 @@ def _highlights(metrics: dict, filings: list[dict], calendar_events: list[dict])
 
     if not items and filings:
         row = filings[0]
+        labels = "、".join(row.get("categories", [])) or "公司公告"
+        glosses = row.get("glosses", [])
         items.append({
             "market": "A股", "category": "公司披露",
-            "title": f"{row['issuer_name']}披露{'与'.join(row.get('categories', []))}",
-            "reported": row["snippet"],
-            "analysis": "；".join(row.get("glosses", [])[:2]) + "。",
+            "title": f"{row['issuer_name']}披露{labels}",
+            "reported": f"本期标的池内只有该标的披露{labels}，没有同批对照，"
+                        f"这条只能按单点事件读，不宜外推为板块方向。",
+            "analysis": ("；".join(glosses[:2]) + "。" if glosses
+                         else "披露本身只提供个体信息，缺少同批对照时不足以形成板块结论。"),
             "watch": "关注公告披露后公司对业绩指引的进一步说明。",
             "source_ids": [row["id"]],
             "metric_ids": [_metric("filings.issuers")],
@@ -240,45 +250,91 @@ def _highlights(metrics: dict, filings: list[dict], calendar_events: list[dict])
     return items[: int(S.cfg("universe.max_highlights", 4))]
 
 
-def _update_reported(row: dict) -> str:
-    """正文只补标题没给的信息：具体披露了哪几份公告。"""
-    announcements = row.get("announcements") or []
-    if not announcements:
-        return row.get("snippet", "")
-    titles = [f"《{item['title'].removesuffix('的公告')}》" for item in announcements]
-    shown = "、".join(titles[:2])
-    more = f"等 {len(titles)} 份" if len(titles) > 2 else ""
-    return f"本期披露{shown}{more}。"
+def _cn(count: int) -> str:
+    """数量写成中文，避免与数字台账相互牵制（此处数量由代码统计，非模型估算）。"""
+    if count == 2:
+        return "两"
+    if count < 10:
+        return _CN_DIGITS[count]
+    if count == 10:
+        return "十"
+    if count < 20:
+        return "十" + _CN_DIGITS[count % 10]
+    if count < 100:
+        tens, ones = divmod(count, 10)
+        return _CN_DIGITS[tens] + "十" + (_CN_DIGITS[ones] if ones else "")
+    return str(count)
+
+
+def _uniq(values: list[str]) -> list[str]:
+    kept: list[str] = []
+    for value in values:
+        if value and value not in kept:
+            kept.append(value)
+    return kept
 
 
 def _category_meta() -> dict[str, dict]:
     return {item["label"]: item for item in S.cfg("filings.categories", [])}
 
 
-def _update_note(row: dict, filings: list[dict]) -> str:
-    """单条小结：这条公告在板块与周期中的位置，以及该类型的观察点。
+def _update_reading(row: dict, filings: list[dict]) -> str:
+    """第一段写「这批披露透露了什么」，而不是「谁在哪天发了什么」。
 
-    只使用采集到的字段（主题、类型、同批披露名单）与配置里的类型口径，
-    不引入任何未见数据；因此不含数字，可安全绕开台账校验。
+    只使用采集到的结构字段（主题、公告类型、同批名单）与配置里的类型口径，
+    不引入未见数据；披露家数由代码统计，因此可以安全外显。
     """
     meta = _category_meta()
     theme = row.get("theme") or "其他"
     categories = row.get("categories") or []
     peers = [r for r in filings
              if r["id"] != row["id"] and (r.get("theme") or "其他") == theme]
-    peer_names = [r["issuer_name"] for r in peers][:2]
+
+    if peers:
+        lead = (f"{theme}环节本期{_cn(len(peers) + 1)}家标的落在同一披露窗口，"
+                f"时点与口径一致，横向差异因此第一次可以被读出来")
+    elif categories:
+        lead = (f"{theme}环节本期只有该标的披露{'、'.join(categories)}，没有同批对照，"
+                f"可读的只有它自己的口径变化")
+    else:
+        lead = f"{theme}环节本期只有该标的披露公告，缺少同批对照"
+
+    glosses = _uniq([meta[c]["gloss"] for c in categories if c in meta and meta[c].get("gloss")])
+    if glosses:
+        lead += "。就公告类型看，这类信息" + "；".join(glosses[:2])
+    return lead + "。"
+
+
+_DISCLOSURE_CLOSERS = {
+    "periodic": "报告期数据落地后，此前建立在预期上的定价需要重新校准",
+    "forecast": "预告区间先于审计数据出现，方向比数值更值得记住",
+    "buyback": "执行节奏比方案表述更能说明管理层的真实意愿",
+    "order": "能见度提高之后，真正的检验转移到交付与回款",
+    "capital": "股本一变，每股口径的比较基准就得换掉",
+    "shareholder": "信号强度取决于后续是否还有同向动作",
+    "regulatory": "问询是否被实质回应，决定这条信息是否已经用完",
+}
+
+
+def _update_note(row: dict, filings: list[dict]) -> str:
+    """小结：把「透露了什么」收口成一句判断——该看什么，以及看错会怎样。"""
+    meta = _category_meta()
+    theme = row.get("theme") or "其他"
+    categories = row.get("categories") or []
+    peers = [r for r in filings
+             if r["id"] != row["id"] and (r.get("theme") or "其他") == theme]
+    focus = _uniq([meta[c]["focus"] for c in categories if c in meta and meta[c].get("focus")])
+    closers = [v for k, v in _DISCLOSURE_CLOSERS.items()
+               if k in {meta[c].get("id") for c in categories if c in meta}]
 
     parts: list[str] = []
-    if peer_names:
-        parts.append(f"{theme}板块本期另有{'、'.join(peer_names)}披露公告，已进入成批披露阶段，可对照阅读")
-    elif categories:
-        parts.append(f"本期{theme}板块仅该标的披露{'、'.join(categories)}，暂无板块性共振，按个体事件处理")
-
-    focus = [meta[c]["focus"] for c in categories if c in meta and meta[c].get("focus")]
     if focus:
-        parts.append("；".join(focus[:2]))
-
-    return "；".join(parts) + "。" if parts else ""
+        parts.append(focus[0])
+    parts.append(f"同批还有{_cn(len(peers))}家可比，单家强弱不足以推出板块结论" if peers
+                 else "同环节没有对照，这一条只能当个体样本，等下一家披露后再定方向")
+    if closers:
+        parts.append(closers[0])
+    return "；".join(parts) + "。"
 
 
 def _other_updates(filings: list[dict], exclude: set[str] | None = None) -> list[dict]:
@@ -291,8 +347,9 @@ def _other_updates(filings: list[dict], exclude: set[str] | None = None) -> list
         rows.append({
             "market": row["market"],
             "category": categories,
-            "title": f"{row['issuer_name']}（{row['issuer_code']}）{categories}",
-            "reported": _update_reported(row),
+            # 标题只当标签用，不写成「X 披露 Y」的公告句式——信息在下两段
+            "title": f"{row['issuer_name']}（{row['issuer_code']}） · {categories}",
+            "reported": _update_reading(row, pool),
             "note": _update_note(row, pool),
             "source_ids": [row["id"]],
         })

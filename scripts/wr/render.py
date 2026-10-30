@@ -147,7 +147,7 @@ def updates_lead(metrics: dict, others: list[dict]) -> str:
     if top_themes:
         bits.append("覆盖" + "、".join(top_themes))
     return ("，".join(bits) +
-            "。每条先记披露事实，再给一句小结说明它在板块节奏中的位置与观察点；"
+            "。每条写两件事：这批披露透露了什么、该看什么；不逐条转述公告标题，"
             "报告期财务数值未解析，点条目末尾的来源即可打开原文核对。")
 
 
@@ -182,7 +182,7 @@ def render_report(report: dict, items: list[dict], period: dict, metrics: dict,
             f'<article class="story"><p class="meta">{S.esc(story.get("market"))} · {S.esc(story.get("category"))}</p>'
             f'<h3>{S.esc(story.get("title"))}{cite(story.get("source_ids", []))}</h3>'
             f'<p class="reported"><b>发生了什么</b>{S.esc(story.get("reported"))}</p>'
-            f'<div class="triple"><div class="analysis"><b>为什么重要</b>{S.esc(story.get("analysis"))}</div>'
+            f'<div class="triple"><div class="analysis"><b>关注原因</b>{S.esc(story.get("analysis"))}</div>'
             f'<div class="watch"><b>下周验证</b>{S.esc(story.get("watch"))}</div></div>'
             f'{source_line(story.get("source_ids", []), sources, story.get("metric_ids"))}</article>'
         )
@@ -192,7 +192,7 @@ def render_report(report: dict, items: list[dict], period: dict, metrics: dict,
         update_html.append(
             f'<article class="update"><p class="meta">{S.esc(story.get("market"))} · {S.esc(story.get("category"))}</p>'
             f'<h3>{S.esc(story.get("title"))}{cite(story.get("source_ids", []))}</h3>'
-            f'<p class="reported">{S.esc(story.get("reported"))}</p>'
+            f'<p class="reading"><b>透露了什么</b>{S.esc(story.get("reported"))}</p>'
             + (f'<p class="takeaway"><b>小结</b>{S.esc(story.get("note"))}</p>'
                if str(story.get("note") or "").strip() else "")
             + f'{source_line(story.get("source_ids", []), sources)}</article>'

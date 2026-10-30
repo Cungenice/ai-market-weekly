@@ -213,6 +213,82 @@ def test_update_note_passes() -> None:
     V.validate_schema(report, {"S01"})
 
 
+def test_restatement_is_rejected() -> None:
+    """「谁在哪天发布了什么」的公告转述必须被拦下，否则正文退回通稿。"""
+    report = base_report()
+    report["other_updates"] = [{
+        "market": "A股", "category": "定期报告", "title": "金山办公、中科创达披露三季度报告",
+        "reported": "金山办公（688111）于2026年10月28日披露2026年第三季度报告；"
+                    "中科创达（300496）同日披露2026年三季度报告。",
+        "note": "两家同为软件与应用层公司。", "source_ids": ["S01"]}]
+    try:
+        V.enforce_framing(report)
+    except V.ReportError as exc:
+        assert "RESTATEMENT_WITHOUT_INSIGHT" in str(exc), exc
+        return
+    raise AssertionError("公告转述未被拦截")
+
+
+def test_roster_restatement_is_rejected() -> None:
+    """只罗列谁披露了同一份报告，即便没有「于…披露」句式也要拦。"""
+    report = base_report()
+    report["highlights"][0]["reported"] = (
+        "2026年10月27日至10月30日，紫光国微、中兴通讯、韦尔股份、深信服、天孚通信、浪潮信息、"
+        "金山办公、中科创达、北京君正、沪电股份、华润微、工业富联等发行人相继披露2026年"
+        "第三季度报告或三季度报告。")
+    try:
+        V.enforce_framing(report)
+    except V.ReportError as exc:
+        assert "RESTATEMENT_WITHOUT_INSIGHT" in str(exc), exc
+        return
+    raise AssertionError("公告名单罗列未被拦截")
+
+
+def test_disclosure_reading_passes() -> None:
+    report = base_report()
+    report["other_updates"] = [{
+        "market": "A股", "category": "定期报告", "title": "软件与应用层两家披露三季度报告",
+        "reported": "两家同为软件与应用层标的，本期与半导体、光模块同批落地，"
+                    "说明这是同一财报窗口的组成部分而非孤立事件；这类公告可读的是"
+                    "报告期收入结构与费用端的变化方向，而非标题本身。",
+        "note": "同批标的已构成对照样本；看收入结构是否随 AI 订单兑现而改变。",
+        "source_ids": ["S01"]}]
+    V.enforce_framing(report)
+
+
+def test_rule_narrative_passes_framing() -> None:
+    """规则兜底版本也必须过同一道框架检查，否则模型不可用时会退回通稿。"""
+    from wr import narrative
+
+    def filing(rid, name, code, theme, published, categories, glosses):
+        return {"id": rid, "market": "A股", "issuer_name": name, "issuer_code": code,
+                "theme": theme, "published": published, "categories": categories,
+                "glosses": glosses, "filing_count": 1, "announcements": []}
+
+    filings = [
+        filing("S01", "金山办公", "688111", "AI 应用", "2026-10-28T18:00", ["定期报告"],
+               ["把报告期的经营与财务数据推到公开口径"]),
+        filing("S02", "中科创达", "300496", "AI 应用", "2026-10-28T19:00", ["定期报告"],
+               ["把报告期的经营与财务数据推到公开口径"]),
+        filing("S03", "紫光国微", "002049", "半导体设计", "2026-10-28T20:00", ["定期报告"],
+               ["把报告期的经营与财务数据推到公开口径"]),
+    ]
+    report = {"headline": "测试", "overview": "行情有数。",
+              "highlights": [], "other_updates": narrative._other_updates(filings)}
+    V.enforce_framing(report)
+    assert report["other_updates"], "其他动态为空"
+    for row in report["other_updates"]:
+        assert row["note"].strip(), row
+        assert "披露2026年" not in row["reported"], row["reported"]
+
+
+def test_takeaway_has_no_white_panel() -> None:
+    css = (ROOT / "scripts" / "wr" / "assets" / "site-extra.css").read_text(encoding="utf-8")
+    block = css.split(".update .takeaway{", 1)[1].split("}", 1)[0]
+    assert "background:#fff" not in block, block
+    assert "background:none" in block or "background:transparent" in block, block
+
+
 def test_source_link_clickable():
     from wr import render
 

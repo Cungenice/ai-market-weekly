@@ -34,7 +34,7 @@
       title: article.querySelector('h3')?.textContent.trim() || '',
       fields: [
         ['发生了什么', readField(article, '.reported')],
-        ['为什么重要', readField(article, '.analysis')],
+        ['关注原因', readField(article, '.analysis')],
         ['下周验证', readField(article, '.watch')]
       ].filter(([, text]) => text)
     }));
