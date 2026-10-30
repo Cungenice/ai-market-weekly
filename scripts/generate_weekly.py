@@ -399,7 +399,7 @@ def resolve_google_news_url(url: str) -> tuple[str, str]:
         with opener.open(page_request, timeout=20) as response:
             page = response.read().decode("utf-8", errors="replace")
         signature_match = re.search(r'data-n-a-sg="([^"]+)"', page)
-        timestamp_match = re.search(r'data-n-a-ts="(\\d+)"', page)
+        timestamp_match = re.search(r'data-n-a-ts="(\d+)"', page)
         if not signature_match or not timestamp_match:
             return url, "Google article page lacks resolver signature (consent page, rate limit, or markup change)"
         locale_config = ["X", "X", ["X", "X"], None, None, 1, 1, "US:en", None, 1, None, None, None, None, None, 0, 1]
@@ -426,7 +426,7 @@ def resolve_google_news_url(url: str) -> tuple[str, str]:
         )
         with opener.open(post_request, timeout=20) as response:
             payload = response.read().decode("utf-8", errors="replace")
-        json_start = payload.find("\\n\\n")
+        json_start = payload.find("\n\n")
         if json_start < 0:
             return url, "Google resolver response has an unexpected format"
         frames = json.loads(payload[json_start + 2:])
