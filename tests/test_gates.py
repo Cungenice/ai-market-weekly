@@ -400,3 +400,9 @@ def test_rule_intel_drops_forbidden_title() -> None:
     rows = narrative._intel([{"id": "S01", "title": "AI 翻倍", "published": now,
                               "track": "official", "thread": "重要产业动态", "attribute": "技术产品"}])
     assert rows == []
+
+
+def test_previous_titles_are_in_ledger() -> None:
+    from wr import validate as V
+    ledger = V.Ledger([], ["上期判断：恒指回落 1.09%"], {"start": "", "end": ""})
+    assert ledger.allows(1.09)
