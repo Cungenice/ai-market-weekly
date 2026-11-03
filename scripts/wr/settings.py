@@ -159,7 +159,7 @@ def title_similarity(left: str, right: str) -> float:
 # ---------------------------------------------------------------- 期次
 
 
-def issue_window(now: dt.datetime) -> dict:
+def issue_window(now: dt.datetime, *, completed_week: bool = False) -> dict:
     """期次锚定 ISO 周：区间为「上一个周一 09:30 → 现在」，即刚结束的这一周。
 
     这样周一 09:30 定时运行时区间恰好是完整的一周，周中补跑则覆盖到当前时刻，
@@ -169,8 +169,11 @@ def issue_window(now: dt.datetime) -> dict:
     hour, minute = (int(part) for part in str(cfg("issue.anchor_time", "09:30")).split(":"))
     monday = now.date() - dt.timedelta(days=(now.weekday() - anchor_weekday) % 7)
     anchor = dt.datetime.combine(monday, dt.time(hour, minute), SHANGHAI)
-    start = anchor - dt.timedelta(days=7) if now <= anchor else anchor
-    end = now
+    if completed_week:
+        start, end = anchor - dt.timedelta(days=7), anchor
+    else:
+        start = anchor - dt.timedelta(days=7) if now <= anchor else anchor
+        end = now
     iso = start.date().isocalendar()
     return {
         "edition": f"{iso.year}-W{iso.week:02d}",
