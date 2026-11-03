@@ -384,3 +384,19 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+def test_delayed_monday_uses_completed_week() -> None:
+    now = dt.datetime(2026, 11, 2, 15, 50, tzinfo=S.SHANGHAI)
+    window = S.issue_window(now, completed_week=True)
+    assert window["start"] == dt.datetime(2026, 10, 26, 9, 30, tzinfo=S.SHANGHAI)
+    assert window["end"] == dt.datetime(2026, 11, 2, 9, 30, tzinfo=S.SHANGHAI)
+    assert window["edition"] == "2026-W44"
+
+
+def test_rule_intel_drops_forbidden_title() -> None:
+    from wr import narrative
+    now = dt.datetime(2026, 11, 2, 15, 50, tzinfo=S.SHANGHAI)
+    rows = narrative._intel([{"id": "S01", "title": "AI 翻倍", "published": now,
+                              "track": "official", "thread": "重要产业动态", "attribute": "技术产品"}])
+    assert rows == []
