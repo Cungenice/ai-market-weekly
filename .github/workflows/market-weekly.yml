@@ -50,7 +50,12 @@ jobs:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           DEEPSEEK_MODEL: deepseek-flash
           SITE_BASE_URL: https://cungenice.github.io/ai-market-weekly
-        run: python scripts/generate_weekly.py
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            python scripts/generate_weekly.py --completed-week
+          else
+            python scripts/generate_weekly.py
+          fi
 
       - name: Verify publication files
         if: github.event_name == 'schedule' || inputs.mode == 'publish'
