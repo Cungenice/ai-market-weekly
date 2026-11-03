@@ -165,6 +165,7 @@ def draft(items: list[dict], metrics_block: str, metric_catalog: list[dict], per
         user_content += "\n\n上一版未通过校验，请修正后重新输出完整 JSON：\n" + feedback
     threads, attributes = _intel_briefs()
     system = SYSTEM_PROMPT.replace("{THREADS}", threads).replace("{ATTRIBUTES}", attributes)
+    system += "\\n禁语（任何字段均不得出现）：" + "、".join(S.forbidden_phrases()) + "。禁语出现在来源标题时不要照抄，无法中性概括则省略。每条 highlights 和 other_updates 必须有输入中真实且直接支持陈述的 source_ids 或有效 metric_ids；禁止编造编号；缺依据的条目省略，other_updates 可以为空，不得用 basis 代替事实来源。"
     body = {
         "model": os.environ.get("DEEPSEEK_MODEL", "deepseek-flash"),
         "messages": [{"role": "system", "content": system},
