@@ -150,6 +150,7 @@ def _validate_all(report: dict, items: list[dict], metrics: dict, period: dict,
                       + [str(entry.get("date", "")) for entry in calendar_events]
                       + [str(entry.get("date_end", "")) for entry in calendar_events]
                       + [str(entry.get("text", "")) for entry in report.get("next_watch", [])]
+                      + [str(row.get("title", "")) for row in report.get("previous_check", [])]
                       + [period.get("label", ""), period.get("edition", "")],
                       period)
     V.enforce_numbers(report, ledger)
