@@ -217,11 +217,12 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="生成 A/H AI 市场周报")
     parser.add_argument("--dry-run", action="store_true", help="写入 preview/，不覆盖已发布文件")
     parser.add_argument("--no-model", action="store_true", help="跳过模型，仅用规则叙事")
+    parser.add_argument("--completed-week", action="store_true", help="生成刚结束的完整一周")
     parser.add_argument("--out", default=None, help="输出根目录（默认仓库根目录）")
     args = parser.parse_args()
 
     now = dt.datetime.now(S.SHANGHAI).replace(second=0, microsecond=0)
-    period = S.issue_window(now)
+    period = S.issue_window(now, completed_week=args.completed_week)
     log({"stage": "start", "edition": period["edition"], "window": period["label"]})
 
     filings, f_status = collect.collect_filings(period["start"], period["end"])
