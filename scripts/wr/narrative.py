@@ -91,7 +91,11 @@ def _intel(intel_items: list[dict]) -> list[dict]:
             "caveat": track == "media" and thread in required,
             "source_ids": [item["id"]],
         })
-    return rows
+    forbidden = S.forbidden_phrases()
+    return [row for row in rows if not any(
+        phrase in str(row.get(field, ""))
+        for field in ("title", "note") for phrase in forbidden
+    )]
 
 
 def _ids(metrics: dict, filings: list[dict]) -> list[str]:
