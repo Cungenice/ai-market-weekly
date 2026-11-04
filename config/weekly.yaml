@@ -172,7 +172,8 @@ intel:
   max_items: 12
   max_per_thread: 4
   max_media_share: 0.6          # 媒体条目占比上限，避免白名单媒体挤掉官方口径
-  max_resolve: 40               # 单期最多解析多少条 Google 跳转链接
+  max_per_media_source: 2       # 单家媒体最多两条，保证来源多样性
+  max_resolve: 48               # 单期最多解析多少条 Google 跳转链接
   # 双轨信源：query 走 Google News 的 site: 限定，解析后仍按域名复核轨别
   feeds:
     - {track: official, source: 中国政府网, query: "site:gov.cn 人工智能 政策"}
@@ -187,6 +188,9 @@ intel:
     - {track: media, source: 上海证券报, query: "site:cnstock.com 人工智能"}
     - {track: media, source: 澎湃新闻, query: "site:thepaper.cn 人工智能"}
     - {track: media, source: 36 氪, query: "site:36kr.com 人工智能 融资"}
+    - {track: media, source: 华尔街见闻, query: "site:wallstreetcn.com 人工智能 半导体 融资"}
+    - {track: media, source: 路透社, query: "site:reuters.com China Hong Kong AI semiconductor investment"}
+    - {track: media, source: 彭博社, query: "site:bloomberg.com China Hong Kong AI semiconductor investment"}
     - {track: media, source: 界面新闻, query: "site:jiemian.com 人工智能"}
     - {track: media, source: 财联社, query: "site:cls.cn 人工智能"}
   media_whitelist:
@@ -197,6 +201,9 @@ intel:
     - {domain: cnstock.com, name: 上海证券报}
     - {domain: thepaper.cn, name: 澎湃新闻}
     - {domain: 36kr.com, name: 36 氪}
+    - {domain: wallstreetcn.com, name: 华尔街见闻}
+    - {domain: reuters.com, name: 路透社}
+    - {domain: bloomberg.com, name: 彭博社}
     - {domain: jiemian.com, name: 界面新闻}
     - {domain: cls.cn, name: 财联社}
   # 知识脉络：单选，与信息属性一一对应到页面的分组与徽标
