@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  manage-and-deploy:
+  manage:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -62,5 +62,13 @@ jobs:
         with:
           path: _site
 
+  deploy:
+    needs: manage
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
