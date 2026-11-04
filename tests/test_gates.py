@@ -253,7 +253,7 @@ def test_disclosure_reading_passes() -> None:
 
 
 def test_rule_narrative_passes_framing() -> None:
-    """规则兜底版本也必须过同一道框架检查，否则模型不可用时会退回通稿。"""
+    """规则稿的单条摘要只陈述来源可核对的事项。"""
     from wr import narrative
 
     def filing(rid, name, code, theme, published, categories, glosses):
@@ -274,7 +274,8 @@ def test_rule_narrative_passes_framing() -> None:
     V.enforce_framing(report)
     assert report["other_updates"], "其他动态为空"
     for row in report["other_updates"]:
-        assert row["note"].strip(), row
+        assert row["reported"].strip(), row
+        assert not row["note"].strip(), row
         assert "披露2026年" not in row["reported"], row["reported"]
 
 
