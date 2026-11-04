@@ -4,12 +4,12 @@
   "week": 45,
   "period": {
     "start": "2026-11-02 09:30",
-    "end": "2026-11-04 11:20"
+    "end": "2026-11-04 11:36"
   },
   "headline": "港股放量上行，半导体设计 4 家标的同日披露股份回购",
   "overview": "恒生指数本周收于 23,525.97，较上周收盘上涨 0.99%（+231.55 点）；2026-11-03 触及周内高点 23,525.97，之后 0 个交易日有 0 日收跌，最新收市较该高点回落 0.00%。主板成交额由 2026-11-02 的 2048 亿港元升至 2364 亿港元（2026-11-03），较区间首日上涨 15.41%，量能明显放大。A 股方向，本期标的池内 7 家发行人披露公告（半导体设计 4 家、AI 应用 1 家、光模块 1 家），其中 2026-11-03 最为集中。",
   "mode": "rule",
-  "generated_at": "2026-11-04T11:20:00+08:00",
+  "generated_at": "2026-11-04T11:36:00+08:00",
   "data_through": "2026-11-03",
   "report": {
     "headline": "港股放量上行，半导体设计 4 家标的同日披露股份回购",
@@ -364,26 +364,7 @@
         "basis": "日历规则：cn_activity"
       }
     ],
-    "previous_check": [
-      {
-        "title": "上期第一项判断",
-        "status": "待验证",
-        "note": "上期判断，本期未取得足以判定的新证据。",
-        "source_ids": []
-      },
-      {
-        "title": "上期第两项判断",
-        "status": "待验证",
-        "note": "上期判断，本期未取得足以判定的新证据。",
-        "source_ids": []
-      },
-      {
-        "title": "上期第三项判断",
-        "status": "待验证",
-        "note": "上期判断，本期未取得足以判定的新证据。",
-        "source_ids": []
-      }
-    ],
+    "previous_check": [],
     "origin": "rule"
   },
   "metrics": {
@@ -651,12 +632,12 @@
     {
       "attempt": 1,
       "result": "rejected",
-      "reason": "MODEL_NUMBER: report.previous_check[2].title 含数字，请改用无数字的定性表述"
+      "reason": "MODEL_NUMBER: report.other_updates[0].title 含数字，请改用无数字的定性表述"
     },
     {
       "attempt": 2,
       "result": "rejected",
-      "reason": "MODEL_NUMBER: report.other_updates[0].title 含数字，请改用无数字的定性表述"
+      "reason": "RESTATEMENT_WITHOUT_INSIGHT: 以下条目在转述公告（写了披露事实却没有任何解读）：highlights「港股量能放大，指数温和收于区间高位」。请改写为——这批披露透露了什么：落在什么窗口、覆盖哪几类环节、口径是否可比、哪些信息因此变得可读、哪些差异因此显性化；名单最多点名两家，其余按环节概括或写「等 N 家」。"
     },
     {
       "result": "fallback",
