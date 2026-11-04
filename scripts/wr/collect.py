@@ -454,7 +454,7 @@ def collect_intel(start: dt.datetime, end: dt.datetime) -> tuple[list[dict], dic
             title = re.sub(r"^[（(]?财联社[^）)]{0,14}[）)]?\s*\d{1,2}月\d{1,2}日[电讯][，,、]\s*", "", title)
             title = re.sub(r"^财联社\d{1,2}月\d{1,2}日[电讯][，,、]\s*", "", title)
             title = re.sub(r"\s*[-—]\s*(36氪|界面新闻|财联社|澎湃新闻|第一财经|财新|证券时报|"
-                           r"上海证券报|21世纪经济报道|21 世纪经济报道)\s*$", "", title)
+                           r"上海证券报|21世纪经济报道|21 世纪经济报道|华尔街见闻|路透社|彭博社|Reuters|Bloomberg)\s*$", "", title)
             item["title"] = title.strip()
             if not intel.prefilter(item["title"], item.get("snippet", "")):
                 continue
@@ -465,8 +465,18 @@ def collect_intel(start: dt.datetime, end: dt.datetime) -> tuple[list[dict], dic
     half = max(1, limit // 2)
     official = sorted([row for row in by_url.values() if row.get("feed_track") == "official"],
                       key=lambda row: row["published"], reverse=True)[:half]
-    media = sorted([row for row in by_url.values() if row.get("feed_track") != "official"],
-                   key=lambda row: row["published"], reverse=True)[: max(1, limit - len(official))]
+    # Round-robin media sources so a high-volume publisher cannot consume the
+    # entire resolver budget before smaller international sources are checked.
+    media_buckets: dict[str, list[dict]] = {}
+    for row in sorted((row for row in by_url.values() if row.get("feed_track") != "official"),
+                      key=lambda item: item["published"], reverse=True):
+        media_buckets.setdefault(str(row.get("feed_source") or ""), []).append(row)
+    media: list[dict] = []
+    media_limit = max(1, limit - len(official))
+    while len(media) < media_limit and any(media_buckets.values()):
+        for source in sorted(media_buckets):
+            if media_buckets[source] and len(media) < media_limit:
+                media.append(media_buckets[source].pop(0))
     candidates = sorted(official + media, key=lambda row: row["published"], reverse=True)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
