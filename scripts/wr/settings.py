@@ -175,7 +175,7 @@ def issue_window(now: dt.datetime) -> dict:
     end = now
     iso = start.date().isocalendar()
     return {
-        "edition": f"{iso.year}-W{iso.week:02d}",
+        "edition": now.strftime("%Y-%m-%d"),
         "start": start,
         "end": end,
         "label": f"{start:%Y-%m-%d %H:%M} — {end:%Y-%m-%d %H:%M}",
