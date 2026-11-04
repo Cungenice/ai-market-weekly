@@ -215,20 +215,14 @@ def test_update_note_passes() -> None:
     V.validate_schema(report, {"S01"})
 
 
-def test_restatement_is_rejected() -> None:
-    """「谁在哪天发布了什么」的公告转述必须被拦下，否则正文退回通稿。"""
+def test_single_item_summary_can_be_factual() -> None:
+    """单条动态只复述来源可核对的公告事项，不强制编造解读。"""
     report = base_report()
     report["other_updates"] = [{
-        "market": "A股", "category": "定期报告", "title": "金山办公、中科创达披露三季度报告",
-        "reported": "金山办公（688111）于2026年10月28日披露2026年第三季度报告；"
-                    "中科创达（300496）同日披露2026年三季度报告。",
-        "note": "两家同为软件与应用层公司。", "source_ids": ["S01"]}]
-    try:
-        V.enforce_framing(report)
-    except V.ReportError as exc:
-        assert "RESTATEMENT_WITHOUT_INSIGHT" in str(exc), exc
-        return
-    raise AssertionError("公告转述未被拦截")
+        "market": "A股", "category": "定期报告", "title": "金山办公三季度报告",
+        "reported": "金山办公披露第三季度报告。",
+        "note": "", "source_ids": ["S01"]}]
+    V.enforce_framing(report)
 
 
 def test_roster_restatement_is_rejected() -> None:
