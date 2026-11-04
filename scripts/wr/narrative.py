@@ -78,7 +78,7 @@ def _source_digest(item: dict) -> str:
 
     title = str(item.get("title") or "").strip()
     snippet = str(item.get("snippet") or "").strip()
-    snippet = re.sub(r"\\s+", " ", snippet)
+    snippet = re.sub(r"\s+", " ", snippet)
     if not snippet or len(snippet) < 35:
         return ""
     # Google News RSS description often repeats the headline and publisher list.
