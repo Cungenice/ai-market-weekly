@@ -339,7 +339,7 @@ def render_report(report: dict, items: list[dict], period: dict, metrics: dict,
 <details class="source-details"><summary>未引用采集线索（{len(other_rows)} 条）</summary><ol class="sources">{"".join(other_rows) or "<li>本期采集到的线索均已引用或未产生合格线索。</li>"}</ol></details></section>
 </main>
 <footer class="disclaimer"><p><span class="badge-ai">AI 参与生成</span>{S.esc(ai_label)}</p><ol>{disclaimers}</ol></footer>
-</div><script>{_asset('export.js')}</script><script>window.addEventListener('pageshow', () => { const details = document.getElementById('report-citations'); if (details) details.open = false; });</script></body></html>'''
+</div><script>{_asset('export.js')}</script><script>window.addEventListener('pageshow', () => {{ const details = document.getElementById('report-citations'); if (details) details.open = false; }});</script></body></html>'''
 
 
 def _cited_ids(report: dict) -> set[str]:
