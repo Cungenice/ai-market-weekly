@@ -10,6 +10,7 @@
 
 from __future__ import annotations
 
+import re
 import urllib.parse
 
 from . import settings as S
@@ -42,7 +43,7 @@ EVENT_TERMS = ("发布", "印发", "出台", "实施", "落地", "签约", "开�
 OPINION_TERMS = ("传闻", "或将", "有望", "押注", "观点", "研报", "评级", "目标价", "股价",
                  "涨幅", "跌幅", "涨停", "跌停", "收盘", "盘中")
 # 海外宏观与市场情绪类噪音：与本栏目「产业治理」立场无关
-NOISE_TERMS = ("美债", "美联储", "华尔街", "纳指", "标普", "道指", "加息", "降息", "非农",
+NOISE_TERMS = ("美债", "美联储", "纳指", "标普", "道指", "加息", "降息", "非农",
                "CPI", "PMI", "隔夜美股")
 
 THREAD_HINTS = {
@@ -132,10 +133,22 @@ def prefilter(title: str, snippet: str) -> bool:
         return False
     if any(term in head for term in NOISE_TERMS):
         return False
-    if not any(term in head for term in AI_ANCHORS):
+    english_ai = re.search(
+        r"\b(?:ai|artificial intelligence|generative ai|semiconductor|chip(?:maker|making|s)?|"
+        r"data cent(?:er|re)|robot(?:ics|s)?|large language model|llm)\b",
+        head, re.I,
+    )
+    if not any(term in head for term in AI_ANCHORS) and not english_ai:
         return False
     pool = head + " " + (snippet or "")
-    return any(term in pool for term in EVENT_TERMS)
+    english_event = re.search(
+        r"\b(?:launch(?:es|ed)?|releas(?:e|es|ed)|announc(?:e|es|ed)|invest(?:s|ed|ment)?|"
+        r"fund(?:s|ed|ing)?|acquir(?:e|es|ed)|merg(?:e|er|es)|ipo|earnings|revenue|profit|"
+        r"deal|contract|regulat(?:e|ion|or|ors)|polic(?:y|ies)|build(?:s|ing)?|"
+        r"expand(?:s|ed)?|partner(?:s|ship)?|rais(?:e|es|ed))\b",
+        pool, re.I,
+    )
+    return any(term in pool for term in EVENT_TERMS) or bool(english_event)
 
 
 def hints(text: str) -> tuple[str, str]:
@@ -216,6 +229,7 @@ def cap(items: list[dict]) -> list[dict]:
     total = int(S.cfg("intel.max_items", 12))
     per_thread = int(S.cfg("intel.max_per_thread", 4))
     media_share = float(S.cfg("intel.max_media_share", 0.6))
+    max_per_media_source = int(S.cfg("intel.max_per_media_source", 2))
 
     def order(row: dict) -> tuple:
         thread = row.get("thread") or "其他"
@@ -225,12 +239,18 @@ def cap(items: list[dict]) -> list[dict]:
     kept: list[dict] = []
     per: dict[str, int] = {}
     media_used = 0
+    media_sources: dict[str, int] = {}
     for row in sorted(items, key=order):
         thread = row.get("thread") or "其他"
         if per.get(thread, 0) >= per_thread:
             continue
-        if row.get("track") == "media" and media_used + 1 > max(1, int(total * media_share)):
-            continue
+        if row.get("track") == "media":
+            if media_used + 1 > max(1, int(total * media_share)):
+                continue
+            source = str(row.get("source") or row.get("feed_source") or "")
+            if media_sources.get(source, 0) >= max_per_media_source:
+                continue
+            media_sources[source] = media_sources.get(source, 0) + 1
         kept.append(row)
         per[thread] = per.get(thread, 0) + 1
         if row.get("track") == "media":
