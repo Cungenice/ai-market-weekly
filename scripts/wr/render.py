@@ -335,7 +335,7 @@ def render_report(report: dict, items: list[dict], period: dict, metrics: dict,
 
 <section id="sources" class="block"><div class="block-head"><h2>来源与说明<span class="count">{len(items)} 条</span></h2></div>
 <p class="block-lead">事实性陈述均可回溯至下列来源；派生指标（涨跌幅、振幅、环比等）由程序按来源数据计算，口径见每条依据说明。舆情条目按轨道标注：官方轨为政务与部委站点原文，白名单媒体轨需回原文核对。</p>
-<details class="source-details" open><summary>报告引用来源（{len(cited_rows)} 条）</summary><ol class="sources">{"".join(cited_rows) or "<li>暂无引用来源。</li>"}</ol></details>
+<details class="source-details"><summary>报告引用来源（{len(cited_rows)} 条）</summary><ol class="sources">{"".join(cited_rows) or "<li>暂无引用来源。</li>"}</ol></details>
 <details class="source-details"><summary>未引用采集线索（{len(other_rows)} 条）</summary><ol class="sources">{"".join(other_rows) or "<li>本期采集到的线索均已引用或未产生合格线索。</li>"}</ol></details></section>
 </main>
 <footer class="disclaimer"><p><span class="badge-ai">AI 参与生成</span>{S.esc(ai_label)}</p><ol>{disclaimers}</ol></footer>
