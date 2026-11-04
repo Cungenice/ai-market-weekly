@@ -75,8 +75,10 @@ def build_report(items: list[dict], filings: list[dict], metrics: dict, calendar
         for attempt in (1, 2):
             try:
                 candidate = llm.draft(items, block, catalog, period, previous, feedback, intel_items)
+                _reject_model_numbers(candidate)
                 candidate.setdefault("next_watch", _calendar_watch(calendar_events))
-                candidate["previous_check"] = candidate.get("previous_check") or narrative.previous_check(previous)
+                candidate["previous_check"] = narrative.previous_check(previous)
+                _inject_overview_number(candidate, metrics, filings)
                 hydrate_intel(candidate, intel_items)
                 _validate_all(candidate, items, metrics, period, calendar_events)
                 report, mode = candidate, "model"
