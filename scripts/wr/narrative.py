@@ -77,11 +77,11 @@ def _source_digest(item: dict) -> str:
     import re
 
     title = str(item.get("title") or "").strip()
-    snippet = str(item.get("snippet") or "").strip()
+    snippet = str(item.get("article_excerpt") or "").strip()
     snippet = re.sub(r"\s+", " ", snippet)
     if not snippet or len(snippet) < 35:
         return ""
-    # Google News RSS description often repeats the headline and publisher list.
+    # 原网页元描述若只是重复标题，不作为独立摘要。
     if title and (snippet.startswith(title) or title in snippet[:len(title) + 20]):
         snippet = snippet.replace(title, "", 1).strip(" -—·，。:：")
     if len(snippet) < 35 or not any(term in snippet for term in ("。", "；", "，", ",", ".")):
