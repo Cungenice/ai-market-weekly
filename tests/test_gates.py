@@ -192,16 +192,18 @@ def test_model_payload_serializable() -> None:
     assert "2026-10-26" in text and "Asia/Shanghai" not in text
 
 
-def test_update_requires_note() -> None:
+def test_update_note_optional_but_summary_required() -> None:
     report = base_report()
     report["other_updates"] = [{"market": "A股", "category": "定期报告", "title": "某公司三季报",
                                 "reported": "某公司披露三季度报告。", "source_ids": ["S01"]}]
+    V.validate_schema(report, {"S01"})
+    report["other_updates"][0]["reported"] = ""
     try:
         V.validate_schema(report, {"S01"})
     except V.ReportError as exc:
-        assert "note" in str(exc), exc
+        assert "reported" in str(exc), exc
         return
-    raise AssertionError("其他动态缺小结未被拦截")
+    raise AssertionError("其他动态缺摘要未被拦截")
 
 
 def test_update_note_passes() -> None:
