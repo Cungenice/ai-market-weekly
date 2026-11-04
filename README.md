@@ -1,6 +1,6 @@
 # A/H AI Market Weekly
 
-面向 A 股与港股的 AI、科技创新市场周报静态站点。每周一北京时间 09:30 自动生成，也可以在 GitHub Actions 中手动运行。
+面向 A 股与港股的 AI、科技创新市场周报静态站点。每周一北京时间 09:00 自动启动生成与发布，也可以在 GitHub Actions 中手动发布。
 
 ## 设计原则
 
@@ -45,7 +45,7 @@ python scripts/generate_weekly.py          # 正式生成
 |---|---|
 | `publish` | 生成 → 校验 → 提交 `main` → 部署 Pages |
 | `preview` | 生成 → 校验 → 只上传 Actions artifact，不提交、不部署 |
-| `deploy_only` | 跳过生成与提交，只用仓库现有文件重新部署 Pages |
+| `deploy_only` | 跳过生成与提交，只用仓库现有文件重新部署 Pages |\n\n删除历史周报：进入 **Actions → Manage published reports → Run workflow**，输入发布日期（`YYYY-MM-DD`）。工作流会同步删除页面、数据和历史目录记录并重新部署；为避免首页仍显示已删除内容，最新一期不能通过此入口删除。
 
 ## 一次性配置
 
@@ -58,7 +58,7 @@ python scripts/generate_weekly.py          # 正式生成
 | 路径 | 作用 |
 |---|---|
 | `config/weekly.yaml` | 标的池、公告白/黑名单、下周日历、免责与禁语、校验阈值 |
-| `scripts/generate_weekly.py` | 编排：采集 → 计算 → 生成 → 校验 → 渲染 |
+| `scripts/generate_weekly.py` | 编排：采集 → 计算 → 生成 → 校验 → 渲染 |\n| `scripts/manage_publications.py` | 按发布日期删除历史报告并重建历史目录 |
 | `scripts/wr/settings.py` | 配置加载、数值格式化、期次窗口 |
 | `scripts/wr/collect.py` | 四通道采集 |
 | `scripts/wr/metrics.py` | 派生指标与台账 |
