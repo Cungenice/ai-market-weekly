@@ -147,7 +147,7 @@ def test_minimum_judgement() -> None:
 
 
 def test_issue_window_monday_anchor() -> None:
-    monday = dt.datetime(2026, 10, 26, 9, 30, tzinfo=S.SHANGHAI)
+    monday = dt.datetime(2026, 10, 26, 9, 0, tzinfo=S.SHANGHAI)
     window = S.issue_window(monday)
     assert window["start"].date() == dt.date(2026, 10, 19), window["start"]
     assert window["end"] == monday, window["end"]
