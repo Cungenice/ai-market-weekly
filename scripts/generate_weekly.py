@@ -186,7 +186,7 @@ def _validate_all(report: dict, items: list[dict], metrics: dict, period: dict,
     V.enforce_forbidden(report)
     V.check_overview(report)
     ledger = V.Ledger(M.ledger_values(metrics),
-                      [f"{item.get('title', '')} {item.get('snippet', '')}" for item in items]
+                      [f"{item.get('title', '')} {item.get('snippet', '')} {item.get('article_excerpt', '')}" for item in items]
                       + [str(entry.get("date", "")) for entry in calendar_events]
                       + [str(entry.get("date_end", "")) for entry in calendar_events]
                       + [str(entry.get("text", "")) for entry in report.get("next_watch", [])]
