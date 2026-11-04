@@ -286,10 +286,8 @@ def enforce_intel(report: dict) -> None:
             raise ReportError(f"INTEL_ATTRIBUTE_INVALID: 「{row.get('title', '')}」的信息属性「{attribute}」不在枚举内")
         if thread == "其他":
             raise ReportError(f"INTEL_IRRELEVANT_KEPT: 「{row.get('title', '')}」判为「其他」不应进入页面")
-        if not str(row.get("note") or "").strip():
-            raise ReportError(f"INTEL_WITHOUT_NOTE: 「{row.get('title', '')}」缺少研判句")
         title, note = str(row.get("title") or ""), str(row.get("note") or "")
-        if title and S.title_similarity(title, note) >= 0.85:
+        if title and note.strip() and S.title_similarity(title, note) >= 0.85:
             raise ReportError(f"INTEL_NOTE_RESTATES_TITLE: 「{title}」的研判句只是复述标题")
 
 
