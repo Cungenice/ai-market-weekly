@@ -6,7 +6,7 @@ issue:
   anchor_weekday: 0            # 0 = 周一
   anchor_time: "09:00"
   timezone: Asia/Shanghai
-  edition_format: iso_week     # 2026-W44
+  edition_format: publication_date  # YYYY-MM-DD
 
 # 标的池：公告只按池拉取，池外标的（含 ETF/基金例行披露）在源头就不会进入
 stock_pool:
