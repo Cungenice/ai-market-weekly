@@ -236,9 +236,9 @@ def write_outputs(base: Path, report: dict, items: list[dict], period: dict, met
             existing = []
     entry = {
         "edition": edition,
-        "label": edition,
+        "label": generated.strftime("%Y-%m-%d"),
+        "publish_date": generated.strftime("%Y-%m-%d"),
         "date": payload["date"],
-        "week_label": f"W{period['week']:02d}",
         "sort_value": f"{period['end']:%Y-%m-%dT%H:%M}",
         "period": f"{payload['period']['start']} — {payload['period']['end']}",
         "headline": report["headline"],
