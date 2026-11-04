@@ -163,7 +163,7 @@ def hydrate_intel(report: dict, intel_items: list[dict]) -> None:
             "track": track,
             "track_label": intel_labels.TRACK_LABELS.get(track, "白名单媒体"),
             "title": str(row.get("title") or src.get("title") or "").strip(),
-            "note": str(row.get("note") or intel_labels.rule_note({**src, "thread": thread})).strip(),
+            "note": narrative._source_digest(src),
             "published": src["published"].isoformat(timespec="minutes"),
             "caveat": track == "media" and thread in set(S.cfg("intel.official_required_threads", []) or []),
             "source_ids": [sid],
