@@ -278,7 +278,7 @@ def render_report(report: dict, items: list[dict], period: dict, metrics: dict,
     end_txt = period["end"].strftime("%Y-%m-%d %H:%M")
     generated_txt = generated.strftime("%Y-%m-%d %H:%M")
     facts = (
-        f'<span><b>期号</b> {S.esc(period["edition"])}</span>'
+        f'<span><b>发布日期</b> {generated:%Y-%m-%d}</span>'
         f'<span><b>统计区间</b> {start_txt} — {end_txt}</span>'
         + (f'<span><b>行情截至</b> {S.esc(cutoff)} 收市</span>' if cutoff else "")
         + ('<span><b>期次状态</b> 周内运行（区间截至生成时刻）</span>' if period.get("partial") else "")
@@ -310,7 +310,7 @@ def render_report(report: dict, items: list[dict], period: dict, metrics: dict,
 {_asset('site-extra.css')}
 </style></head><body><div class="shell">
 <header class="masthead">
-<p class="kicker">AI 产业与市场 · 周报<span class="sep">/</span>{S.esc(period["edition"])}</p>
+<p class="kicker">AI 产业与市场 · 周报<span class="sep">/</span>{generated:%Y-%m-%d}</p>
 <h1>{S.esc(report.get("headline"))}</h1>
 <p class="standfirst">{S.esc(report.get("overview"))}{cite(report.get("overview_source_ids", []))}</p>
 <div class="masthead-facts">{facts}</div>
@@ -355,14 +355,15 @@ def _cited_ids(report: dict) -> set[str]:
     return ids
 
 
-def render_archive(entries: list[dict]) -> str:
+def renderdef render_archive(entries: list[dict]) -> str:
     rows = []
     for entry in entries:
         edition = entry.get("edition") or entry.get("date")
-        badge = f'<span class="tag-certainty">{S.esc(entry.get("week_label", ""))}</span>' if entry.get("week_label") else ""
+        publish_date = (entry.get("publish_date") or str(entry.get("sort_value") or "")[:10]
+                        or entry.get("date", ""))
         rows.append(
-            f'<article class="entry"><p class="meta">{S.esc(entry.get("period", ""))} · 北京时间 {badge}</p>'
-            f'<h2><a href="{S.esc(edition)}.html">{S.esc(entry.get("label") or entry.get("date", ""))}｜{S.esc(entry.get("headline", ""))} ↗</a></h2>'
+            f'<article class="entry"><p class="meta">{S.esc(entry.get("period", ""))} · 北京时间</p>'
+            f'<h2><a href="{S.esc(edition)}.html">{S.esc(publish_date)}｜{S.esc(entry.get("headline", ""))} ↗</a></h2>'
             f'<p>{S.esc(entry.get("overview", ""))}</p></article>'
         )
     if not rows:
