@@ -303,16 +303,12 @@ DEFAULT_INSIGHT_TERMS = ("意味", "说明", "透露", "反映", "口径", "横�
 
 
 def enforce_framing(report: dict) -> None:
-    """正文不能停在「谁在哪天发布了什么」。
-
-    判据从宽到窄：只要提到「披露」却没有任何解读词，就视为公告转述——
-    读者要的是这批披露透露了什么，而不是公告清单。
-    """
+    """重点判断需要分析；单条动态的来源摘要可以只陈述已披露事项。"""
     if not S.cfg("validation.require_disclosure_insight", True):
         return
     terms = tuple(S.cfg("validation.insight_terms", DEFAULT_INSIGHT_TERMS))
     problems: list[str] = []
-    for group in ("highlights", "other_updates"):
+    for group in ("highlights",):
         for story in report.get(group) or []:
             if not isinstance(story, dict):
                 continue
