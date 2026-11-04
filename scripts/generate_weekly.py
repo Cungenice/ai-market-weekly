@@ -101,6 +101,44 @@ def build_report(items: list[dict], filings: list[dict], metrics: dict, calendar
     return report, mode, notes
 
 
+def _reject_model_numbers(candidate: dict) -> None:
+    """模型只能提供文字；标识符不是正文，允许含数字。"""
+    def walk(value: object, path: str) -> None:
+        if isinstance(value, dict):
+            for key, child in value.items():
+                if key in {"source_ids", "metric_ids"}:
+                    continue
+                walk(child, f"{path}.{key}")
+        elif isinstance(value, list):
+            for index, child in enumerate(value):
+                walk(child, f"{path}[{index}]")
+        elif isinstance(value, str) and S.number_tokens(value):
+            raise V.ReportError(f"MODEL_NUMBER: {path} 含数字，请改用无数字的定性表述")
+
+    walk(candidate, "report")
+
+
+def _inject_overview_number(report: dict, metrics: dict, filings: list[dict]) -> None:
+    """数字只从程序计算结果进入正文，模型不参与数值表达。"""
+    if metrics.get("has_quote"):
+        sentence = (f"交易所行情显示，恒生指数收于 {S.fmt_index(metrics['close'])}，"
+                    f"本期{S.pct_phrase(metrics['week_change_pct'])}。")
+        report["overview_metric_ids"] = list(dict.fromkeys(
+            (report.get("overview_metric_ids") or [])
+            + ["m:hk.close", "m:hk.week_change_pct"]))
+        report["overview_source_ids"] = list(dict.fromkeys(
+            (report.get("overview_source_ids") or []) + metrics.get("quote_ids", [])[-1:]))
+    elif filings:
+        sentence = f"本期标的池内有 {len(filings)} 家发行人披露符合口径的公告。"
+        report["overview_metric_ids"] = list(dict.fromkeys(
+            (report.get("overview_metric_ids") or []) + ["m:filings.issuers"]))
+        report["overview_source_ids"] = list(dict.fromkeys(
+            (report.get("overview_source_ids") or []) + [filings[0]["id"]]))
+    else:
+        return
+    report["overview"] = str(report.get("overview") or "").rstrip("。") + "。" + sentence
+
+
 def hydrate_intel(report: dict, intel_items: list[dict]) -> None:
     """把模型给的标签落回采集条目，轨道与时间由代码决定，不由模型自述。"""
     by_id = {item["id"]: item for item in intel_items}
