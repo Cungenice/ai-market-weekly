@@ -1,7 +1,7 @@
 """渲染层：SVG 图表与静态页面。
 
 页面结构与原版保持一致的视觉语言（同一套 CSS 变量与卡片式版式），
-在此基础上增加：行情图表、数据截止提示、下周日历、上期判断回顾、AI 标识与完整免责。
+在此基础上增加：行情图表、数据截止提示、下周日历、AI 标识与完整免责。
 """
 
 from __future__ import annotations
@@ -209,7 +209,6 @@ def render_report(report: dict, items: list[dict], period: dict, metrics: dict,
     stories = report.get("highlights", [])
     others = report.get("other_updates", [])
     watch = report.get("next_watch", [])
-    previous = report.get("previous_check", [])
     chart = svg_chart(metrics) if S.cfg("render.chart", True) else ""
 
     market_cards = []
@@ -253,12 +252,6 @@ def render_report(report: dict, items: list[dict], period: dict, metrics: dict,
         f'<span class="tag-certainty">{S.esc(item.get("certainty") or "规则来源待补")}</span></li>'
         for item in watch
     )
-    previous_html = "".join(
-        f'<li><span class="status status-{S.esc(row["status"])}">{S.esc(row["status"])}</span>'
-        f'{S.esc(row.get("title", ""))}　<span class="note">{S.esc(row.get("note", ""))}</span></li>'
-        for row in previous
-    )
-
     cited = _cited_ids(report)
     cited_rows, other_rows = [], []
     for item in items:
@@ -302,7 +295,6 @@ def render_report(report: dict, items: list[dict], period: dict, metrics: dict,
         ('#filings', f'公告动态 · {len(others)}', bool(others)),
         ('#markets', '市场数据', bool(chart or market_cards)),
         ('#outlook', '下周日历', bool(watch)),
-        ('#previous', '上期判断', bool(previous)),
         ('#sources', '来源与说明', True),
         (archive_url, '历史周报 ↗', True),
     ]
@@ -340,7 +332,7 @@ def render_report(report: dict, items: list[dict], period: dict, metrics: dict,
 <p class="block-lead">量价与公告节奏放在产业信息之后，作为判断的背景而非结论来源。</p>
 <div class="market-grid">{"".join(market_cards)}</div>{chart}</section>
 {f'<section id="outlook" class="block"><div class="block-head"><h2>下周日历<span class="count">{len(watch)} 项</span></h2></div><ul class="calendar">{calendar_html}</ul><p class="note">「规则推算」依据历史发布惯例估算，「法定截止日」为监管规定，「已登记」为人工维护事项。</p></section>' if calendar_html else ''}
-{f'<section id="previous" class="block"><div class="block-head"><h2>上期判断<span class="count">{len(previous)} 条</span></h2></div><ul class="prev-check">{previous_html}</ul><p class="note">「待验证」表示本期未取得足以判定的新证据，不代表判断成立。</p></section>' if previous_html else ''}
+
 <section id="sources" class="block"><div class="block-head"><h2>来源与说明<span class="count">{len(items)} 条</span></h2></div>
 <p class="block-lead">事实性陈述均可回溯至下列来源；派生指标（涨跌幅、振幅、环比等）由程序按来源数据计算，口径见每条依据说明。舆情条目按轨道标注：官方轨为政务与部委站点原文，白名单媒体轨需回原文核对。</p>
 <details class="source-details" open><summary>报告引用来源（{len(cited_rows)} 条）</summary><ol class="sources">{"".join(cited_rows) or "<li>暂无引用来源。</li>"}</ol></details>
