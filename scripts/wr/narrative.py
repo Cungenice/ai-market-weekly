@@ -72,21 +72,39 @@ def build(metrics: dict, filings: list[dict], calendar_events: list[dict], perio
     return report
 
 
+def _source_digest(item: dict) -> str:
+    """只展示来源自身提供的增量摘要；RSS 标题重复或过短则留空。"""
+    import re
+
+    title = str(item.get("title") or "").strip()
+    snippet = str(item.get("snippet") or "").strip()
+    snippet = re.sub(r"\\s+", " ", snippet)
+    if not snippet or len(snippet) < 35:
+        return ""
+    # Google News RSS description often repeats the headline and publisher list.
+    if title and (snippet.startswith(title) or title in snippet[:len(title) + 20]):
+        snippet = snippet.replace(title, "", 1).strip(" -—·，。:：")
+    if len(snippet) < 35 or not any(term in snippet for term in ("。", "；", "，", ",", ".")):
+        return ""
+    if any(term in snippet for term in ("更多新闻", "相关新闻", "点击查看", "阅读全文")):
+        return ""
+    return snippet[:180].rstrip("，；; ") + ("" if snippet.endswith("。") else "。")
+
+
 def _intel(intel_items: list[dict]) -> list[dict]:
-    """无模型时的舆情条目：标签取采集阶段的规则初判，研判句取类型化的判断框架。"""
+    """规则稿仅保留有具体来源内容支撑的摘要，不套用类型化建议。"""
     required = set(S.cfg("intel.official_required_threads", []) or [])
     rows: list[dict] = []
     for item in intel_items:
         track = str(item.get("track") or "media")
         thread = str(item.get("thread") or "重要产业动态")
-        title = str(item.get("title") or "").strip()
         rows.append({
             "thread": thread,
             "attribute": str(item.get("attribute") or "其他"),
             "track": track,
             "track_label": "官方" if track == "official" else "白名单媒体",
-            "title": title,
-            "note": intel_mod.rule_note({**item, "thread": thread}),
+            "title": str(item.get("title") or "").strip(),
+            "note": _source_digest(item),
             "published": item["published"].isoformat(timespec="minutes"),
             "caveat": track == "media" and thread in required,
             "source_ids": [item["id"]],
@@ -303,62 +321,21 @@ def _category_meta() -> dict[str, dict]:
 
 
 def _update_reading(row: dict, filings: list[dict]) -> str:
-    """第一段写「这批披露透露了什么」，而不是「谁在哪天发了什么」。
-
-    只使用采集到的结构字段（主题、公告类型、同批名单）与配置里的类型口径，
-    不引入未见数据；披露家数由代码统计，因此可以安全外显。
-    """
-    meta = _category_meta()
-    theme = row.get("theme") or "其他"
-    categories = row.get("categories") or []
-    peers = [r for r in filings
-             if r["id"] != row["id"] and (r.get("theme") or "其他") == theme]
-
-    if peers:
-        lead = (f"{theme}环节本期{_cn(len(peers) + 1)}家标的落在同一披露窗口，"
-                f"时点与口径一致，横向差异因此第一次可以被读出来")
-    elif categories:
-        lead = (f"{theme}环节本期只有该标的披露{'、'.join(categories)}，没有同批对照，"
-                f"可读的只有它自己的口径变化")
-    else:
-        lead = f"{theme}环节本期只有该标的披露公告，缺少同批对照"
-
-    glosses = _uniq([meta[c]["gloss"] for c in categories if c in meta and meta[c].get("gloss")])
-    if glosses:
-        lead += "。就公告类型看，这类信息" + "；".join(glosses[:2])
-    return lead + "。"
-
-
-_DISCLOSURE_CLOSERS = {
-    "periodic": "报告期数据落地后，此前建立在预期上的定价需要重新校准",
-    "forecast": "预告区间先于审计数据出现，方向比数值更值得记住",
-    "buyback": "执行节奏比方案表述更能说明管理层的真实意愿",
-    "order": "能见度提高之后，真正的检验转移到交付与回款",
-    "capital": "股本一变，每股口径的比较基准就得换掉",
-    "shareholder": "信号强度取决于后续是否还有同向动作",
-    "regulatory": "问询是否被实质回应，决定这条信息是否已经用完",
-}
+    """公告标题可核对，故摘要只陈述该发行人实际披露的事项。"""
+    names = [str(entry.get("title") or "").strip() for entry in row.get("announcements", [])]
+    names = _uniq([name.removesuffix("的公告").removesuffix("公告").strip("：: ·") for name in names if name])
+    issuer = str(row.get("issuer_name") or "").strip()
+    if names:
+        details = "；".join(names[:2])
+        extra = f"；另有{_cn(len(names) - 2)}项公告" if len(names) > 2 else ""
+        return f"{issuer}披露的事项为：{details}{extra}。"
+    categories = "、".join(row.get("categories") or [])
+    return f"{issuer}披露{categories}相关公告。" if categories else f"{issuer}披露公司公告。"
 
 
 def _update_note(row: dict, filings: list[dict]) -> str:
-    """小结：把「透露了什么」收口成一句判断——该看什么，以及看错会怎样。"""
-    meta = _category_meta()
-    theme = row.get("theme") or "其他"
-    categories = row.get("categories") or []
-    peers = [r for r in filings
-             if r["id"] != row["id"] and (r.get("theme") or "其他") == theme]
-    focus = _uniq([meta[c]["focus"] for c in categories if c in meta and meta[c].get("focus")])
-    closers = [v for k, v in _DISCLOSURE_CLOSERS.items()
-               if k in {meta[c].get("id") for c in categories if c in meta}]
-
-    parts: list[str] = []
-    if focus:
-        parts.append(focus[0])
-    parts.append(f"同批还有{_cn(len(peers))}家可比，单家强弱不足以推出板块结论" if peers
-                 else "同环节没有对照，这一条只能当个体样本，等下一家披露后再定方向")
-    if closers:
-        parts.append(closers[0])
-    return "；".join(parts) + "。"
+    """只有公告标题时不推断金额、执行效果或板块意义。"""
+    return ""
 
 
 def _other_updates(filings: list[dict], exclude: set[str] | None = None) -> list[dict]:
