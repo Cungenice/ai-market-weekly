@@ -402,17 +402,16 @@ def _previous_check(previous: dict | None) -> list[dict]:
         return []
     prior = previous.get("report", {}).get("highlights") or []
     if not prior:
-        label = previous.get("edition") or previous.get("date") or "上期"
         return [{
-            "title": f"上期（{label}）未形成判断条目",
+            "title": "上期未形成判断条目",
             "status": "待验证",
             "note": "该期只有数据与公告记录，没有可供复核的判断，本期不构成延续或推翻。",
             "source_ids": [],
         }]
     rows = []
-    for story in (previous.get("report", {}).get("highlights") or [])[:3]:
+    for index, _story in enumerate(prior[:3]):
         rows.append({
-            "title": story.get("title", ""),
+            "title": f"上期第{_cn(index + 1)}项判断",
             "status": "待验证",
             "note": "上期判断，本期未取得足以判定的新证据。",
             "source_ids": [],
