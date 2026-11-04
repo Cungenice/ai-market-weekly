@@ -9,6 +9,7 @@ from __future__ import annotations
 import datetime as dt
 import functools
 import html
+import os
 import re
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -166,10 +167,11 @@ def issue_window(now: dt.datetime) -> dict:
     不会出现「统计区间包含未来日期」的情况；同一周内多次运行覆盖同一期次。
     """
     anchor_weekday = int(cfg("issue.anchor_weekday", 0))
-    hour, minute = (int(part) for part in str(cfg("issue.anchor_time", "09:30")).split(":"))
+    hour, minute = (int(part) for part in str(cfg("issue.anchor_time", "09:00")).split(":"))
     monday = now.date() - dt.timedelta(days=(now.weekday() - anchor_weekday) % 7)
     anchor = dt.datetime.combine(monday, dt.time(hour, minute), SHANGHAI)
-    start = anchor - dt.timedelta(days=7) if now <= anchor else anchor
+    scheduled = os.environ.get("REPORT_SCHEDULED", "").lower() == "true"
+    start = anchor - dt.timedelta(days=7) if scheduled or now <= anchor else anchor
     end = now
     iso = start.date().isocalendar()
     return {
