@@ -1,10 +1,10 @@
 schema: wr-weekly/v2
 
-# 期次与节奏：期号锚定 ISO 周，区间固定为「本周一 09:30 → 下周一 09:30」
+# 期次与节奏：统计区间锚定周一北京时间 09:00，定时任务每周一 09:00 启动
 issue:
   cadence: weekly
   anchor_weekday: 0            # 0 = 周一
-  anchor_time: "09:30"
+  anchor_time: "09:00"
   timezone: Asia/Shanghai
   edition_format: iso_week     # 2026-W44
 
