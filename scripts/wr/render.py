@@ -183,7 +183,7 @@ def intel_section(report: dict, sources: dict[str, dict]) -> str:
                 f'<span class="stamp">{S.esc(str(row.get("published") or "")[:16].replace("T", " "))}</span></div>'
                 f'<h4>{S.esc(row.get("title"))}</h4>'
                 + (f'<p class="reading">{S.esc(row.get("note"))}</p>' if str(row.get("note") or "").strip() else "")
-                f'{source_line(row.get("source_ids", []), sources)}</article>')
+                + f'{source_line(row.get("source_ids", []), sources)}</article>')
         official_in_group = sum(1 for row in group if row.get("track") == "official")
         flag = ("" if official_in_group
                 else '<span class="thread-flag">本组暂无官方原文，均为媒体口径</span>')
