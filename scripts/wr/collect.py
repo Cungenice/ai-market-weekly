@@ -13,6 +13,7 @@ import datetime as dt
 import email.utils
 import hashlib
 import html
+from html.parser import HTMLParser
 import json
 import os
 import re
@@ -20,6 +21,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import urllib.robotparser
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -420,6 +422,48 @@ def collect_clues(start: dt.datetime, end: dt.datetime) -> tuple[list[dict], dic
 # ---------------------------------------------------------------- 舆情通道
 
 
+class _DescriptionParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.description = ""
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag != "meta" or self.description:
+            return
+        values = dict(attrs)
+        key = (values.get("property") or values.get("name") or "").lower()
+        if key in {"og:description", "twitter:description", "description"}:
+            self.description = html.unescape(values.get("content") or "").strip()
+
+
+def _public_page_description(url: str) -> str:
+    """只读取公开页面元数据；robots 不允许或不可确认时跳过。"""
+    parts = urllib.parse.urlsplit(url)
+    if parts.scheme != "https" or not parts.hostname:
+        return ""
+    robots_url = f"{parts.scheme}://{parts.netloc}/robots.txt"
+    try:
+        with urllib.request.urlopen(urllib.request.Request(robots_url, headers={"User-Agent": S.USER_AGENT}),
+                                    timeout=8) as response:
+            if response.status != 200:
+                return ""
+            rules = response.read(256_000).decode("utf-8", errors="replace").splitlines()
+        robots = urllib.robotparser.RobotFileParser()
+        robots.parse(rules)
+        if not robots.can_fetch(S.USER_AGENT, url):
+            return ""
+        request = urllib.request.Request(url, headers={"User-Agent": S.USER_AGENT, "Accept": "text/html"})
+        with urllib.request.urlopen(request, timeout=12) as response:
+            if "text/html" not in response.headers.get("Content-Type", "").lower():
+                return ""
+            page = response.read(256_000).decode("utf-8", errors="replace")
+        parser = _DescriptionParser()
+        parser.feed(page)
+        return re.sub(r"\\s+", " ", parser.description)[:500]
+    except (urllib.error.URLError, TimeoutError, ValueError, UnicodeError, OSError):
+        return ""
+
+
 def collect_intel(start: dt.datetime, end: dt.datetime) -> tuple[list[dict], dict]:
     """产业舆情：官方与白名单媒体双轨。
 
@@ -510,6 +554,10 @@ def collect_intel(start: dt.datetime, end: dt.datetime) -> tuple[list[dict], dic
         deduped.append(row)
 
     kept = intel.cap(deduped)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        descriptions = list(executor.map(lambda row: _public_page_description(row["url"]), kept))
+    for row, description in zip(kept, descriptions):
+        row["article_excerpt"] = description
     counts = intel.counts(kept)
     print(f"intel channel: {len(by_url)} raw, {len(candidates)} prefiltered, "
           f"{len(kept)} kept (official {counts['official']} / media {counts['media']})")
