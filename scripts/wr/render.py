@@ -355,7 +355,7 @@ def _cited_ids(report: dict) -> set[str]:
     return ids
 
 
-def renderdef render_archive(entries: list[dict]) -> str:
+def render_archive(entries: list[dict]) -> str:
     rows = []
     for entry in entries:
         edition = entry.get("edition") or entry.get("date")
