@@ -2,8 +2,9 @@ name: A/H AI Market Weekly
 
 on:
   schedule:
-    # Every Monday at 09:00 Asia/Shanghai (UTC+8)
-    - cron: "0 1 * * 1"
+    # Every Monday at 09:00 China Standard Time
+    - cron: "0 9 * * 1"
+      timezone: Asia/Shanghai
   workflow_dispatch:
     inputs:
       mode:
