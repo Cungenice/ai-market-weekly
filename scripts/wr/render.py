@@ -182,7 +182,7 @@ def intel_section(report: dict, sources: dict[str, dict]) -> str:
                 f'<span class="chip">{S.esc(row.get("attribute") or "其他")}</span>{caveat}'
                 f'<span class="stamp">{S.esc(str(row.get("published") or "")[:16].replace("T", " "))}</span></div>'
                 f'<h4>{S.esc(row.get("title"))}</h4>'
-                f'<p class="reading">{S.esc(row.get("note"))}</p>'
+                + (f'<p class="reading">{S.esc(row.get("note"))}</p>' if str(row.get("note") or "").strip() else "")
                 f'{source_line(row.get("source_ids", []), sources)}</article>')
         official_in_group = sum(1 for row in group if row.get("track") == "official")
         flag = ("" if official_in_group
@@ -241,8 +241,8 @@ def render_report(report: dict, items: list[dict], period: dict, metrics: dict,
         update_html.append(
             f'<article class="update"><p class="meta">{S.esc(story.get("market"))} · {S.esc(story.get("category"))}</p>'
             f'<h3>{S.esc(story.get("title"))}{cite(story.get("source_ids", []))}</h3>'
-            f'<p class="reading"><b>透露了什么</b>{S.esc(story.get("reported"))}</p>'
-            + (f'<p class="takeaway"><b>小结</b>{S.esc(story.get("note"))}</p>'
+            f'<p class="reading"><b>摘要</b>{S.esc(story.get("reported"))}</p>'
+            + (f'<p class="takeaway"><b>补充</b>{S.esc(story.get("note"))}</p>'
                if str(story.get("note") or "").strip() else "")
             + f'{source_line(story.get("source_ids", []), sources)}</article>'
         )
