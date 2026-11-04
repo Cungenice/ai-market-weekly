@@ -147,7 +147,7 @@ def payload(items: list[dict], metrics_block: str, metric_catalog: list[dict], p
             "title": row["title"], "published": row["published"].isoformat(timespec="minutes"),
             "source": row.get("source", ""), "thread_hint": row.get("thread_hint", ""),
             "attribute_hint": row.get("attribute_hint", ""),
-            "snippet": str(row.get("snippet", ""))[:400],
+            "snippet": str(row.get("article_excerpt") or "")[:400],
         }
         for row in (intel_items or [])
     ]
