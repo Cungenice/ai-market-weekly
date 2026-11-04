@@ -151,7 +151,7 @@ def test_issue_window_monday_anchor() -> None:
     window = S.issue_window(monday)
     assert window["start"].date() == dt.date(2026, 10, 19), window["start"]
     assert window["end"] == monday, window["end"]
-    assert window["edition"] == "2026-W43", window["edition"]
+    assert window["edition"] == "2026-10-26", window["edition"]
 
 
 def test_issue_window_midweek() -> None:
@@ -159,7 +159,7 @@ def test_issue_window_midweek() -> None:
     window = S.issue_window(friday)
     assert window["start"].date() == dt.date(2026, 10, 26), window["start"]
     assert window["end"] == friday
-    assert window["edition"] == "2026-W44"
+    assert window["edition"] == "2026-10-30"
     assert window["partial"] is True
 
 
