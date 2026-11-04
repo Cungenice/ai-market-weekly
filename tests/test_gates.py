@@ -309,15 +309,10 @@ def test_intel_irrelevant_must_not_render() -> None:
     raise AssertionError("判为「其他」的舆情条目进入了页面")
 
 
-def test_intel_note_required() -> None:
+def test_intel_note_optional() -> None:
     report = base_report()
-    report["intel"] = [intel_row(note=" ")]
-    try:
-        V.enforce_intel(report)
-    except V.ReportError as exc:
-        assert "INTEL_WITHOUT_NOTE" in str(exc), exc
-        return
-    raise AssertionError("缺少研判句的舆情条目未被拦截")
+    report["intel"] = [intel_row(note="")]
+    V.enforce_intel(report)
 
 
 def test_intel_prefilter_and_tracks() -> None:
