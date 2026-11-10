@@ -1,0 +1,1058 @@
+{
+  "edition": "2026-11-10",
+  "date": "2026-11-09",
+  "week": 46,
+  "period": {
+    "start": "2026-11-09 09:00",
+    "end": "2026-11-10 09:31"
+  },
+  "headline": "回购与增持密集落地，AI硬件资本配置信号转强",
+  "overview": "本期为单日窗口，A股与港股的AI/科技主线由两类信息构成：一是半导体设备、光通信器件、特种集成电路等硬件环节的发行人集中披露回购与股东增持，资本配置动作在同一时间窗口内密集出现；二是北京、上海等地围绕“人工智能+”细分行业推出政策条款申报与项目支持办法，政策落点从框架性文件转向可申报、可支持的具体条款。港股大盘量能平稳、指数窄幅波动，行情本身未提供方向，产业与公司层面的动作成为本期主要可读信息。交易所行情显示，恒生指数收于 24,448.95，本期下跌 0.13%。",
+  "mode": "model",
+  "generated_at": "2026-11-10T09:31:00+08:00",
+  "data_through": "2026-11-09",
+  "report": {
+    "headline": "回购与增持密集落地，AI硬件资本配置信号转强",
+    "overview": "本期为单日窗口，A股与港股的AI/科技主线由两类信息构成：一是半导体设备、光通信器件、特种集成电路等硬件环节的发行人集中披露回购与股东增持，资本配置动作在同一时间窗口内密集出现；二是北京、上海等地围绕“人工智能+”细分行业推出政策条款申报与项目支持办法，政策落点从框架性文件转向可申报、可支持的具体条款。港股大盘量能平稳、指数窄幅波动，行情本身未提供方向，产业与公司层面的动作成为本期主要可读信息。交易所行情显示，恒生指数收于 24,448.95，本期下跌 0.13%。",
+    "overview_source_ids": [
+      "S01",
+      "S02",
+      "S03",
+      "S04",
+      "S05",
+      "S06",
+      "S07",
+      "S16"
+    ],
+    "overview_metric_ids": [
+      "m:hk.week_change_pct",
+      "m:hk.turnover_avg",
+      "m:hk.amplitude_pct",
+      "m:hk.close"
+    ],
+    "ashare": {
+      "summary": "硬件环节发行人集中披露回购与增持，资本配置信号在同一窗口内叠加；政策端“人工智能+”细分行业进入条款申报与项目支持阶段。",
+      "summary_source_ids": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S06",
+        "S07"
+      ],
+      "drivers": [
+        {
+          "text": "半导体设备、光通信器件、特种集成电路等环节的发行人同期披露回购，其中部分为首次实施、部分为方案与报告书，另有回购用于注销并减少注册资本，口径并不完全可比。",
+          "source_ids": [
+            "S01",
+            "S02",
+            "S03",
+            "S04"
+          ]
+        },
+        {
+          "text": "有发行人同时披露实际控制人增持计划，回购与股东行为叠加，使重要股东对当前价位的判断变得可读。",
+          "source_ids": [
+            "S02"
+          ]
+        },
+        {
+          "text": "北京围绕“人工智能+视听”出台重点项目支持管理办法并作政策解读，另有“人工智能+文旅”条款申报启动，政策从方向性表述转向可申报的具体条款。",
+          "source_ids": [
+            "S06",
+            "S07"
+          ]
+        }
+      ]
+    },
+    "hk": {
+      "summary": "港股大盘窄幅波动、量能平稳，指数层面未给出方向；AI相关信息的看点集中在境外算力成本与融资定价两条外部线索。",
+      "summary_source_ids": [
+        "S05",
+        "S09",
+        "S15"
+      ],
+      "drivers": [
+        {
+          "text": "主板成交额与指数波动均处于平稳区间，行情本身未提供新的定价依据。",
+          "source_ids": [
+            "S05"
+          ]
+        },
+        {
+          "text": "海外能源法案推进与AI算力扩张成本挂钩，若落地将改变算力基础设施的成本预期。",
+          "source_ids": [
+            "S09"
+          ]
+        },
+        {
+          "text": "境外AI公司启动路演，其定价结果将成为观察AI资产估值中枢的外部参照。",
+          "source_ids": [
+            "S15"
+          ]
+        }
+      ]
+    },
+    "highlights": [
+      {
+        "market": "A股",
+        "category": "资本配置",
+        "title": "硬件环节回购与增持在同一窗口叠加",
+        "reported": "本期披露集中在同一时间窗口，覆盖半导体设备、光通信器件、特种集成电路等硬件环节：有发行人首次实施集中竞价回购，有发行人披露回购方案与回购报告书并同步披露实际控制人增持计划，还有发行人的回购用于注销并减少注册资本。口径并不统一——首次实施、方案披露与注销式回购指向不同的资本配置路径，差异因此显性化；回购与增持并列出现，使管理层态度与重要股东判断在同一窗口内变得可读。",
+        "analysis": "这批披露的共同点不在金额，而在动作的同步性：当同一产业链多个环节的发行人在同一窗口选择回购或增持，说明产业内部对当前估值的判断出现收敛，回购用途的差异（注销还是留存）则决定其对每股指标的作用路径不同。对定价依据而言，这类信息把“管理层认为股价与基本面偏离”从表态变成可跟踪的资本动作。",
+        "watch": "看后续是否出现同环节未披露标的的跟进，以及已披露方案进入实施后的实际回购进度与注销安排是否落地。",
+        "source_ids": [
+          "S01",
+          "S02",
+          "S03",
+          "S04"
+        ],
+        "metric_ids": [
+          "m:filings.issuers",
+          "m:filings.total_filings"
+        ]
+      },
+      {
+        "market": "产业",
+        "category": "产业政策",
+        "title": "“人工智能+”细分行业支持转向条款申报",
+        "reported": "北京在同一窗口内推进两条“人工智能+”细分赛道的政策落地：一条是“人工智能+视听”重点项目支持管理办法的政策解读，明确支持对象与管理框架；另一条是“人工智能+文旅”发展政策相关条款的申报启动。两条信息分别落在管理办法与申报通知两个环节，前者给出支持规则，后者给出进入通道，政策口径从方向性表述转为可申报、可支持的具体条款。",
+        "analysis": "政策工具从框架文件转向条款申报，意味着支持资源开始按项目分配，行业竞争的门槛从“是否属于AI”转为“项目是否符合条款”。对视听、文旅这类内容与场景密集型赛道，支持办法决定项目筛选标准，申报通知决定谁能进入，二者共同构成地方AI产业政策的执行面。",
+        "watch": "看申报截止与首批入选项目名单是否公布，以及支持办法是否扩展到其他“人工智能+”细分行业。",
+        "source_ids": [
+          "S06",
+          "S07"
+        ],
+        "metric_ids": []
+      },
+      {
+        "market": "产业",
+        "category": "场景落地",
+        "title": "上海发布“人工智能+交通运输”成果",
+        "reported": "上海在“人工智能+交通运输”主题活动上发布多项成果，主题指向数智技术对交通新质生产力的赋能。信息落在场景发布环节，属于地方推动AI与垂直行业结合的执行动作。",
+        "analysis": "交通是AI落地中数据密度高、监管边界清晰的场景之一，地方以成果发布形式推进，意味着该赛道的项目从试点走向可展示阶段。对产业而言，这类发布提供的是场景需求侧的确定性，而非技术侧的突破。",
+        "watch": "看发布成果是否转化为具体项目签约或运营数据披露，以及是否有其他城市跟进同类场景发布。",
+        "source_ids": [
+          "S16"
+        ],
+        "metric_ids": []
+      }
+    ],
+    "intel": [
+      {
+        "thread": "产业政策",
+        "attribute": "政策发布",
+        "track": "official",
+        "track_label": "官方",
+        "title": "北京启动“人工智能+文旅”政策条款申报",
+        "note": "",
+        "published": "2026-11-09T11:26+08:00",
+        "caveat": false,
+        "source_ids": [
+          "S06"
+        ]
+      },
+      {
+        "thread": "产业政策",
+        "attribute": "政策发布",
+        "track": "official",
+        "track_label": "官方",
+        "title": "北京出台“人工智能+视听”项目支持办法",
+        "note": "",
+        "published": "2026-11-09T10:35+08:00",
+        "caveat": false,
+        "source_ids": [
+          "S07"
+        ]
+      },
+      {
+        "thread": "产业政策",
+        "attribute": "其他",
+        "track": "media",
+        "track_label": "白名单媒体",
+        "title": "苹果智能新增平板与笔记本场景完成备案",
+        "note": "据“网信上海”消息，根据《生成式人工智能服务管理暂行办法》相关要求，“Apple智能”生成式人工智能服务新增苹果平板和苹果笔记本电脑两类场景，已完成备案。目前适用场景为苹果手机、平板、笔记本电脑。",
+        "published": "2026-11-09T19:34+08:00",
+        "caveat": true,
+        "source_ids": [
+          "S08"
+        ]
+      },
+      {
+        "thread": "产业政策",
+        "attribute": "政策发布",
+        "track": "media",
+        "track_label": "白名单媒体",
+        "title": "美能源法案闯关参议院牵动算力成本",
+        "note": "",
+        "published": "2026-11-09T16:16+08:00",
+        "caveat": true,
+        "source_ids": [
+          "S09"
+        ]
+      },
+      {
+        "thread": "重大项目",
+        "attribute": "项目进展",
+        "track": "media",
+        "track_label": "白名单媒体",
+        "title": "英伟达物理AI落地选择汽车作为切入口",
+        "note": "",
+        "published": "2026-11-10T04:27+08:00",
+        "caveat": true,
+        "source_ids": [
+          "S10"
+        ]
+      },
+      {
+        "thread": "投融资",
+        "attribute": "资本事件",
+        "track": "media",
+        "track_label": "白名单媒体",
+        "title": "后摩智能完成B轮融资，端边AI芯片受资本定价",
+        "note": "",
+        "published": "2026-11-09T14:47+08:00",
+        "caveat": false,
+        "source_ids": [
+          "S11"
+        ]
+      },
+      {
+        "thread": "投融资",
+        "attribute": "其他",
+        "track": "official",
+        "track_label": "官方",
+        "title": "科技企业成为能源投资重要力量",
+        "note": "",
+        "published": "2026-11-09T17:03+08:00",
+        "caveat": false,
+        "source_ids": [
+          "S12"
+        ]
+      },
+      {
+        "thread": "投融资",
+        "attribute": "其他",
+        "track": "media",
+        "track_label": "白名单媒体",
+        "title": "中信建投策略提示国产算力等方向",
+        "note": "",
+        "published": "2026-11-10T09:12+08:00",
+        "caveat": false,
+        "source_ids": [
+          "S13"
+        ]
+      },
+      {
+        "thread": "投融资",
+        "attribute": "其他",
+        "track": "media",
+        "track_label": "白名单媒体",
+        "title": "券商年度策略判断AI叙事尚未结束",
+        "note": "",
+        "published": "2026-11-10T08:00+08:00",
+        "caveat": false,
+        "source_ids": [
+          "S14"
+        ]
+      },
+      {
+        "thread": "投融资",
+        "attribute": "资本事件",
+        "track": "media",
+        "track_label": "白名单媒体",
+        "title": "Anthropic启动路演，AI资产定价迎考验",
+        "note": "",
+        "published": "2026-11-10T04:20+08:00",
+        "caveat": false,
+        "source_ids": [
+          "S15"
+        ]
+      },
+      {
+        "thread": "重要产业动态",
+        "attribute": "政策发布",
+        "track": "official",
+        "track_label": "官方",
+        "title": "上海发布“人工智能+交通运输”多项成果",
+        "note": "",
+        "published": "2026-11-09T11:42+08:00",
+        "caveat": false,
+        "source_ids": [
+          "S16"
+        ]
+      }
+    ],
+    "other_updates": [
+      {
+        "market": "产业",
+        "category": "投融资",
+        "title": "境外AI公司路演启动，估值参照待定",
+        "reported": "境外AI公司启动上市路演，其定价发生在AI资产经历抛售之后，成为观察AI估值中枢的外部参照。",
+        "note": "",
+        "source_ids": [
+          "S15"
+        ]
+      },
+      {
+        "market": "产业",
+        "category": "投融资",
+        "title": "端边AI芯片企业完成新一轮融资",
+        "reported": "后摩智能完成B轮融资，资金投向端边大模型AI芯片方向，资本开始为端边AI的落地能力定价。",
+        "note": "端边大模型AI芯片进入规模化兑现期。",
+        "source_ids": [
+          "S11"
+        ]
+      },
+      {
+        "market": "产业",
+        "category": "产业政策",
+        "title": "苹果智能新增适用场景完成备案",
+        "reported": "苹果智能生成式人工智能服务新增平板与笔记本电脑两类场景并完成备案，适用场景扩展至手机、平板与笔记本。",
+        "note": "",
+        "source_ids": [
+          "S08"
+        ]
+      },
+      {
+        "market": "产业",
+        "category": "产业政策",
+        "title": "海外能源法案与算力扩张成本挂钩",
+        "reported": "两党能源法案在参议院推进，议题与AI算力扩张的成本结构相关，涉及监管取向的定调。",
+        "note": "",
+        "source_ids": [
+          "S09"
+        ]
+      },
+      {
+        "market": "产业",
+        "category": "重要产业动态",
+        "title": "英伟达物理AI从汽车场景切入",
+        "reported": "英伟达推进物理AI落地，选择汽车作为首个切入场景，相关讨论聚焦场景选择的原因。",
+        "note": "",
+        "source_ids": [
+          "S10"
+        ]
+      },
+      {
+        "market": "产业",
+        "category": "投融资",
+        "title": "券商年度策略聚焦国产算力方向",
+        "reported": "中信建投发布计算机行业年度投资策略，提示关注国产算力等方向；多家券商同期发布策略，判断AI叙事尚未结束并建议分散配置。",
+        "note": "",
+        "source_ids": [
+          "S13",
+          "S14"
+        ]
+      }
+    ],
+    "previous_check": [
+      {
+        "title": "上期第一项判断",
+        "status": "待验证",
+        "note": "上期判断，本期未取得足以判定的新证据。",
+        "source_ids": []
+      },
+      {
+        "title": "上期第两项判断",
+        "status": "待验证",
+        "note": "上期判断，本期未取得足以判定的新证据。",
+        "source_ids": []
+      }
+    ],
+    "next_watch": [
+      {
+        "text": "2026-11-10—2026-11-18 社融与新增信贷",
+        "date": "2026-11-10",
+        "date_end": "2026-11-18",
+        "when": "2026-11-10—2026-11-18",
+        "name": "社融与新增信贷",
+        "certainty": "规则推算",
+        "source_ids": [],
+        "basis": "日历规则：cn_credit"
+      },
+      {
+        "text": "2026-11-15—2026-11-20 工业增加值与社会消费品零售",
+        "date": "2026-11-15",
+        "date_end": "2026-11-20",
+        "when": "2026-11-15—2026-11-20",
+        "name": "工业增加值与社会消费品零售",
+        "certainty": "规则推算",
+        "source_ids": [],
+        "basis": "日历规则：cn_activity"
+      }
+    ]
+  },
+  "metrics": {
+    "has_quote": true,
+    "series": {
+      "dates": [
+        "2026-11-09"
+      ],
+      "index": [
+        24448.95
+      ],
+      "turnover": [
+        173706542410.0
+      ],
+      "change_pct": [
+        -0.13442606076499164
+      ]
+    },
+    "notes": [],
+    "sessions": 1,
+    "base_prev": 24481.86,
+    "close": 24448.95,
+    "prev_close": 24481.86,
+    "week_change_pct": -0.13442606076499164,
+    "week_change_points": -32.909999999999854,
+    "high": 24448.95,
+    "high_date": "2026-11-09",
+    "low": 24448.95,
+    "low_date": "2026-11-09",
+    "amplitude_pct": 0.0,
+    "drawdown_from_high_pct": 0.0,
+    "down_days_after_high": 0,
+    "sessions_after_high": 0,
+    "up_days": 0,
+    "down_days": 1,
+    "turnover_first": 173706542410.0,
+    "turnover_last": 173706542410.0,
+    "turnover_avg": 173706542410.0,
+    "turnover_change_pct": 0.0,
+    "turnover_last_vs_avg_pct": 0.0,
+    "turnover_max": 173706542410.0,
+    "turnover_min": 173706542410.0,
+    "turnover_max_min_ratio": 1.0,
+    "turnover_sum": 173706542410.0,
+    "change_avg_pct": -0.13442606076499164,
+    "best_day_pct": -0.13442606076499164,
+    "worst_day_pct": -0.13442606076499164,
+    "first_session": "2026-11-09",
+    "last_session": "2026-11-09",
+    "data_through": "2026-11-09",
+    "issuers": 4,
+    "themes": {
+      "半导体设备": 1,
+      "算力硬件": 1,
+      "半导体设计": 1,
+      "光模块": 1
+    },
+    "busiest_date": "2026-11-10",
+    "busiest_count": 3,
+    "category_counts": {
+      "股份回购": 4,
+      "股东行为": 1
+    },
+    "total_filings": 5,
+    "quote_ids": [
+      "S05"
+    ]
+  },
+  "ledger": [
+    {
+      "id": "hk.week_change_pct",
+      "label": "恒指周涨跌幅",
+      "value": -0.13442606076499164
+    },
+    {
+      "id": "hk.week_change_points",
+      "label": "恒指周涨跌点数",
+      "value": -32.909999999999854
+    },
+    {
+      "id": "hk.close",
+      "label": "恒指最新收市",
+      "value": 24448.95
+    },
+    {
+      "id": "hk.high",
+      "label": "恒指周内最高收市",
+      "value": 24448.95
+    },
+    {
+      "id": "hk.low",
+      "label": "恒指周内最低收市",
+      "value": 24448.95
+    },
+    {
+      "id": "hk.amplitude_pct",
+      "label": "恒指周内振幅",
+      "value": 0.0
+    },
+    {
+      "id": "hk.drawdown_from_high_pct",
+      "label": "自周内高点的回落幅度",
+      "value": 0.0
+    },
+    {
+      "id": "hk.turnover_first",
+      "label": "区间首个交易日主板成交额",
+      "value": 173706542410.0
+    },
+    {
+      "id": "hk.turnover_last",
+      "label": "区间最后一个交易日主板成交额",
+      "value": 173706542410.0
+    },
+    {
+      "id": "hk.turnover_avg",
+      "label": "区间日均主板成交额",
+      "value": 173706542410.0
+    },
+    {
+      "id": "hk.turnover_change_pct",
+      "label": "成交额较区间首日变化",
+      "value": 0.0
+    },
+    {
+      "id": "hk.turnover_last_vs_avg_pct",
+      "label": "最后一日成交额较日均变化",
+      "value": 0.0
+    },
+    {
+      "id": "hk.turnover_max",
+      "label": "区间最高单日成交额",
+      "value": 173706542410.0
+    },
+    {
+      "id": "hk.turnover_min",
+      "label": "区间最低单日成交额",
+      "value": 173706542410.0
+    },
+    {
+      "id": "hk.down_days_after_high",
+      "label": "高点之后收跌的交易日数（不连续计）",
+      "value": 0.0
+    },
+    {
+      "id": "hk.up_days",
+      "label": "区间上涨交易日数",
+      "value": 0.0
+    },
+    {
+      "id": "hk.down_days",
+      "label": "区间下跌交易日数",
+      "value": 1.0
+    },
+    {
+      "id": "hk.turnover_sum",
+      "label": "区间累计主板成交额",
+      "value": 173706542410.0
+    },
+    {
+      "id": "hk.change_avg_pct",
+      "label": "日均涨跌幅",
+      "value": -0.13442606076499164
+    },
+    {
+      "id": "hk.best_day_pct",
+      "label": "单日最大涨幅",
+      "value": -0.13442606076499164
+    },
+    {
+      "id": "hk.worst_day_pct",
+      "label": "单日最大跌幅",
+      "value": -0.13442606076499164
+    },
+    {
+      "id": "hk.day.2026-11-09.change_pct",
+      "label": "2026-11-09 单日涨跌",
+      "value": -0.13442606076499164
+    },
+    {
+      "id": "hk.day.2026-11-09.turnover",
+      "label": "2026-11-09 成交额",
+      "value": 173706542410.0
+    },
+    {
+      "id": "hk.day.2026-11-09.close",
+      "label": "2026-11-09 收市",
+      "value": 24448.95
+    },
+    {
+      "id": "filings.issuers",
+      "label": "本期公告覆盖的发行人数",
+      "value": 4.0
+    },
+    {
+      "id": "filings.total_filings",
+      "label": "本期公告份数合计",
+      "value": 5.0
+    },
+    {
+      "id": "filings.themes",
+      "label": "本期覆盖的细分主题数",
+      "value": 4.0
+    },
+    {
+      "id": "filings.busiest_count",
+      "label": "单日公告最集中的发行人数",
+      "value": 3.0
+    }
+  ],
+  "coverage": [
+    {
+      "channel": "company_fact",
+      "ok": true,
+      "count": 4,
+      "failures": [],
+      "pool": 28
+    },
+    {
+      "channel": "quote",
+      "ok": true,
+      "count": 1,
+      "sessions_looked": 2
+    },
+    {
+      "channel": "clue",
+      "ok": true,
+      "count": 0,
+      "failures": []
+    },
+    {
+      "channel": "intel",
+      "ok": true,
+      "count": 11,
+      "official": 4,
+      "media": 7,
+      "failures": []
+    },
+    {
+      "channel": "calendar",
+      "ok": true,
+      "count": 2
+    }
+  ],
+  "model_attempts": [
+    {
+      "attempt": 1,
+      "result": "rejected",
+      "reason": "RESTATEMENT_WITHOUT_INSIGHT: 以下条目在转述公告（写了披露事实却没有任何解读）：highlights「“人工智能+”细分行业支持转向条款申报」。请改写为——这批披露透露了什么：落在什么窗口、覆盖哪几类环节、口径是否可比、哪些信息因此变得可读、哪些差异因此显性化；名单最多点名两家，其余按环节概括或写「等 N 家」。"
+    },
+    {
+      "attempt": 2,
+      "result": "accepted"
+    }
+  ],
+  "sources": [
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "中微公司（688012）股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-11-10/1225664206.PDF",
+      "published": "2026-11-10T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "中微公司（688012）本期披露：关于以集中竞价交易方式首次回购公司股份。",
+      "issuer_code": "688012",
+      "issuer_name": "中微公司",
+      "theme": "半导体设备",
+      "categories": [
+        "股份回购"
+      ],
+      "glosses": [
+        "反映管理层对当前股价与资本配置的态度"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "关于以集中竞价交易方式首次回购公司股份的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-10/1225664206.PDF",
+          "date": "2026-11-10",
+          "category": "股份回购",
+          "date_only": true
+        }
+      ],
+      "id": "S01"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "沪电股份（002463）股份回购/股东行为",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-11-10/1225664245.PDF",
+      "published": "2026-11-10T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "沪电股份（002463）本期披露：关于以集中竞价交易方式回购公司股份方案暨回购报告书、关于实际控制人增持股份计划。",
+      "issuer_code": "002463",
+      "issuer_name": "沪电股份",
+      "theme": "算力硬件",
+      "categories": [
+        "股份回购",
+        "股东行为"
+      ],
+      "glosses": [
+        "反映管理层对当前股价与资本配置的态度",
+        "反映重要股东对当前价位的判断"
+      ],
+      "filing_count": 2,
+      "announcements": [
+        {
+          "title": "关于以集中竞价交易方式回购公司股份方案暨回购报告书的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-10/1225664245.PDF",
+          "date": "2026-11-10",
+          "category": "股份回购",
+          "date_only": true
+        },
+        {
+          "title": "关于实际控制人增持股份计划的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-10/1225664246.PDF",
+          "date": "2026-11-10",
+          "category": "股东行为",
+          "date_only": true
+        }
+      ],
+      "id": "S02"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "紫光国微（002049）股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-11-10/1225663557.PDF",
+      "published": "2026-11-10T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "紫光国微（002049）本期披露：关于以集中竞价交易方式首次回购公司股份。",
+      "issuer_code": "002049",
+      "issuer_name": "紫光国微",
+      "theme": "半导体设计",
+      "categories": [
+        "股份回购"
+      ],
+      "glosses": [
+        "反映管理层对当前股价与资本配置的态度"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "关于以集中竞价交易方式首次回购公司股份的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-10/1225663557.PDF",
+          "date": "2026-11-10",
+          "category": "股份回购",
+          "date_only": true
+        }
+      ],
+      "id": "S03"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "天孚通信（300394）股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-11-09/1225664193.PDF",
+      "published": "2026-11-09T19:28+08:00",
+      "date_only": false,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "天孚通信（300394）本期披露：关于回购公司股份用于注销并减少注册资本暨通知债权人。",
+      "issuer_code": "300394",
+      "issuer_name": "天孚通信",
+      "theme": "光模块",
+      "categories": [
+        "股份回购"
+      ],
+      "glosses": [
+        "反映管理层对当前股价与资本配置的态度"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "关于回购公司股份用于注销并减少注册资本暨通知债权人的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-09/1225664193.PDF",
+          "date": "2026-11-09",
+          "category": "股份回购",
+          "date_only": false
+        }
+      ],
+      "id": "S04"
+    },
+    {
+      "channel": "quote",
+      "market": "港股",
+      "title": "港交所 2026-11-09 每日成交及恒生指数",
+      "url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261109e.htm",
+      "published": "2026-11-09T16:00+08:00",
+      "date_only": true,
+      "session_date": "2026-11-09",
+      "source": "香港交易所",
+      "source_url": "https://www.hkex.com.hk",
+      "source_tier": "official",
+      "source_tier_label": "港交所官方行情",
+      "registered_source_id": "hkex",
+      "snippet": "日期 2026-11-09。主板成交额 173,706,542,410 港元。恒生指数收市 24448.95，前收市 24481.86。",
+      "turnover_hkd": 173706542410.0,
+      "index_close": 24448.95,
+      "index_prev": 24481.86,
+      "id": "S05"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "关于启动2025年度“人工智能+文旅” 发展政策相关条款申报工作的通知",
+      "url": "https://www.ncsti.gov.cn/kjdt/tzgg/202611/t20261109_262146.html",
+      "published": "2026-11-09T11:26+08:00",
+      "date_only": false,
+      "source": "中国政府网",
+      "source_url": "https://ncsti.gov.cn",
+      "source_tier": "official",
+      "source_tier_label": "政务公开",
+      "snippet": "关于启动2025年度“人工智能+文旅” 发展政策相关条款申报工作的通知    国际科技创新中心",
+      "feed_track": "official",
+      "feed_source": "中国政府网",
+      "track": "official",
+      "track_label": "官方",
+      "thread_hint": "产业政策",
+      "attribute_hint": "政策发布",
+      "thread": "产业政策",
+      "attribute": "政策发布",
+      "article_excerpt": "",
+      "id": "S06"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "《北京市促进“人工智能+视听” 产业高质量发展重点项目支持管理办法（2026-2029年）》政策解读",
+      "url": "https://www.ncsti.gov.cn/zcfg/zcjd/202611/t20261109_262049.html",
+      "published": "2026-11-09T10:35+08:00",
+      "date_only": false,
+      "source": "中国政府网",
+      "source_url": "https://ncsti.gov.cn",
+      "source_tier": "official",
+      "source_tier_label": "政务公开",
+      "snippet": "《北京市促进“人工智能+视听” 产业高质量发展重点项目支持管理办法（2026-2029年）》政策解读    国际科技创新中心",
+      "feed_track": "official",
+      "feed_source": "中国政府网",
+      "track": "official",
+      "track_label": "官方",
+      "thread_hint": "产业政策",
+      "attribute_hint": "政策发布",
+      "thread": "产业政策",
+      "attribute": "政策发布",
+      "article_excerpt": "",
+      "id": "S07"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "“Apple智能”生成式人工智能服务新增苹果平板、笔记本电脑两类场景，已完成备案",
+      "url": "https://www.jiemian.com/article/15312725.html",
+      "published": "2026-11-09T19:34+08:00",
+      "date_only": false,
+      "source": "界面新闻",
+      "source_url": "https://jiemian.com",
+      "source_tier": "media",
+      "source_tier_label": "白名单媒体",
+      "snippet": "“Apple智能”生成式人工智能服务新增苹果平板、笔记本电脑两类场景，已完成备案    Jiemian.com",
+      "feed_track": "media",
+      "feed_source": "界面新闻",
+      "track": "media",
+      "track_label": "白名单媒体",
+      "thread_hint": "产业政策",
+      "attribute_hint": "其他",
+      "thread": "产业政策",
+      "attribute": "其他",
+      "article_excerpt": "据“网信上海”消息，根据《生成式人工智能服务管理暂行办法》相关要求，“Apple智能”生成式人工智能服务新增苹果平板和苹果笔记本电脑两类场景，已完成备案。目前适用场景为苹果手机、平板、笔记本电脑。",
+      "id": "S08"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "事关AI算力扩张成本！两党能源法案闯关参议院，为“蓝色国会”监管定调？",
+      "url": "https://m.cls.cn/detail/2529646",
+      "published": "2026-11-09T16:16+08:00",
+      "date_only": false,
+      "source": "财联社",
+      "source_url": "https://m.cls.cn",
+      "source_tier": "media",
+      "source_tier_label": "白名单媒体",
+      "snippet": "事关AI算力扩张成本！两党能源法案闯关参议院，为“蓝色国会”监管定调？    财联社电报",
+      "feed_track": "media",
+      "feed_source": "财联社",
+      "track": "media",
+      "track_label": "白名单媒体",
+      "thread_hint": "产业政策",
+      "attribute_hint": "政策发布",
+      "thread": "产业政策",
+      "attribute": "政策发布",
+      "article_excerpt": "",
+      "id": "S09"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "英伟达落地物理AI为何先从汽车入手？",
+      "url": "https://www.cls.cn/detail/2528207",
+      "published": "2026-11-10T04:27+08:00",
+      "date_only": false,
+      "source": "财联社",
+      "source_url": "https://cls.cn",
+      "source_tier": "media",
+      "source_tier_label": "白名单媒体",
+      "snippet": "英伟达落地物理AI为何先从汽车入手？    财联社",
+      "feed_track": "media",
+      "feed_source": "财联社",
+      "track": "media",
+      "track_label": "白名单媒体",
+      "thread_hint": "重大项目",
+      "attribute_hint": "项目进展",
+      "thread": "重大项目",
+      "attribute": "项目进展",
+      "article_excerpt": "",
+      "id": "S10"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "后摩智能完成数十亿元B轮融资，资本开始为端边AI的落地能力定价",
+      "url": "https://www.36kr.com/p/4061884399719303",
+      "published": "2026-11-09T14:47+08:00",
+      "date_only": false,
+      "source": "36 氪",
+      "source_url": "https://36kr.com",
+      "source_tier": "media",
+      "source_tier_label": "白名单媒体",
+      "snippet": "后摩智能完成数十亿元B轮融资，资本开始为端边AI的落地能力定价    36氪",
+      "feed_track": "media",
+      "feed_source": "36 氪",
+      "track": "media",
+      "track_label": "白名单媒体",
+      "thread_hint": "重大项目",
+      "attribute_hint": "项目进展",
+      "thread": "重大项目",
+      "attribute": "项目进展",
+      "article_excerpt": "端边大模型AI芯片进入规模化兑现期。",
+      "id": "S11"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "人工智能时代，科技企业正成为能源投资重要力量",
+      "url": "https://www.ncsti.gov.cn/kjdt/xwjj/202611/t20261109_262197.html",
+      "published": "2026-11-09T17:03+08:00",
+      "date_only": false,
+      "source": "中国政府网",
+      "source_url": "https://ncsti.gov.cn",
+      "source_tier": "official",
+      "source_tier_label": "政务公开",
+      "snippet": "人工智能时代，科技企业正成为能源投资重要力量    国际科技创新中心",
+      "feed_track": "official",
+      "feed_source": "中国政府网",
+      "track": "official",
+      "track_label": "官方",
+      "thread_hint": "投融资",
+      "attribute_hint": "其他",
+      "thread": "投融资",
+      "attribute": "其他",
+      "article_excerpt": "",
+      "id": "S12"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "中信建投计算机行业2027年投资策略：建议关注国产算力等四个方向",
+      "url": "https://36kr.com/newsflashes/4063229051458433?f=rss",
+      "published": "2026-11-10T09:12+08:00",
+      "date_only": false,
+      "source": "36 氪",
+      "source_url": "https://36kr.com",
+      "source_tier": "media",
+      "source_tier_label": "白名单媒体",
+      "snippet": "中信建投计算机行业2027年投资策略：建议关注国产算力等四个方向-36氪    36kr.com",
+      "feed_track": "media",
+      "feed_source": "36 氪",
+      "track": "media",
+      "track_label": "白名单媒体",
+      "thread_hint": "投融资",
+      "attribute_hint": "其他",
+      "thread": "投融资",
+      "attribute": "其他",
+      "article_excerpt": "",
+      "id": "S13"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "券商密集发布2027年投资策略：AI叙事尚未结束，做好分散配置",
+      "url": "https://www.yicai.com/news/103433328.html",
+      "published": "2026-11-10T08:00+08:00",
+      "date_only": false,
+      "source": "第一财经",
+      "source_url": "https://yicai.com",
+      "source_tier": "media",
+      "source_tier_label": "白名单媒体",
+      "snippet": "券商密集发布2027年投资策略：AI叙事尚未结束，做好分散配置    第一财经",
+      "feed_track": "media",
+      "feed_source": "第一财经",
+      "track": "media",
+      "track_label": "白名单媒体",
+      "thread_hint": "投融资",
+      "attribute_hint": "政策发布",
+      "thread": "投融资",
+      "attribute": "政策发布",
+      "article_excerpt": "券商密集发布2027年投资策略：AI叙事尚未结束，做好分散配置",
+      "id": "S14"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "Anthropic路演最快本周二启动，AI抛售潮后IPO定价迎大考",
+      "url": "https://wallstreetcn.com/articles/3785598",
+      "published": "2026-11-10T04:20+08:00",
+      "date_only": false,
+      "source": "华尔街见闻",
+      "source_url": "https://wallstreetcn.com",
+      "source_tier": "media",
+      "source_tier_label": "白名单媒体",
+      "snippet": "Anthropic路演最快本周二启动，AI抛售潮后IPO定价迎大考    华尔街见闻",
+      "feed_track": "media",
+      "feed_source": "华尔街见闻",
+      "track": "media",
+      "track_label": "白名单媒体",
+      "thread_hint": "投融资",
+      "attribute_hint": "资本事件",
+      "thread": "投融资",
+      "attribute": "资本事件",
+      "article_excerpt": "",
+      "id": "S15"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "数智赋能交通新质生产力上海发布多项“人工智能+交通运输”重磅成果——“人工智能+交通运输”上海发布2026活动顺利举行",
+      "url": "https://jtw.sh.gov.cn/xwfb2/20261109/a8399deb03cb44a0ada2746ef936c835.html",
+      "published": "2026-11-09T11:42+08:00",
+      "date_only": false,
+      "source": "中国政府网",
+      "source_url": "https://jtw.sh.gov.cn",
+      "source_tier": "official",
+      "source_tier_label": "政务公开",
+      "snippet": "数智赋能交通新质生产力上海发布多项“人工智能+交通运输”重磅成果——“人工智能+交通运输”上海发布2026活动顺利举行    上海市交通委员会",
+      "feed_track": "official",
+      "feed_source": "中国政府网",
+      "track": "official",
+      "track_label": "官方",
+      "thread_hint": "重要产业动态",
+      "attribute_hint": "政策发布",
+      "thread": "重要产业动态",
+      "attribute": "政策发布",
+      "article_excerpt": "",
+      "id": "S16"
+    }
+  ]
+}
