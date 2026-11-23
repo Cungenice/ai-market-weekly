@@ -1,0 +1,1483 @@
+{
+  "edition": "2026-11-23",
+  "date": "2026-11-16",
+  "week": 47,
+  "period": {
+    "start": "2026-11-16 09:00",
+    "end": "2026-11-23 16:46"
+  },
+  "headline": "港股周线收跌，半导体设计 3 家标的同日披露股份回购",
+  "overview": "恒生指数本周收于 22,410.80，较上周收盘下跌 5.19%（-1,226.80 点）；2026-11-16 触及周内高点 23,753.84，之后 4 个交易日有 4 日收跌，最新收市较该高点回落 5.65%。主板成交额由 2026-11-16 的 1741 亿港元升至 2703 亿港元（2026-11-20），较区间首日上涨 55.25%，量能明显放大。A 股方向，本期标的池内 10 家发行人披露公告（半导体设计 3 家、算力硬件 2 家、算力芯片 2 家），其中 2026-11-21 最为集中。",
+  "mode": "rule",
+  "generated_at": "2026-11-23T16:46:00+08:00",
+  "data_through": "2026-11-20",
+  "report": {
+    "headline": "港股周线收跌，半导体设计 3 家标的同日披露股份回购",
+    "overview": "恒生指数本周收于 22,410.80，较上周收盘下跌 5.19%（-1,226.80 点）；2026-11-16 触及周内高点 23,753.84，之后 4 个交易日有 4 日收跌，最新收市较该高点回落 5.65%。主板成交额由 2026-11-16 的 1741 亿港元升至 2703 亿港元（2026-11-20），较区间首日上涨 55.25%，量能明显放大。A 股方向，本期标的池内 10 家发行人披露公告（半导体设计 3 家、算力硬件 2 家、算力芯片 2 家），其中 2026-11-21 最为集中。",
+    "overview_source_ids": [
+      "S15",
+      "S01"
+    ],
+    "ashare": {
+      "summary": "本期 10 家发行人合计披露 13 份公告，集中在股份回购。",
+      "summary_source_ids": [
+        "S01",
+        "S02",
+        "S03"
+      ],
+      "drivers": [
+        {
+          "text": "半导体设计方向 卓胜微、兆易创新、紫光国微 等 3 家披露公告。",
+          "source_ids": [
+            "S10",
+            "S01",
+            "S04"
+          ],
+          "metric_ids": [
+            "m:filings.issuers"
+          ]
+        },
+        {
+          "text": "算力硬件方向 胜宏科技、沪电股份 等 2 家披露公告。",
+          "source_ids": [
+            "S07",
+            "S02"
+          ],
+          "metric_ids": [
+            "m:filings.issuers"
+          ]
+        },
+        {
+          "text": "算力芯片方向 澜起科技、海光信息 等 2 家披露公告。",
+          "source_ids": [
+            "S06",
+            "S05"
+          ],
+          "metric_ids": [
+            "m:filings.issuers"
+          ]
+        }
+      ]
+    },
+    "hk": {
+      "summary": "恒生指数本周下跌 5.19%，振幅 5.68%，日均成交额 2098 亿港元。",
+      "summary_source_ids": [
+        "S14",
+        "S15"
+      ],
+      "drivers": [
+        {
+          "text": "2026-11-16 主板成交额 1741 亿港元，恒生指数收市 23,753.84。",
+          "source_ids": [
+            "S11"
+          ],
+          "metric_ids": [
+            "m:hk.day.2026-11-16.turnover",
+            "m:hk.day.2026-11-16.close"
+          ]
+        },
+        {
+          "text": "2026-11-17 主板成交额 1981 亿港元，恒生指数收市 23,508.17。",
+          "source_ids": [
+            "S12"
+          ],
+          "metric_ids": [
+            "m:hk.day.2026-11-17.turnover",
+            "m:hk.day.2026-11-17.close"
+          ]
+        },
+        {
+          "text": "2026-11-18 主板成交额 1772 亿港元，恒生指数收市 23,294.75。",
+          "source_ids": [
+            "S13"
+          ],
+          "metric_ids": [
+            "m:hk.day.2026-11-18.turnover",
+            "m:hk.day.2026-11-18.close"
+          ]
+        },
+        {
+          "text": "2026-11-19 主板成交额 2295 亿港元，恒生指数收市 22,841.62。",
+          "source_ids": [
+            "S14"
+          ],
+          "metric_ids": [
+            "m:hk.day.2026-11-19.turnover",
+            "m:hk.day.2026-11-19.close"
+          ]
+        },
+        {
+          "text": "2026-11-20 主板成交额 2703 亿港元，恒生指数收市 22,410.80。",
+          "source_ids": [
+            "S15"
+          ],
+          "metric_ids": [
+            "m:hk.day.2026-11-20.turnover",
+            "m:hk.day.2026-11-20.close"
+          ]
+        }
+      ]
+    },
+    "highlights": [
+      {
+        "market": "港股",
+        "category": "市场结构",
+        "title": "恒指触及 23,753.84 后回落，周线下跌 5.19%",
+        "reported": "2026-11-16 至 2026-11-20 共 5 个交易日；2026-11-16 收于周内高点 23,753.84；其后 4 个交易日有 4 日收跌；最新收市 22,410.80 较该高点回落 5.65%。",
+        "analysis": "指数层面仍是区间震荡，日内高点未能转化为周线涨幅；在成交额同步收缩的情况下，上行动能不足。",
+        "watch": "关注下周成交额能否回到日均 2098 亿港元 的水平。",
+        "source_ids": [
+          "S14",
+          "S15"
+        ],
+        "metric_ids": [
+          "m:hk.week_change_pct",
+          "m:hk.high",
+          "m:hk.drawdown_from_high_pct",
+          "m:hk.turnover_change_pct"
+        ]
+      },
+      {
+        "market": "A股",
+        "category": "板块动向",
+        "title": "半导体设计 3 家标的同期完成股份回购",
+        "reported": "2026-11-21 是本窗口披露最密集的一天，半导体设计环节三家标的落在同一批，合计 3 份公告，披露时点与口径一致。这意味着该环节的经营读数第一次能横向对照，而不再是各自独立的单点事件。",
+        "analysis": "反映管理层对当前股价与资本配置的态度。同窗口密集披露不改变基本面，但把定价依据从预期换成可核对的数据，板块内部分化因此显性化，而不是整体同向移动。",
+        "watch": "看这批披露后机构解读是否收敛到同一组指标，以及同环节未披露标的的跟进节奏。",
+        "source_ids": [
+          "S10",
+          "S01",
+          "S04"
+        ],
+        "metric_ids": [
+          "m:filings.busiest_count"
+        ]
+      }
+    ],
+    "intel": [
+      {
+        "thread": "产业政策",
+        "attribute": "技术产品",
+        "track": "official",
+        "track_label": "官方",
+        "title": "算力补贴直达创业者 中关村延庆园上线词元服务平台",
+        "note": "中关村延庆园词元服务平台在Y-Hub·OPC（延庆一人公司）创新社区近日上线发布。该平台依托天翼云底座搭建，接入Deep-Seek（深度求索）、豆包、通义千问等34款主流大模型，全面覆盖文本、图文、音视频等应用能力。其最大亮点是推出最高达50%的普惠化算力补贴，采用“实时直抵抵扣”模式，企业无需垫资和烦琐报销，彻底打通中小微企业AI（人工智能）算力“用不起”",
+        "published": "2026-11-23T10:16+08:00",
+        "caveat": false,
+        "source_ids": [
+          "S16"
+        ]
+      },
+      {
+        "thread": "产业政策",
+        "attribute": "政策发布",
+        "track": "official",
+        "track_label": "官方",
+        "title": "关于《关于转发〈关于组织开展2026年度山东省省级工业领域AI赋能中心申报工作的通知〉的通知》文件解读",
+        "note": "",
+        "published": "2026-11-21T08:14+08:00",
+        "caveat": false,
+        "source_ids": [
+          "S17"
+        ]
+      },
+      {
+        "thread": "产业政策",
+        "attribute": "政策发布",
+        "track": "official",
+        "track_label": "官方",
+        "title": "关于发布生成式人工智能服务已备案信息的公告（2026年9月至10月）",
+        "note": "",
+        "published": "2026-11-20T17:00+08:00",
+        "caveat": false,
+        "source_ids": [
+          "S18"
+        ]
+      },
+      {
+        "thread": "产业政策",
+        "attribute": "政策发布",
+        "track": "official",
+        "track_label": "官方",
+        "title": "交通运输部办公厅关于印发综合交通运输大模型智能体创新应用典型案例名单（第二批）的通知-政企通",
+        "note": "",
+        "published": "2026-11-20T10:13+08:00",
+        "caveat": false,
+        "source_ids": [
+          "S19"
+        ]
+      },
+      {
+        "thread": "重大项目",
+        "attribute": "项目进展",
+        "track": "official",
+        "track_label": "官方",
+        "title": "从“用得上”到“用得好” “人工智能+”加速规模化落地_行业资讯",
+        "note": "",
+        "published": "2026-11-18T09:51+08:00",
+        "caveat": false,
+        "source_ids": [
+          "S20"
+        ]
+      },
+      {
+        "thread": "重大项目",
+        "attribute": "项目进展",
+        "track": "media",
+        "track_label": "白名单媒体",
+        "title": "伊萨 ROBBI AI协作机器人：赋能 MIG/TIG 焊接自动化，将物理人工智能落地车间",
+        "note": "",
+        "published": "2026-11-23T16:07+08:00",
+        "caveat": true,
+        "source_ids": [
+          "S21"
+        ]
+      },
+      {
+        "thread": "重大项目",
+        "attribute": "项目进展",
+        "track": "media",
+        "track_label": "白名单媒体",
+        "title": "项目落地 ST中珠借力“天河算力超市”打通AI算力商业闭环",
+        "note": "",
+        "published": "2026-11-23T10:39+08:00",
+        "caveat": true,
+        "source_ids": [
+          "S22"
+        ]
+      },
+      {
+        "thread": "重大项目",
+        "attribute": "项目进展",
+        "track": "media",
+        "track_label": "白名单媒体",
+        "title": "【报道称AI服务器厂商最高要求涨价45% 部分订单签约数月后遭重新报价】",
+        "note": "",
+        "published": "2026-11-22T21:36+08:00",
+        "caveat": true,
+        "source_ids": [
+          "S23"
+        ]
+      },
+      {
+        "thread": "投融资",
+        "attribute": "资本事件",
+        "track": "official",
+        "track_label": "官方",
+        "title": "50亿美元！AI制药最大单笔融资诞生",
+        "note": "",
+        "published": "2026-11-20T15:08+08:00",
+        "caveat": false,
+        "source_ids": [
+          "S24"
+        ]
+      },
+      {
+        "thread": "投融资",
+        "attribute": "资本事件",
+        "track": "media",
+        "track_label": "白名单媒体",
+        "title": "完成三轮融资，99后创业者用AI重新定义投资交易｜36氪首发",
+        "note": "",
+        "published": "2026-11-23T16:12+08:00",
+        "caveat": false,
+        "source_ids": [
+          "S25"
+        ]
+      },
+      {
+        "thread": "投融资",
+        "attribute": "资本事件",
+        "track": "media",
+        "track_label": "白名单媒体",
+        "title": "“史上最大IPO”没能救美股 投资回报率将成AI相关股票估值关键",
+        "note": "",
+        "published": "2026-11-23T12:06+08:00",
+        "caveat": false,
+        "source_ids": [
+          "S26"
+        ]
+      },
+      {
+        "thread": "投融资",
+        "attribute": "资本事件",
+        "track": "media",
+        "track_label": "白名单媒体",
+        "title": "前安克CMO创办的AI可穿戴硬件再获新融资，产品已量产｜硬氪首发",
+        "note": "",
+        "published": "2026-11-22T22:54+08:00",
+        "caveat": false,
+        "source_ids": [
+          "S27"
+        ]
+      }
+    ],
+    "other_updates": [
+      {
+        "market": "A股",
+        "category": "股份回购",
+        "title": "沪电股份（002463） · 股份回购",
+        "reported": "沪电股份披露的事项为：关于以集中竞价交易方式首次回购公司股份。",
+        "note": "",
+        "source_ids": [
+          "S02"
+        ]
+      },
+      {
+        "market": "A股",
+        "category": "股份回购",
+        "title": "科大讯飞（002230） · 股份回购",
+        "reported": "科大讯飞披露的事项为：关于回购公司股份的进展。",
+        "note": "",
+        "source_ids": [
+          "S03"
+        ]
+      },
+      {
+        "market": "A股",
+        "category": "股份回购",
+        "title": "海光信息（688041） · 股份回购",
+        "reported": "海光信息披露的事项为：海光信息技术股份有限公司关于新增回购专用证券账户；海光信息技术股份有限公司关于以集中竞价交易方式首次回购股份。",
+        "note": "",
+        "source_ids": [
+          "S05"
+        ]
+      },
+      {
+        "market": "A股",
+        "category": "股份回购",
+        "title": "澜起科技（688008） · 股份回购",
+        "reported": "澜起科技披露的事项为：澜起科技关于2026年第二次回购A股股份方案回购实施结果。",
+        "note": "",
+        "source_ids": [
+          "S06"
+        ]
+      },
+      {
+        "market": "A股",
+        "category": "股份回购",
+        "title": "胜宏科技（300476） · 股份回购",
+        "reported": "胜宏科技披露的事项为：关于回购公司股份方案；关于取得金融机构股票回购专项贷款承诺函；另有一项公告。",
+        "note": "",
+        "source_ids": [
+          "S07"
+        ]
+      },
+      {
+        "market": "A股",
+        "category": "股份回购",
+        "title": "天孚通信（300394） · 股份回购",
+        "reported": "天孚通信披露的事项为：关于公司近期经营情况和回购公司股份进展。",
+        "note": "",
+        "source_ids": [
+          "S08"
+        ]
+      }
+    ],
+    "next_watch": [
+      {
+        "text": "2026-11-28 中国制造业 PMI",
+        "date": "2026-11-28",
+        "date_end": "2026-11-28",
+        "when": "2026-11-28",
+        "name": "中国制造业 PMI",
+        "certainty": "规则推算",
+        "source_ids": [],
+        "basis": "日历规则：cn_pmi"
+      }
+    ],
+    "previous_check": [
+      {
+        "title": "上期第一项判断",
+        "status": "待验证",
+        "note": "上期判断，本期未取得足以判定的新证据。",
+        "source_ids": []
+      },
+      {
+        "title": "上期第两项判断",
+        "status": "待验证",
+        "note": "上期判断，本期未取得足以判定的新证据。",
+        "source_ids": []
+      },
+      {
+        "title": "上期第三项判断",
+        "status": "待验证",
+        "note": "上期判断，本期未取得足以判定的新证据。",
+        "source_ids": []
+      }
+    ],
+    "origin": "rule"
+  },
+  "metrics": {
+    "has_quote": true,
+    "series": {
+      "dates": [
+        "2026-11-16",
+        "2026-11-17",
+        "2026-11-18",
+        "2026-11-19",
+        "2026-11-20"
+      ],
+      "index": [
+        23753.84,
+        23508.17,
+        23294.75,
+        22841.62,
+        22410.8
+      ],
+      "turnover": [
+        174107985795.0,
+        198051560759.0,
+        177152854159.0,
+        229548685185.0,
+        270299646695.0
+      ],
+      "change_pct": [
+        0.4917588926117711,
+        -1.0342327808893326,
+        -0.9078545884260603,
+        -1.9452022451410755,
+        -1.886118410165305
+      ]
+    },
+    "notes": [],
+    "sessions": 5,
+    "base_prev": 23637.6,
+    "close": 22410.8,
+    "prev_close": 22841.62,
+    "week_change_pct": -5.190036213490368,
+    "week_change_points": -1226.7999999999993,
+    "high": 23753.84,
+    "high_date": "2026-11-16",
+    "low": 22410.8,
+    "low_date": "2026-11-20",
+    "amplitude_pct": 5.681795106102147,
+    "drawdown_from_high_pct": -5.653991102070233,
+    "down_days_after_high": 4,
+    "sessions_after_high": 4,
+    "up_days": 1,
+    "down_days": 4,
+    "turnover_first": 174107985795.0,
+    "turnover_last": 270299646695.0,
+    "turnover_avg": 209832146518.6,
+    "turnover_change_pct": 55.24827621247594,
+    "turnover_last_vs_avg_pct": 28.817081262160183,
+    "turnover_max": 270299646695.0,
+    "turnover_min": 174107985795.0,
+    "turnover_max_min_ratio": 1.5524827621247594,
+    "turnover_sum": 1049160732593.0,
+    "change_avg_pct": -1.0563298264020005,
+    "best_day_pct": 0.4917588926117711,
+    "worst_day_pct": -1.9452022451410755,
+    "first_session": "2026-11-16",
+    "last_session": "2026-11-20",
+    "data_through": "2026-11-20",
+    "issuers": 10,
+    "themes": {
+      "半导体设计": 3,
+      "算力硬件": 2,
+      "AI 应用": 1,
+      "算力芯片": 2,
+      "光模块": 2
+    },
+    "busiest_date": "2026-11-21",
+    "busiest_count": 4,
+    "category_counts": {
+      "股份回购": 10
+    },
+    "total_filings": 13,
+    "quote_ids": [
+      "S11",
+      "S12",
+      "S13",
+      "S14",
+      "S15"
+    ]
+  },
+  "ledger": [
+    {
+      "id": "hk.week_change_pct",
+      "label": "恒指周涨跌幅",
+      "value": -5.190036213490368
+    },
+    {
+      "id": "hk.week_change_points",
+      "label": "恒指周涨跌点数",
+      "value": -1226.7999999999993
+    },
+    {
+      "id": "hk.close",
+      "label": "恒指最新收市",
+      "value": 22410.8
+    },
+    {
+      "id": "hk.high",
+      "label": "恒指周内最高收市",
+      "value": 23753.84
+    },
+    {
+      "id": "hk.low",
+      "label": "恒指周内最低收市",
+      "value": 22410.8
+    },
+    {
+      "id": "hk.amplitude_pct",
+      "label": "恒指周内振幅",
+      "value": 5.681795106102147
+    },
+    {
+      "id": "hk.drawdown_from_high_pct",
+      "label": "自周内高点的回落幅度",
+      "value": -5.653991102070233
+    },
+    {
+      "id": "hk.turnover_first",
+      "label": "区间首个交易日主板成交额",
+      "value": 174107985795.0
+    },
+    {
+      "id": "hk.turnover_last",
+      "label": "区间最后一个交易日主板成交额",
+      "value": 270299646695.0
+    },
+    {
+      "id": "hk.turnover_avg",
+      "label": "区间日均主板成交额",
+      "value": 209832146518.6
+    },
+    {
+      "id": "hk.turnover_change_pct",
+      "label": "成交额较区间首日变化",
+      "value": 55.24827621247594
+    },
+    {
+      "id": "hk.turnover_last_vs_avg_pct",
+      "label": "最后一日成交额较日均变化",
+      "value": 28.817081262160183
+    },
+    {
+      "id": "hk.turnover_max",
+      "label": "区间最高单日成交额",
+      "value": 270299646695.0
+    },
+    {
+      "id": "hk.turnover_min",
+      "label": "区间最低单日成交额",
+      "value": 174107985795.0
+    },
+    {
+      "id": "hk.down_days_after_high",
+      "label": "高点之后收跌的交易日数（不连续计）",
+      "value": 4.0
+    },
+    {
+      "id": "hk.up_days",
+      "label": "区间上涨交易日数",
+      "value": 1.0
+    },
+    {
+      "id": "hk.down_days",
+      "label": "区间下跌交易日数",
+      "value": 4.0
+    },
+    {
+      "id": "hk.turnover_sum",
+      "label": "区间累计主板成交额",
+      "value": 1049160732593.0
+    },
+    {
+      "id": "hk.change_avg_pct",
+      "label": "日均涨跌幅",
+      "value": -1.0563298264020005
+    },
+    {
+      "id": "hk.best_day_pct",
+      "label": "单日最大涨幅",
+      "value": 0.4917588926117711
+    },
+    {
+      "id": "hk.worst_day_pct",
+      "label": "单日最大跌幅",
+      "value": -1.9452022451410755
+    },
+    {
+      "id": "hk.day.2026-11-16.change_pct",
+      "label": "2026-11-16 单日涨跌",
+      "value": 0.4917588926117711
+    },
+    {
+      "id": "hk.day.2026-11-16.turnover",
+      "label": "2026-11-16 成交额",
+      "value": 174107985795.0
+    },
+    {
+      "id": "hk.day.2026-11-16.close",
+      "label": "2026-11-16 收市",
+      "value": 23753.84
+    },
+    {
+      "id": "hk.day.2026-11-17.change_pct",
+      "label": "2026-11-17 单日涨跌",
+      "value": -1.0342327808893326
+    },
+    {
+      "id": "hk.day.2026-11-17.turnover",
+      "label": "2026-11-17 成交额",
+      "value": 198051560759.0
+    },
+    {
+      "id": "hk.day.2026-11-17.close",
+      "label": "2026-11-17 收市",
+      "value": 23508.17
+    },
+    {
+      "id": "hk.day.2026-11-18.change_pct",
+      "label": "2026-11-18 单日涨跌",
+      "value": -0.9078545884260603
+    },
+    {
+      "id": "hk.day.2026-11-18.turnover",
+      "label": "2026-11-18 成交额",
+      "value": 177152854159.0
+    },
+    {
+      "id": "hk.day.2026-11-18.close",
+      "label": "2026-11-18 收市",
+      "value": 23294.75
+    },
+    {
+      "id": "hk.day.2026-11-19.change_pct",
+      "label": "2026-11-19 单日涨跌",
+      "value": -1.9452022451410755
+    },
+    {
+      "id": "hk.day.2026-11-19.turnover",
+      "label": "2026-11-19 成交额",
+      "value": 229548685185.0
+    },
+    {
+      "id": "hk.day.2026-11-19.close",
+      "label": "2026-11-19 收市",
+      "value": 22841.62
+    },
+    {
+      "id": "hk.day.2026-11-20.change_pct",
+      "label": "2026-11-20 单日涨跌",
+      "value": -1.886118410165305
+    },
+    {
+      "id": "hk.day.2026-11-20.turnover",
+      "label": "2026-11-20 成交额",
+      "value": 270299646695.0
+    },
+    {
+      "id": "hk.day.2026-11-20.close",
+      "label": "2026-11-20 收市",
+      "value": 22410.8
+    },
+    {
+      "id": "filings.issuers",
+      "label": "本期公告覆盖的发行人数",
+      "value": 10.0
+    },
+    {
+      "id": "filings.total_filings",
+      "label": "本期公告份数合计",
+      "value": 13.0
+    },
+    {
+      "id": "filings.themes",
+      "label": "本期覆盖的细分主题数",
+      "value": 5.0
+    },
+    {
+      "id": "filings.busiest_count",
+      "label": "单日公告最集中的发行人数",
+      "value": 4.0
+    }
+  ],
+  "coverage": [
+    {
+      "channel": "company_fact",
+      "ok": true,
+      "count": 10,
+      "failures": [],
+      "pool": 28
+    },
+    {
+      "channel": "quote",
+      "ok": true,
+      "count": 5,
+      "sessions_looked": 6
+    },
+    {
+      "channel": "clue",
+      "ok": true,
+      "count": 0,
+      "failures": []
+    },
+    {
+      "channel": "intel",
+      "ok": true,
+      "count": 12,
+      "official": 6,
+      "media": 6,
+      "failures": []
+    },
+    {
+      "channel": "calendar",
+      "ok": true,
+      "count": 1
+    }
+  ],
+  "model_attempts": [
+    {
+      "attempt": 1,
+      "result": "rejected",
+      "reason": "MODEL_NUMBER: report.other_updates[0].title 含数字，请改用无数字的定性表述"
+    },
+    {
+      "attempt": 2,
+      "result": "rejected",
+      "reason": "MODEL_NUMBER: report.other_updates[0].title 含数字，请改用无数字的定性表述"
+    },
+    {
+      "result": "fallback",
+      "mode": "rule"
+    }
+  ],
+  "sources": [
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "兆易创新（603986）股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-11-21/1225680986.PDF",
+      "published": "2026-11-21T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "兆易创新（603986）本期披露：兆易创新关于以集中竞价交易方式回购A股股份的进展公告。",
+      "issuer_code": "603986",
+      "issuer_name": "兆易创新",
+      "theme": "半导体设计",
+      "categories": [
+        "股份回购"
+      ],
+      "glosses": [
+        "反映管理层对当前股价与资本配置的态度"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "兆易创新关于以集中竞价交易方式回购A股股份的进展公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-21/1225680986.PDF",
+          "date": "2026-11-21",
+          "category": "股份回购",
+          "date_only": true
+        }
+      ],
+      "id": "S01"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "沪电股份（002463）股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-11-21/1225682149.PDF",
+      "published": "2026-11-21T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "沪电股份（002463）本期披露：关于以集中竞价交易方式首次回购公司股份。",
+      "issuer_code": "002463",
+      "issuer_name": "沪电股份",
+      "theme": "算力硬件",
+      "categories": [
+        "股份回购"
+      ],
+      "glosses": [
+        "反映管理层对当前股价与资本配置的态度"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "关于以集中竞价交易方式首次回购公司股份的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-21/1225682149.PDF",
+          "date": "2026-11-21",
+          "category": "股份回购",
+          "date_only": true
+        }
+      ],
+      "id": "S02"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "科大讯飞（002230）股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-11-21/1225680873.PDF",
+      "published": "2026-11-21T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "科大讯飞（002230）本期披露：关于回购公司股份的进展公告。",
+      "issuer_code": "002230",
+      "issuer_name": "科大讯飞",
+      "theme": "AI 应用",
+      "categories": [
+        "股份回购"
+      ],
+      "glosses": [
+        "反映管理层对当前股价与资本配置的态度"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "关于回购公司股份的进展公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-21/1225680873.PDF",
+          "date": "2026-11-21",
+          "category": "股份回购",
+          "date_only": true
+        }
+      ],
+      "id": "S03"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "紫光国微（002049）股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-11-21/1225682425.PDF",
+      "published": "2026-11-21T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "紫光国微（002049）本期披露：关于以集中竞价交易方式回购公司股份的进展公告。",
+      "issuer_code": "002049",
+      "issuer_name": "紫光国微",
+      "theme": "半导体设计",
+      "categories": [
+        "股份回购"
+      ],
+      "glosses": [
+        "反映管理层对当前股价与资本配置的态度"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "关于以集中竞价交易方式回购公司股份的进展公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-21/1225682425.PDF",
+          "date": "2026-11-21",
+          "category": "股份回购",
+          "date_only": true
+        }
+      ],
+      "id": "S04"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "海光信息（688041）股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-11-18/1225675980.PDF",
+      "published": "2026-11-20T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "海光信息（688041）本期披露：海光信息技术股份有限公司关于新增回购专用证券账户、海光信息技术股份有限公司关于以集中竞价交易方式首次回购股份。",
+      "issuer_code": "688041",
+      "issuer_name": "海光信息",
+      "theme": "算力芯片",
+      "categories": [
+        "股份回购"
+      ],
+      "glosses": [
+        "反映管理层对当前股价与资本配置的态度"
+      ],
+      "filing_count": 2,
+      "announcements": [
+        {
+          "title": "海光信息技术股份有限公司关于新增回购专用证券账户的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-18/1225675980.PDF",
+          "date": "2026-11-18",
+          "category": "股份回购",
+          "date_only": true
+        },
+        {
+          "title": "海光信息技术股份有限公司关于以集中竞价交易方式首次回购股份的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-20/1225679742.PDF",
+          "date": "2026-11-20",
+          "category": "股份回购",
+          "date_only": true
+        }
+      ],
+      "id": "S05"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "澜起科技（688008）股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-11-19/1225678561.PDF",
+      "published": "2026-11-19T00:00+08:00",
+      "date_only": true,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "澜起科技（688008）本期披露：澜起科技关于2026年第二次回购A股股份方案回购实施结果。",
+      "issuer_code": "688008",
+      "issuer_name": "澜起科技",
+      "theme": "算力芯片",
+      "categories": [
+        "股份回购"
+      ],
+      "glosses": [
+        "反映管理层对当前股价与资本配置的态度"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "澜起科技关于2026年第二次回购A股股份方案回购实施结果的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-19/1225678561.PDF",
+          "date": "2026-11-19",
+          "category": "股份回购",
+          "date_only": true
+        }
+      ],
+      "id": "S06"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "胜宏科技（300476）股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-11-16/1225674434.PDF",
+      "published": "2026-11-18T18:56+08:00",
+      "date_only": false,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "胜宏科技（300476）本期披露：关于回购公司股份方案、关于取得金融机构股票回购专项贷款承诺函、关于回购事项前十大股东及前十大无限售股东持股情况。",
+      "issuer_code": "300476",
+      "issuer_name": "胜宏科技",
+      "theme": "算力硬件",
+      "categories": [
+        "股份回购"
+      ],
+      "glosses": [
+        "反映管理层对当前股价与资本配置的态度"
+      ],
+      "filing_count": 3,
+      "announcements": [
+        {
+          "title": "关于回购公司股份方案的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-16/1225674434.PDF",
+          "date": "2026-11-16",
+          "category": "股份回购",
+          "date_only": false
+        },
+        {
+          "title": "关于取得金融机构股票回购专项贷款承诺函的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-18/1225678459.PDF",
+          "date": "2026-11-18",
+          "category": "股份回购",
+          "date_only": false
+        },
+        {
+          "title": "关于回购事项前十大股东及前十大无限售股东持股情况的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-18/1225678458.PDF",
+          "date": "2026-11-18",
+          "category": "股份回购",
+          "date_only": false
+        }
+      ],
+      "id": "S07"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "天孚通信（300394）股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-11-18/1225678291.PDF",
+      "published": "2026-11-18T18:36+08:00",
+      "date_only": false,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "天孚通信（300394）本期披露：关于公司近期经营情况和回购公司股份进展。",
+      "issuer_code": "300394",
+      "issuer_name": "天孚通信",
+      "theme": "光模块",
+      "categories": [
+        "股份回购"
+      ],
+      "glosses": [
+        "反映管理层对当前股价与资本配置的态度"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "关于公司近期经营情况和回购公司股份进展的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-18/1225678291.PDF",
+          "date": "2026-11-18",
+          "category": "股份回购",
+          "date_only": false
+        }
+      ],
+      "id": "S08"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "中际旭创（300308）股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-11-18/1225678038.PDF",
+      "published": "2026-11-18T18:08+08:00",
+      "date_only": false,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "中际旭创（300308）本期披露：关于收到董事长提议回购公司股份。",
+      "issuer_code": "300308",
+      "issuer_name": "中际旭创",
+      "theme": "光模块",
+      "categories": [
+        "股份回购"
+      ],
+      "glosses": [
+        "反映管理层对当前股价与资本配置的态度"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "关于收到董事长提议回购公司股份的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-18/1225678038.PDF",
+          "date": "2026-11-18",
+          "category": "股份回购",
+          "date_only": false
+        }
+      ],
+      "id": "S09"
+    },
+    {
+      "channel": "company_fact",
+      "market": "A股",
+      "title": "卓胜微（300782）股份回购",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-11-16/1225674078.PDF",
+      "published": "2026-11-16T18:30+08:00",
+      "date_only": false,
+      "source": "巨潮资讯网",
+      "source_url": "https://www.cninfo.com.cn",
+      "source_tier": "official",
+      "source_tier_label": "上市公司一手公告",
+      "registered_source_id": "cninfo",
+      "snippet": "卓胜微（300782）本期披露：关于取得金融机构股票回购专项贷款承诺函。",
+      "issuer_code": "300782",
+      "issuer_name": "卓胜微",
+      "theme": "半导体设计",
+      "categories": [
+        "股份回购"
+      ],
+      "glosses": [
+        "反映管理层对当前股价与资本配置的态度"
+      ],
+      "filing_count": 1,
+      "announcements": [
+        {
+          "title": "关于取得金融机构股票回购专项贷款承诺函的公告",
+          "url": "https://static.cninfo.com.cn/finalpage/2026-11-16/1225674078.PDF",
+          "date": "2026-11-16",
+          "category": "股份回购",
+          "date_only": false
+        }
+      ],
+      "id": "S10"
+    },
+    {
+      "channel": "quote",
+      "market": "港股",
+      "title": "港交所 2026-11-16 每日成交及恒生指数",
+      "url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261116e.htm",
+      "published": "2026-11-16T16:00+08:00",
+      "date_only": true,
+      "session_date": "2026-11-16",
+      "source": "香港交易所",
+      "source_url": "https://www.hkex.com.hk",
+      "source_tier": "official",
+      "source_tier_label": "港交所官方行情",
+      "registered_source_id": "hkex",
+      "snippet": "日期 2026-11-16。主板成交额 174,107,985,795 港元。恒生指数收市 23753.84，前收市 23637.60。",
+      "turnover_hkd": 174107985795.0,
+      "index_close": 23753.84,
+      "index_prev": 23637.6,
+      "id": "S11"
+    },
+    {
+      "channel": "quote",
+      "market": "港股",
+      "title": "港交所 2026-11-17 每日成交及恒生指数",
+      "url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261117e.htm",
+      "published": "2026-11-17T16:00+08:00",
+      "date_only": true,
+      "session_date": "2026-11-17",
+      "source": "香港交易所",
+      "source_url": "https://www.hkex.com.hk",
+      "source_tier": "official",
+      "source_tier_label": "港交所官方行情",
+      "registered_source_id": "hkex",
+      "snippet": "日期 2026-11-17。主板成交额 198,051,560,759 港元。恒生指数收市 23508.17，前收市 23753.84。",
+      "turnover_hkd": 198051560759.0,
+      "index_close": 23508.17,
+      "index_prev": 23753.84,
+      "id": "S12"
+    },
+    {
+      "channel": "quote",
+      "market": "港股",
+      "title": "港交所 2026-11-18 每日成交及恒生指数",
+      "url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261118e.htm",
+      "published": "2026-11-18T16:00+08:00",
+      "date_only": true,
+      "session_date": "2026-11-18",
+      "source": "香港交易所",
+      "source_url": "https://www.hkex.com.hk",
+      "source_tier": "official",
+      "source_tier_label": "港交所官方行情",
+      "registered_source_id": "hkex",
+      "snippet": "日期 2026-11-18。主板成交额 177,152,854,159 港元。恒生指数收市 23294.75，前收市 23508.17。",
+      "turnover_hkd": 177152854159.0,
+      "index_close": 23294.75,
+      "index_prev": 23508.17,
+      "id": "S13"
+    },
+    {
+      "channel": "quote",
+      "market": "港股",
+      "title": "港交所 2026-11-19 每日成交及恒生指数",
+      "url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261119e.htm",
+      "published": "2026-11-19T16:00+08:00",
+      "date_only": true,
+      "session_date": "2026-11-19",
+      "source": "香港交易所",
+      "source_url": "https://www.hkex.com.hk",
+      "source_tier": "official",
+      "source_tier_label": "港交所官方行情",
+      "registered_source_id": "hkex",
+      "snippet": "日期 2026-11-19。主板成交额 229,548,685,185 港元。恒生指数收市 22841.62，前收市 23294.75。",
+      "turnover_hkd": 229548685185.0,
+      "index_close": 22841.62,
+      "index_prev": 23294.75,
+      "id": "S14"
+    },
+    {
+      "channel": "quote",
+      "market": "港股",
+      "title": "港交所 2026-11-20 每日成交及恒生指数",
+      "url": "https://www.hkex.com.hk/eng/stat/smstat/dayquot/d261120e.htm",
+      "published": "2026-11-20T16:00+08:00",
+      "date_only": true,
+      "session_date": "2026-11-20",
+      "source": "香港交易所",
+      "source_url": "https://www.hkex.com.hk",
+      "source_tier": "official",
+      "source_tier_label": "港交所官方行情",
+      "registered_source_id": "hkex",
+      "snippet": "日期 2026-11-20。主板成交额 270,299,646,695 港元。恒生指数收市 22410.80，前收市 22841.62。",
+      "turnover_hkd": 270299646695.0,
+      "index_close": 22410.8,
+      "index_prev": 22841.62,
+      "id": "S15"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "算力补贴直达创业者 中关村延庆园上线词元服务平台",
+      "url": "https://www.beijing.gov.cn/fuwu/bmfw/sy/jrts/202611/t20261123_4955237.html",
+      "published": "2026-11-23T10:16+08:00",
+      "date_only": false,
+      "source": "中国政府网",
+      "source_url": "https://beijing.gov.cn",
+      "source_tier": "official",
+      "source_tier_label": "政务公开",
+      "snippet": "算力补贴直达创业者 中关村延庆园上线词元服务平台    北京市人民政府门户网站",
+      "feed_track": "official",
+      "feed_source": "中国政府网",
+      "track": "official",
+      "track_label": "官方",
+      "thread_hint": "产业政策",
+      "attribute_hint": "技术产品",
+      "thread": "产业政策",
+      "attribute": "技术产品",
+      "article_excerpt": "中关村延庆园词元服务平台在Y-Hub·OPC（延庆一人公司）创新社区近日上线发布。该平台依托天翼云底座搭建，接入Deep-Seek（深度求索）、豆包、通义千问等34款主流大模型，全面覆盖文本、图文、音视频等应用能力。其最大亮点是推出最高达50%的普惠化算力补贴，采用“实时直抵抵扣”模式，企业无需垫资和烦琐报销，彻底打通中小微企业AI（人工智能）算力“用不起”的堵点。",
+      "id": "S16"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "关于《关于转发〈关于组织开展2026年度山东省省级工业领域AI赋能中心申报工作的通知〉的通知》文件解读",
+      "url": "http://jnjxw.jinan.gov.cn/col/col121844/art/2026/art_37551ada8feb40d7bea17c0c61323e62.html",
+      "published": "2026-11-21T08:14+08:00",
+      "date_only": false,
+      "source": "中国政府网",
+      "source_url": "http://jnjxw.jinan.gov.cn",
+      "source_tier": "official",
+      "source_tier_label": "政务公开",
+      "snippet": "关于《关于转发〈关于组织开展2026年度山东省省级工业领域AI赋能中心申报工作的通知〉的通知》文件解读    济南市工业和信息化局",
+      "feed_track": "official",
+      "feed_source": "中国政府网",
+      "track": "official",
+      "track_label": "官方",
+      "thread_hint": "产业政策",
+      "attribute_hint": "政策发布",
+      "thread": "产业政策",
+      "attribute": "政策发布",
+      "article_excerpt": "",
+      "id": "S17"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "关于发布生成式人工智能服务已备案信息的公告（2026年9月至10月）",
+      "url": "https://www.cac.gov.cn/2026-11/20/c_1796918603542950.htm",
+      "published": "2026-11-20T17:00+08:00",
+      "date_only": false,
+      "source": "国家互联网信息办公室",
+      "source_url": "https://cac.gov.cn",
+      "source_tier": "official",
+      "source_tier_label": "政务公开",
+      "snippet": "关于发布生成式人工智能服务已备案信息的公告（2026年9月至10月）    中央网络安全和信息化委员会办公室",
+      "feed_track": "official",
+      "feed_source": "国家互联网信息办公室",
+      "track": "official",
+      "track_label": "官方",
+      "thread_hint": "产业政策",
+      "attribute_hint": "政策发布",
+      "thread": "产业政策",
+      "attribute": "政策发布",
+      "article_excerpt": "",
+      "id": "S18"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "交通运输部办公厅关于印发综合交通运输大模型智能体创新应用典型案例名单（第二批）的通知-政企通",
+      "url": "https://hunan.gov.cn/zqt/zcsd/202611/t20261120_34107134.html",
+      "published": "2026-11-20T10:13+08:00",
+      "date_only": false,
+      "source": "中国政府网",
+      "source_url": "https://hunan.gov.cn",
+      "source_tier": "official",
+      "source_tier_label": "政务公开",
+      "snippet": "交通运输部办公厅关于印发综合交通运输大模型智能体创新应用典型案例名单（第二批）的通知-政企通    湖南省人民政府",
+      "feed_track": "official",
+      "feed_source": "中国政府网",
+      "track": "official",
+      "track_label": "官方",
+      "thread_hint": "产业政策",
+      "attribute_hint": "政策发布",
+      "thread": "产业政策",
+      "attribute": "政策发布",
+      "article_excerpt": "",
+      "id": "S19"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "从“用得上”到“用得好” “人工智能+”加速规模化落地_行业资讯",
+      "url": "https://www.digitalchina.gov.cn/2026/szzg/xyzx/202611/t20261118_5394219.htm",
+      "published": "2026-11-18T09:51+08:00",
+      "date_only": false,
+      "source": "中国政府网",
+      "source_url": "https://digitalchina.gov.cn",
+      "source_tier": "official",
+      "source_tier_label": "政务公开",
+      "snippet": "从“用得上”到“用得好” “人工智能+”加速规模化落地_行业资讯    数字中国建设峰会",
+      "feed_track": "official",
+      "feed_source": "中国政府网",
+      "track": "official",
+      "track_label": "官方",
+      "thread_hint": "重大项目",
+      "attribute_hint": "项目进展",
+      "thread": "重大项目",
+      "attribute": "项目进展",
+      "article_excerpt": "",
+      "id": "S20"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "伊萨 ROBBI AI协作机器人：赋能 MIG/TIG 焊接自动化，将物理人工智能落地车间",
+      "url": "https://www.jiemian.com/article/15362024.html",
+      "published": "2026-11-23T16:07+08:00",
+      "date_only": false,
+      "source": "界面新闻",
+      "source_url": "https://jiemian.com",
+      "source_tier": "media",
+      "source_tier_label": "白名单媒体",
+      "snippet": "伊萨 ROBBI AI协作机器人：赋能 MIG/TIG 焊接自动化，将物理人工智能落地车间    Jiemian.com",
+      "feed_track": "media",
+      "feed_source": "界面新闻",
+      "track": "media",
+      "track_label": "白名单媒体",
+      "thread_hint": "重大项目",
+      "attribute_hint": "项目进展",
+      "thread": "重大项目",
+      "attribute": "项目进展",
+      "article_excerpt": "",
+      "id": "S21"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "项目落地 ST中珠借力“天河算力超市”打通AI算力商业闭环",
+      "url": "https://www.jiemian.com/article/15359885.html",
+      "published": "2026-11-23T10:39+08:00",
+      "date_only": false,
+      "source": "界面新闻",
+      "source_url": "https://jiemian.com",
+      "source_tier": "media",
+      "source_tier_label": "白名单媒体",
+      "snippet": "项目落地 ST中珠借力“天河算力超市”打通AI算力商业闭环    Jiemian.com",
+      "feed_track": "media",
+      "feed_source": "界面新闻",
+      "track": "media",
+      "track_label": "白名单媒体",
+      "thread_hint": "重大项目",
+      "attribute_hint": "项目进展",
+      "thread": "重大项目",
+      "attribute": "项目进展",
+      "article_excerpt": "",
+      "id": "S22"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "【报道称AI服务器厂商最高要求涨价45% 部分订单签约数月后遭重新报价】",
+      "url": "https://www.cls.cn/detail/2541027",
+      "published": "2026-11-22T21:36+08:00",
+      "date_only": false,
+      "source": "财联社",
+      "source_url": "https://cls.cn",
+      "source_tier": "media",
+      "source_tier_label": "白名单媒体",
+      "snippet": "21:36:45【报道称AI服务器厂商最高要求涨价45% 部分订单签约数月后遭重新报价】    财联社",
+      "feed_track": "media",
+      "feed_source": "财联社",
+      "track": "media",
+      "track_label": "白名单媒体",
+      "thread_hint": "重大项目",
+      "attribute_hint": "项目进展",
+      "thread": "重大项目",
+      "attribute": "项目进展",
+      "article_excerpt": "",
+      "id": "S23"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "50亿美元！AI制药最大单笔融资诞生",
+      "url": "https://www.ncsti.gov.cn/kjdt/kjrd/rgzn_kjrd/202611/t20261120_264765.html",
+      "published": "2026-11-20T15:08+08:00",
+      "date_only": false,
+      "source": "中国政府网",
+      "source_url": "https://ncsti.gov.cn",
+      "source_tier": "official",
+      "source_tier_label": "政务公开",
+      "snippet": "50亿美元！AI制药最大单笔融资诞生    国际科技创新中心",
+      "feed_track": "official",
+      "feed_source": "中国政府网",
+      "track": "official",
+      "track_label": "官方",
+      "thread_hint": "投融资",
+      "attribute_hint": "资本事件",
+      "thread": "投融资",
+      "attribute": "资本事件",
+      "article_excerpt": "",
+      "id": "S24"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "完成三轮融资，99后创业者用AI重新定义投资交易｜36氪首发",
+      "url": "https://m.36kr.com/p/4081907649942408",
+      "published": "2026-11-23T16:12+08:00",
+      "date_only": false,
+      "source": "36 氪",
+      "source_url": "https://m.36kr.com",
+      "source_tier": "media",
+      "source_tier_label": "白名单媒体",
+      "snippet": "完成三轮融资，99后创业者用AI重新定义投资交易｜36氪首发    36氪",
+      "feed_track": "media",
+      "feed_source": "36 氪",
+      "track": "media",
+      "track_label": "白名单媒体",
+      "thread_hint": "投融资",
+      "attribute_hint": "资本事件",
+      "thread": "投融资",
+      "attribute": "资本事件",
+      "article_excerpt": "",
+      "id": "S25"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "“史上最大IPO”没能救美股 投资回报率将成AI相关股票估值关键",
+      "url": "https://www.21jingji.com/article/20261123/herald/0d1c2c3f487057ee1ccf64940d3b04c9.html",
+      "published": "2026-11-23T12:06+08:00",
+      "date_only": false,
+      "source": "21 世纪经济报道",
+      "source_url": "https://21jingji.com",
+      "source_tier": "media",
+      "source_tier_label": "白名单媒体",
+      "snippet": "“史上最大IPO”没能救美股 投资回报率将成AI相关股票估值关键    21财经",
+      "feed_track": "media",
+      "feed_source": "21 世纪经济报道",
+      "track": "media",
+      "track_label": "白名单媒体",
+      "thread_hint": "投融资",
+      "attribute_hint": "资本事件",
+      "thread": "投融资",
+      "attribute": "资本事件",
+      "article_excerpt": "",
+      "id": "S26"
+    },
+    {
+      "channel": "intel",
+      "market": "产业",
+      "title": "前安克CMO创办的AI可穿戴硬件再获新融资，产品已量产｜硬氪首发",
+      "url": "https://m.36kr.com/p/4072342767047814",
+      "published": "2026-11-22T22:54+08:00",
+      "date_only": false,
+      "source": "36 氪",
+      "source_url": "https://m.36kr.com",
+      "source_tier": "media",
+      "source_tier_label": "白名单媒体",
+      "snippet": "前安克CMO创办的AI可穿戴硬件再获新融资，产品已量产｜硬氪首发    36氪",
+      "feed_track": "media",
+      "feed_source": "36 氪",
+      "track": "media",
+      "track_label": "白名单媒体",
+      "thread_hint": "投融资",
+      "attribute_hint": "资本事件",
+      "thread": "投融资",
+      "attribute": "资本事件",
+      "article_excerpt": "",
+      "id": "S27"
+    }
+  ]
+}
